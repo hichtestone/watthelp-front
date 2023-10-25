@@ -1,0 +1,70 @@
+<mat-table [dataSource]="dataSource">
+
+  <ng-container matColumnDef="name">
+    <mat-header-cell *matHeaderCellDef mat-header-cell>{{'deliverypoint.list.name' | transloco}}</mat-header-cell>
+    <mat-cell *matCellDef="let row" mat-cell>
+      {{row.delivery_point?.name }}
+    </mat-cell>
+  </ng-container>
+
+  <ng-container cdkColumnDef="reference">
+    <mat-header-cell *cdkHeaderCellDef>{{'deliverypoint.list.reference' | transloco}}</mat-header-cell>
+    <mat-cell *cdkCellDef="let row">{{ row.delivery_point?.reference }}</mat-cell>
+  </ng-container>
+
+  <ng-container cdkColumnDef="address">
+    <mat-header-cell *matHeaderCellDef mat-header-cell>{{'deliverypoint.list.address' | transloco}}</mat-header-cell>
+    <mat-cell *matCellDef="let row" mat-cell>
+      {{ row.delivery_point?.address }}
+    </mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="status">
+    <mat-header-cell *matHeaderCellDef mat-header-cell>{{'common.status' | transloco}}</mat-header-cell>
+    <mat-cell *matCellDef="let row" mat-cell>
+      <app-status [status]="row.delivery_point_invoice_analysis?.status"></app-status>
+    </mat-cell>
+  </ng-container>
+
+  <ng-container cdkColumnDef="detail">
+    <mat-header-cell *cdkHeaderCellDef style="flex: 0 0 60px;">
+      <span *appAuthorized="['management.analysis.view']">{{'common.actions' | transloco}}</span>
+    </mat-header-cell>
+    <mat-cell *cdkCellDef="let row" style="flex: 0 0 60px;">
+      <button (click)="toggleExpand(row);$event.stopPropagation();" *appAuthorized="['management.analysis.view']"
+              aria-label="Voir le detail" mat-icon-button
+              type="button">
+        <mat-icon *ngIf="!isExpanded(row)">expand_more</mat-icon>
+        <mat-icon *ngIf="isExpanded(row)">expand_less</mat-icon>
+      </button>
+    </mat-cell>
+  </ng-container>
+
+  <mat-header-row *cdkHeaderRowDef="defaultColumns; sticky: true"></mat-header-row>
+  <mat-row
+    *cdkRowDef="let row; columns: defaultColumns; let even = even; let odd = odd; let index = index"
+    [appCdkDetailRowTpl]="tpl" [appCdkDetailRow]="row"
+    [ngClass]="{'mat-row-even': even, 'mat-row-odd': odd}"
+    [queryResource]="['management.delivery_point.view']"
+    [routerLinkSecured]="'../../delivery-point/' + row.delivery_point.id"
+    class="index-{{index}}">
+  </mat-row>
+</mat-table>
+
+<app-table-no-result
+  [style.display]="(dataSource.data.length == 0) ? '' : 'none'">
+</app-table-no-result>
+
+<mat-paginator
+  [length]="dataSource.data.length"
+  [pageIndex]="0"
+  [pageSizeOptions]="[25, 50, 75, 100]"
+  [pageSize]="25">
+</mat-paginator>
+
+<ng-template #tpl let-element>
+  <app-expanded-analysis [itemAnalysis]="element.delivery_point_invoice_analysis.item_analyses">
+  </app-expanded-analysis>
+</ng-template>
+
+

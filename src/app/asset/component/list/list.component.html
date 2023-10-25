@@ -1,0 +1,18 @@
+<app-generic-list
+  headerIcon="monetization_on"
+  headerTitle="{{'asset.breadcrumb.title' | transloco}}">
+  <div slot="filter">
+    <app-generic-filter-block (clear)="reset()">
+      <app-asset-filter
+        (filter)="filter($event)"
+        [form]="form"></app-asset-filter>
+    </app-generic-filter-block>
+  </div>
+  <div slot="table">
+    <app-asset-table
+        #table
+        (exportExcel)="onExportAssetsToExcel($event)"
+        [dataSource]="dataSource">
+    </app-asset-table>
+  </div>
+</app-generic-list>

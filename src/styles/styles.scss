@@ -1,0 +1,741 @@
+@import "form";
+
+html,
+body {
+  margin: 0;
+  height: 100%;
+  font-family: Roboto, sans-serif;
+  font-style: normal;
+  font-weight: 300;
+  color: #67757c;
+  background-color: #eeeeee;
+}
+
+a {
+  cursor: pointer;
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  transition: background-color 5000s ease-in-out 0s;
+}
+
+.btn-add :hover {
+  cursor: pointer;
+}
+
+.bold {
+  font-weight: bold !important;
+}
+
+/* Hack for angular problem css */
+.app-input-icon {
+  font-size: 16px;
+}
+
+.text-danger, .error {
+  color: #F44336;
+}
+
+mat-card {
+  margin-bottom: 30px;
+}
+
+.enabled {
+  color: #4CAF50;
+}
+
+.disabled {
+  color: #F44336;
+}
+
+mat-card.search {
+  margin-bottom: 30px;
+}
+
+.list-action {
+  background: #ffc;
+  padding: 0 0 0 25px;
+  border: 1px solid #e5e5e5;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/*
+ * Hack for alignment
+ */
+mat-select {
+  /*margin-top: -20px;*/
+  /*padding-bottom: 1.25em;*/
+  width: 100%;
+}
+
+input[type="date"] {
+  resize: none !important;
+}
+
+.mat-radio-group, .checkbox-container {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.mat-checkbox {
+
+}
+
+.mat-radio-button {
+  margin-right: 16px;
+  margin-top: 20px;
+  height: 46px;
+}
+
+.mat-slider-horizontal {
+  width: 95%;
+  margin-top: 21px;
+  height: 45px;
+}
+
+.btn-save {
+  top: auto;
+  right: 20px;
+  bottom: 20px;
+  left: auto;
+  position: fixed !important;
+  z-index: 100;
+}
+
+.error mat-icon {
+  font-size: 14px;
+}
+
+.warning-power {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  font-style: italic;
+  font-weight: 500;
+  color: #f4a415;
+
+  > div {
+    padding-right: 2px;
+  }
+}
+
+mat-icon svg {
+  vertical-align: top;
+}
+
+/*
+ * List view
+ */
+.btn-add {
+  position: absolute !important;
+  right: 0;
+  top: -55px;
+}
+
+.loader {
+  height: 24px !important;
+}
+
+/*
+ * Hack for put button position fiex at bottom / right and follow scroll
+ * https://github.com/angular/material/issues/2205
+ */
+.mat-sidenav-content {
+  -webkit-transform: none !important;
+  transform: none !important;
+}
+
+/*
+ * Hack for top nav width menu
+ */
+.mat-menu-panel {
+  max-width: 380px !important;
+}
+
+/*
+ * Hack for pagination
+ */
+.mat-paginator-page-size-label {
+  min-width: 95px;
+}
+
+/**
+ * Hack for floating button
+ */
+.mat-drawer-content {
+  transform: none !important;
+}
+
+/*
+ * Table selection
+ */
+.selected-count {
+  font-size: 12px;
+}
+
+.mat-row:hover, .selected-row {
+  background: #f5f5f5;
+}
+
+.mat-row:active, .mat-row.selected-row {
+  background: #eaeaea;
+}
+
+.no-results {
+  display: flex;
+  justify-content: center;
+  padding: 24px;
+  font-size: 12px;
+  font-style: italic;
+}
+
+.table-loader {
+  display: flex;
+  justify-content: center;
+  padding: 24px;
+  height: 24px !important;
+}
+
+.mat-row-even {
+  background: #FAFAFA;
+}
+
+.mat-row-odd {
+}
+
+/**
+ * Hack for notification
+ */
+.navigation-bar .mat-menu-content {
+  padding: 0 !important;
+}
+
+form .form-w100 {
+  width: 100%;
+}
+
+/**
+ * NEW VERSION CSS
+ */
+
+/*
+ * All page
+ */
+.page-content {
+  width: 95%;
+  margin: auto auto 40px;
+}
+
+.vertical-mode {
+  display: flex;
+  flex-direction: row;
+}
+
+.left-filter {
+  width: 250px;
+  margin-right: 20px;
+}
+
+.right-list {
+  flex: 1 1;
+}
+
+.mat-drawer-content {
+  background-color: #eef5f9;
+}
+
+.mat-row:hover {
+  cursor: pointer;
+}
+
+/*
+ * Form
+ */
+.mat-form-field {
+  width: 100%;
+  margin-bottom: 5px;
+}
+
+.global-error {
+  border-radius: 4px;
+  font-size: 0.85em;
+  padding: 8px;
+  background-color: #ff8a80;
+}
+
+.global-success {
+  border-radius: 4px;
+  font-size: 0.85em;
+  padding: 8px;
+  background-color: #a5d6a7;
+}
+
+.mat-menu-panel {
+  max-width: none !important;
+}
+
+/*
+ * Button
+ */
+button.mat-raised-button {
+  .mat-button-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+/*
+ * Table list + Mat table
+ */
+
+/* Animation */
+@-webkit-keyframes fade-in {
+  0% {
+    opacity: 0
+  }
+  100% {
+    opacity: 1
+  }
+}
+
+@-moz-keyframes fade-in {
+  0% {
+    opacity: 0
+  }
+  100% {
+    opacity: 1
+  }
+}
+
+@-o-keyframes fade-in {
+  0% {
+    opacity: 0
+  }
+  100% {
+    opacity: 1
+  }
+}
+
+@keyframes fade-in {
+  0% {
+    opacity: 0
+  }
+  100% {
+    opacity: 1
+  }
+}
+
+@-webkit-keyframes fade-pulse {
+  0% {
+    opacity: .2
+  }
+  15% {
+    opacity: 1
+  }
+  30% {
+    opacity: .2
+  }
+  100% {
+    opacity: .2
+  }
+}
+
+@-moz-keyframes fade-pulse {
+  0% {
+    opacity: .2
+  }
+  15% {
+    opacity: 1
+  }
+  30% {
+    opacity: .2
+  }
+  100% {
+    opacity: .2
+  }
+}
+
+@-o-keyframes fade-pulse {
+  0% {
+    opacity: .2
+  }
+  15% {
+    opacity: 1
+  }
+  30% {
+    opacity: .2
+  }
+  100% {
+    opacity: .2
+  }
+}
+
+@keyframes fade-pulse {
+  0% {
+    opacity: .2
+  }
+  15% {
+    opacity: 1
+  }
+  30% {
+    opacity: .2
+  }
+  100% {
+    opacity: .2
+  }
+}
+
+/* Loading effects */
+mat-row.loading mat-cell > div {
+  -webkit-animation-name: fade-pulse;
+  -moz-animation-name: fade-pulse;
+  -o-animation-name: fade-pulse;
+  animation-name: fade-pulse;
+  -webkit-animation-duration: 750ms;
+  -moz-animation-duration: 750ms;
+  -o-animation-duration: 750ms;
+  animation-duration: 750ms;
+  -webkit-animation-timing-function: linear;
+  -moz-animation-timing-function: linear;
+  -o-animation-timing-function: linear;
+  animation-timing-function: linear;
+  -webkit-animation-iteration-count: infinite;
+  -moz-animation-iteration-count: infinite;
+  -o-animation-iteration-count: infinite;
+  animation-iteration-count: infinite;
+  -webkit-animation-fill-mode: forwards;
+  -moz-animation-fill-mode: forwards;
+  -o-animation-fill-mode: forwards;
+  animation-fill-mode: forwards;
+  background: #f5f5f5;
+  background: -webkit-gradient(linear, left top, right top, color-stop(8%, #eee), color-stop(18%, #ddd), color-stop(33%, #eee));
+  background: -webkit-linear-gradient(to left, #eee 8%, #ddd 18%, #eee 33%);
+  background: -moz- oldlinear-gradient(to left, #eee 8%, #ddd 18%, #eee 33%);
+  background: -o-linear-gradient(to left, #eee 8%, #ddd 18%, #eee 33%);
+  background: linear-gradient(to right, #eee 8%, #ddd 18%, #eee 33%);
+  -webkit-background-size: 800px 104px;
+  -moz-background-size: 800px 104px;
+  -o-background-size: 800px 104px;
+  background-size: 800px 104px;
+  -webkit-transform: scaleY(.8);
+  -moz-transform: scaleY(.8);
+  -ms-transform: scaleY(.8);
+  -o-transform: scaleY(.8);
+  transform: scaleY(.8);
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+  color: transparent !important;
+  min-width: 25px;
+  height: 20px;
+  width: calc(100% - 20px);
+  background: #d9d9d9;
+}
+
+mat-row.loading mat-cell > div > * {
+  display: none;
+}
+
+mat-row.loading mat-cell > button,
+mat-row.loading mat-cell > mat-checkbox {
+  opacity: .15;
+  pointer-events: none;
+}
+
+mat-row:not(.loading) mat-cell > div {
+  -webkit-animation: fade-in .4s linear;
+  -moz-animation: fade-in .4s linear;
+  -o-animation: fade-in .4s linear;
+  animation: fade-in .4s linear
+}
+
+@for $i from 0 through 99 {
+  mat-row.loading.index-#{$i} mat-cell > * {
+    -webkit-animation-delay: $i*100ms;
+    -moz-animation-delay: $i*100ms;
+    -o-animation-delay: $i*100ms;
+    animation-delay: $i*100ms;
+  }
+  $i: $i + 1;
+}
+
+mat-cell:last-of-type, mat-footer-cell:last-of-type, mat-header-cell:last-of-type {
+  padding-right: 5px;
+}
+
+.mat-header-cell {
+  font-size: 16px;
+}
+
+/** Filters part **/
+.search-by {
+  font-size: 14px;
+  margin-bottom: 10px;
+
+  .clear {
+    float: right;
+    font-size: 12px;
+  }
+
+  .fields-search {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+  }
+}
+
+/*
+ * Create / Edit page
+ */
+
+
+.vertical-tab-group, .horizontal-tab-group {
+  mat-card {
+    max-height: 100%;
+  }
+
+  &.mat-tab-group.add-last-button .mat-tab-list .mat-tab-labels {
+    .mat-tab-label:last-child {
+      border-bottom: none;
+      justify-content: center !important;
+    }
+  }
+
+  &.mat-tab-group {
+    flex-direction: row;
+
+    > .mat-tab-header {
+      border-bottom: none;
+      overflow: visible;
+      min-width: 250px;
+
+      .mat-tab-header-pagination {
+        display: none !important;
+      }
+
+      .mat-tab-label-container {
+        border-radius: 4px;
+        background-color: #fff;
+        overflow: visible;
+      }
+
+      .mat-tab-list {
+        display: block;
+        position: relative;
+        border-radius: 4px;
+        box-shadow: 0 3px 1px -2px rgba(0, 0, 0, .2), 0 2px 2px 0 rgba(0, 0, 0, .14), 0 1px 5px 0 rgba(0, 0, 0, .12);
+
+        .mat-tab-labels {
+          flex-direction: column;
+
+          .mat-tab-label {
+            justify-content: left !important;
+            opacity: 1 !important;
+            height: 66px;
+            border-bottom: 1px solid #e0e0e0;
+            //border-right: 1px solid #A4A4A4;
+
+            .mat-tab-label-content {
+              opacity: 0.7;
+
+              mat-icon {
+                margin-right: 5px;
+              }
+            }
+
+            &:first-child {
+              border-top-right-radius: 4px;
+              border-top-left-radius: 4px;
+            }
+
+            &:hover {
+              background-color: #e0e0e0;
+
+              &.mat-tab-disabled {
+                background: none
+              }
+            }
+
+            &.mat-ripple {
+              overflow: visible !important;
+            }
+
+            &.mat-tab-label-active {
+              background-color: #f5f5f5;
+              position: relative;
+
+              &:before {
+                left: 100%;
+                top: 50%;
+                content: " ";
+                height: 0;
+                width: 0;
+                position: absolute;
+                pointer-events: none;
+                border: 17px solid rgba(164, 164, 164, 0);
+                border-left-color: rgba(0, 0, 0, .1);
+                margin-top: -17px;
+              }
+
+              &:after {
+                left: 100%;
+                top: 50%;
+                content: " ";
+                height: 0;
+                width: 0;
+                position: absolute;
+                pointer-events: none;
+                border: 15px solid rgba(189, 189, 189, 0);
+                border-left-color: #f5f5f5;
+                margin-top: -15px;
+              }
+            }
+          }
+        }
+
+        .mat-ink-bar {
+          height: 100%;
+          left: 98% !important;
+          display: none;
+        }
+      }
+    }
+  }
+
+  .mat-tab-body-wrapper {
+    margin-left: 25px;
+    flex: 1 1 auto;
+    overflow: visible;
+
+    .mat-tab-body {
+      overflow: visible;
+
+      .mat-tab-body-content {
+        overflow: visible;
+      }
+    }
+  }
+}
+
+.horizontal-tab-group {
+  mat-card {
+    max-width: 100%;
+  }
+
+  .mat-tab-label-container {
+    margin-bottom: 10px;
+  }
+
+  &.mat-tab-group {
+    flex-direction: column;
+
+    > .mat-tab-header {
+      min-width: 600px;
+
+      .mat-tab-list {
+
+        .mat-tab-labels {
+          flex-direction: row;
+
+          .mat-tab-label {
+
+            &:first-child {
+              border-bottom-right-radius: 4px;
+              border-bottom-left-radius: 4px;
+            }
+
+            &.mat-tab-label-active {
+              background-color: #f5f5f5;
+              position: relative;
+
+              &:before {
+                left: 50%;
+                top: 100%;
+                border-left-color: rgba(0, 0, 0, .1);
+                margin-top: 0;
+                transform: rotate(90deg);
+              }
+
+              &:after {
+                left: 50%;
+                top: 100%;
+                border-left-color: #f5f5f5;
+                margin-top: 0;
+                transform: rotate(90deg);
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .mat-tab-body-wrapper {
+    margin-left: 0;
+    overflow: hidden;
+  }
+}
+
+.mat-tab-body-content {
+  transform: none !important;
+}
+
+.vertical-mode {
+  display: flex;
+  flex-direction: row;
+
+  form {
+    flex: 1 1 auto;
+  }
+
+  .tool-list {
+    width: 350px;
+    margin-left: 20px;
+  }
+}
+
+.btn-save {
+  top: auto;
+  right: 20px;
+  bottom: 20px;
+  left: auto;
+  position: fixed !important;
+  z-index: 100;
+}
+
+.big-tooltip {
+  font-size: medium !important;
+}
+
+.vertical-tab-group {
+  display: flex;
+  width: 100%;
+  overflow: hidden;
+}
+
+.dpi-error {
+  color: #FF1744;
+}
+
+.dpi-ok {
+  color: #00b55b;
+}
+
+.dpi-warn {
+  color: #f4a415;
+}
+
+.dpi-purple {
+  color: rgb(191, 0, 191);
+}
+
+.divider {
+  padding-bottom: 15px;
+  padding-top: 5px;
+}

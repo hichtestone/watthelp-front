@@ -1,0 +1,51 @@
+.layout {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  min-height: 10vh;
+
+  .branding {
+    flex: 1 1 auto;
+    height: 100vh;
+    background-image: url('/assets/bg.jpg');
+    -webkit-background-size: cover;
+    background-size: cover;
+    background-position: right;
+
+    @media screen and (max-width: 450px) {
+      display: none;
+    }
+  }
+
+  .content {
+    width: 500px;
+    height: 100vh;
+
+    @media screen and (max-width: 450px) {
+      width: 100%;
+    }
+
+    .wrapper {
+      margin: 50px;
+      height: calc(100% - 100px);
+      display: flex;
+      flex-direction: column;
+
+      .logo {
+        margin-top: 45%;
+        flex: 0 0 auto;
+        text-align: center;
+      }
+
+      .router-content {
+        margin-top: 15%;
+        flex: 1 1 auto;
+      }
+
+      .version {
+        flex: 0 0 auto;
+        font-size: 0.65em;
+      }
+    }
+  }
+}

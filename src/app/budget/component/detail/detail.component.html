@@ -1,0 +1,193 @@
+<app-header
+  [icon]="'account_balance'"
+  [mode]="'list'"
+  [title]="title">
+</app-header>
+
+<div class="page-content">
+  <div class="vertical-mode">
+
+    <form [formGroup]="form">
+      <mat-tab-group class="vertical-tab-group" disableRipple="true">
+        <mat-tab>
+          <ng-template mat-tab-label>
+            <mat-icon>assignment</mat-icon>
+            Informations générales
+          </ng-template>
+          <mat-card>
+            <div formGroupName="budget_form">
+              <app-form-block title="Rappel sur le budget de l'année dernière">
+                <app-previous-budget
+                  [previousBudget]="budget.previous">
+                </app-previous-budget>
+              </app-form-block>
+
+              <app-form-block title="Informations générales">
+                <div class="row">
+                  <mat-form-field class="form-w50">
+                    <input digitOnly formControlName="year" inputmode="numeric" matInput min="0" pattern="[0-9]*"
+                           placeholder="Année"
+                           required
+                           type="text">
+                    <mat-error *ngIf="form.controls.budget_form.get('year').invalid">
+                      <span
+                        *ngIf="form.controls.budget_form.get('year').errors.required">Ce champ est obligatoire</span>
+                      <span
+                        *ngIf="form.controls.budget_form.get('year').errors.api">{{ form.controls.budget_form.get('year').errors.api }}</span>
+                    </mat-error>
+                  </mat-form-field>
+
+                  <mat-form-field class="form-w50">
+                    <input decimal="true" decimalSeparator="." digitOnly formControlName="average_price" matInput
+                           min="0"
+                           placeholder="Prix moyen de l'énergie HT"
+                           required type="text">
+                    <span matSuffix>€/kWh</span>
+                    <mat-error *ngIf="form.controls.budget_form.get('average_price').invalid">
+                      <span *ngIf="form.controls.budget_form.get('average_price').errors.required">Ce champ est obligatoire</span>
+                      <span *ngIf="form.controls.budget_form.get('average_price').errors.api">
+                      {{ form.controls.budget_form.get('average_price').errors.api }}
+                    </span>
+                      <span *ngIf="form.controls.budget_form.get('average_price').errors.pattern">
+                      Saissisez 2 chiffres après la virgule
+                    </span>
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+
+                <div class="row">
+                  <mat-form-field class="form-w50">
+                    <input digitOnly formControlName="total_hours" inputmode="numeric" matInput min="0"
+                           placeholder="Nombre d'heures de fonctionnement annuel"
+                           required
+                           type="text">
+                    <span matSuffix>Heure(s)</span>
+                    <mat-error *ngIf="form.controls.budget_form.get('total_hours').invalid">
+                      <span *ngIf="form.controls.budget_form.get('total_hours').errors.required">Ce champ est obligatoire</span>
+                      <span
+                        *ngIf="form.controls.budget_form.get('total_hours').errors.api">{{ form.controls.budget_form.get('total_hours').errors.api }}</span>
+                      <span *ngIf="form.controls.budget_form.get('total_hours').errors.pattern">
+                      Seuls des nombres entiers sont autorisés
+                    </span>
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+              </app-form-block>
+
+
+              <app-form-block title="Résultats">
+                <div class="row">
+                  <mat-form-field class="form-w50">
+                    <input decimal="true" decimalSeparator="." digitOnly formControlName="total_consumption" matInput
+                           min="0"
+                           placeholder="Consommation d'énergie annuelle"
+                           type="text">
+                    <span matSuffix>kWh</span>
+                    <mat-error *ngIf="form.controls.budget_form.get('total_consumption').invalid">
+                    <span *ngIf="form.controls.budget_form.get('total_consumption').errors.api">
+                      {{ form.controls.budget_form.get('total_consumption').errors.api }}
+                    </span>
+                      <span *ngIf="form.controls.budget_form.get('total_consumption').errors.pattern">
+                      Saissisez 2 chiffres après la virgule
+                    </span>
+                    </mat-error>
+                  </mat-form-field>
+
+                  <mat-form-field class="form-w50">
+                    <input decimal="true" decimalSeparator="." digitOnly formControlName="total_amount" matInput
+                           min="0"
+                           placeholder="Budget prévisionnel annuel"
+                           type="text">
+                    <span matSuffix><mat-icon>euro_symbol</mat-icon></span>
+                    <mat-error *ngIf="form.controls.budget_form.get('total_amount').invalid">
+                    <span *ngIf="form.controls.budget_form.get('total_amount').errors.api">
+                      {{ form.controls.budget_form.get('total_amount').errors.api }}
+                    </span>
+                      <span *ngIf="form.controls.budget_form.get('total_amount').errors.pattern">
+                      Saissisez 2 chiffres après la virgule
+                    </span>
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+
+                <mat-form-field *ngIf="budget.calculated_quantity " class="form-w50">
+                  <input formControlName="calculated_quantity" matInput placeholder="Consommation calculée"
+                         readonly>
+                  <span matSuffix>kWh</span>
+                </mat-form-field>
+
+                <mat-form-field *ngIf="budget.calculated_amount " class="form-w50">
+                  <input formControlName="calculated_amount" matInput placeholder="Budget consommé calculé"
+                         readonly>
+                  <span matSuffix><mat-icon>euro_symbol</mat-icon></span>
+                </mat-form-field>
+              </app-form-block>
+            </div>
+          </mat-card>
+        </mat-tab>
+
+        <mat-tab>
+          <ng-template mat-tab-label>
+            <mat-icon>gps_fixed</mat-icon>
+            Budgets points de livraison
+          </ng-template>
+          <div formGroupName="filters_form">
+            <app-generic-filter-block (clear)="reset()">
+              <div class="row">
+                <mat-form-field class="form-w50">
+                  <app-contract-select
+                    formControlName="contract"
+                    placeholder="Contrat"
+                  ></app-contract-select>
+                </mat-form-field>
+
+                <mat-form-field>
+                  <mat-label>Sans facture depuis</mat-label>
+                  <mat-select formControlName="no_invoice_for_months">
+                    <mat-option [value]="null">Indifférent</mat-option>
+                    <mat-option *ngFor="let noInvoicePeriod of noInvoicePeriods" [value]="noInvoicePeriod">
+                      {{ noInvoicePeriod | invoicePeriodLabel | transloco}}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+
+              <div class="row">
+                <mat-form-field>
+                  <input formControlName="reference" matInput placeholder="Référence">
+                </mat-form-field>
+                <mat-form-field>
+                  <input formControlName="code" matInput placeholder="Code interne">
+                </mat-form-field>
+                <mat-form-field>
+                  <mat-label>Dans périmètre</mat-label>
+                  <mat-select formControlName="is_in_scope">
+                    <mat-option [value]="null">Indifférent</mat-option>
+                    <mat-option value="1">Oui</mat-option>
+                    <mat-option value="0">Non</mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+
+            </app-generic-filter-block>
+          </div>
+          <mat-card>
+            <app-delivery-point-budget-table
+                #table
+                (deleteSelected)="removeDeliveryPointBudget($event)"
+                [dataSource]="dataSource">
+            </app-delivery-point-budget-table>
+          </mat-card>
+        </mat-tab>
+      </mat-tab-group>
+
+      <button (click)="submit()"
+              *appAuthorized="['management.budget.edit']"
+              [disabled]="form.controls.budget_form.invalid" class="btn-save"
+              color="warn" mat-fab
+              type="submit">
+        <mat-icon>check circle</mat-icon>
+      </button>
+    </form>
+  </div>
+</div>

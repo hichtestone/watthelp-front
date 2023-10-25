@@ -1,0 +1,175 @@
+<div [ngClass]="{'list-action': selection.hasValue() }">
+  <span *ngIf="selection.hasValue() && !selection.isSelected('*')" class="selected-count">
+    {{'invoice.list.selected-invoices' | transloco : {number: selection.isSelected('*') ? dataSource.total : selection.selected.length} }}
+    <span
+      *ngIf="selection.selected.length == paginator.pageSize && dataSource.total > selection.selected.length && !selection.isSelected('*')"
+      class="selected-count">
+        <a
+          (click)="selectAll()"><strong>{{'invoice.list.select-all-invoices' | transloco : {number: dataSource.total} }}</strong></a>
+  </span>
+  </span>
+  <span *ngIf="selection.isSelected('*')"
+        class="selected-count">{{'invoice.list.all-selected-invoices' | transloco : {number: dataSource.total} }}</span>
+  <span *ngIf="selection.selected.length > 0">
+    <button [matMenuTriggerFor]="tableOptions" mat-icon-button>
+      <mat-icon>more_vert</mat-icon>
+    </button>
+    <mat-menu #tableOptions="matMenu">
+      <button (click)="analyzeAllInvoices()"
+              [disabled]="!selection.hasValue()"
+              aria-label="AnalyzeInvoices"
+              mat-menu-item
+              type="button">
+      <mat-icon>find_replace</mat-icon>
+      <span>{{'invoice.list.analyze-all-invoices' | transloco}}</span>
+    </button>
+  </mat-menu>
+  </span>
+</div>
+
+<mat-table [dataSource]="dataSource" matSort>
+  <ng-container matColumnDef="select">
+    <mat-header-cell *matHeaderCellDef>
+      <mat-checkbox (change)="$event ? masterToggle() : null"
+                    *appAuthorized="['management.invoice.delete', 'management.invoice.analyze']"
+                    [checked]="selection.hasValue()"
+                    [indeterminate]="selection.hasValue() && !isAllSelected">
+      </mat-checkbox>
+    </mat-header-cell>
+    <mat-cell *matCellDef="let row">
+      <mat-checkbox (change)="$event ? selection.toggle(row) : null"
+                    (click)="$event.stopPropagation()"
+                    *appAuthorized="['management.invoice.delete', 'management.invoice.analyze']"
+                    [checked]="selection.isSelected(row)">
+      </mat-checkbox>
+    </mat-cell>
+  </ng-container>
+
+  <ng-container cdkColumnDef="reference">
+    <mat-header-cell *cdkHeaderCellDef mat-sort-header>{{'common.reference' | transloco}}</mat-header-cell>
+    <mat-cell *cdkCellDef="let row">{{ row.reference || '-' }}</mat-cell>
+  </ng-container>
+
+  <ng-container cdkColumnDef="subscription_cta">
+    <mat-header-cell *cdkHeaderCellDef mat-sort-header>{{'common.subs-cta' | transloco}}</mat-header-cell>
+    <mat-cell *cdkCellDef="let row">
+      <span
+        *ngIf="row.amount_by_type?.subscription_cta !== 0; else zero">{{ row.amount_by_type?.subscription_cta | amountConverter | currency:'EUR':'symbol' }}</span>
+      <ng-template #zero>€0.00</ng-template>
+    </mat-cell>
+
+  </ng-container>
+
+  <ng-container cdkColumnDef="consumption_cspe_tcfe">
+    <mat-header-cell *cdkHeaderCellDef mat-sort-header>{{'common.cons-cspe-tcfe' | transloco}}</mat-header-cell>
+    <mat-cell *cdkCellDef="let row">
+      <span *ngIf="row.amount_by_type?.consumption_cspe_tcfe !== 0; else zero">
+        {{ row.amount_by_type?.consumption_cspe_tcfe | amountConverter | currency:'EUR':'symbol' }}
+      </span>
+      <ng-template #zero>€0.00</ng-template>
+    </mat-cell>
+  </ng-container>
+
+  <ng-container cdkColumnDef="amount_ht">
+    <mat-header-cell *cdkHeaderCellDef mat-sort-header>{{'common.excluding-vat-amount' | transloco}}</mat-header-cell>
+    <mat-cell *cdkCellDef="let row"
+    >{{ row.amount_ht | amountConverter | currency:'EUR':'symbol' }}</mat-cell>
+  </ng-container>
+
+  <ng-container cdkColumnDef="amount_tva">
+    <mat-header-cell *cdkHeaderCellDef mat-sort-header>{{'common.vat-amount' | transloco}}</mat-header-cell>
+    <mat-cell *cdkCellDef="let row"
+    >{{ row.amount_tva| amountConverter | currency:'EUR':'symbol' }}</mat-cell>
+  </ng-container>
+
+  <ng-container cdkColumnDef="amount_ttc">
+    <mat-header-cell *cdkHeaderCellDef mat-sort-header>{{'common.tax-included-amount' | transloco}}</mat-header-cell>
+    <mat-cell *cdkCellDef="let row"
+    >{{ row.amount_ttc | amountConverter | currency:'EUR':'symbol' }}</mat-cell>
+  </ng-container>
+
+  <ng-container cdkColumnDef="emitted_at">
+    <mat-header-cell *cdkHeaderCellDef>{{'common.emitted-at' | transloco}}</mat-header-cell>
+    <mat-cell *cdkCellDef="let row">{{ row.emitted_at | date: 'dd/MM/yyyy' }}
+    </mat-cell>
+  </ng-container>
+
+  <ng-container cdkColumnDef="analysis">
+    <mat-header-cell *cdkHeaderCellDef>{{'common.analysis' | transloco}}</mat-header-cell>
+    <mat-cell *cdkCellDef="let row">
+      <button (click)="handleAnalysis(row.id, row.analysis, $event)" *ngIf="!row.analysis" mat-raised-button>
+        {{'button.analyze' | transloco}}
+      </button>
+      <span *ngIf="row.analysis && row.analysis.status == 'error'"><mat-icon color="warn">error</mat-icon></span>
+      <span *ngIf="row.analysis && row.analysis.status == 'warning'"><mat-icon color="accent">warning</mat-icon></span>
+      <span *ngIf="row.analysis && row.analysis.status == 'ok'" style="color: #4CAF50"><mat-icon>check</mat-icon></span>
+      <span *ngIf="row.analysis">&nbsp;{{ row.analysis.created_at | date: 'dd/MM/yyyy HH:mm:ss' }}</span>
+      <span (click)="handleAnalysis(row.id, row.analysis, $event)" *ngIf="row.analysis">&nbsp;<mat-icon>autorenew</mat-icon></span>
+    </mat-cell>
+  </ng-container>
+
+  <ng-container cdkColumnDef="actions">
+    <mat-header-cell *cdkHeaderCellDef style="flex: 0 0 75px;">
+      <button (click)="openSelectionDialog()" aria-label="Settings" mat-icon-button type="button">
+        <mat-icon>settings</mat-icon>
+      </button>
+    </mat-header-cell>
+    <mat-cell *cdkCellDef="let row" style="flex: 0 0 75px;">
+      <ng-container *appAuthorized="['management.invoice.delete', 'management.invoice.analyze']">
+        <button (click)="$event.stopPropagation();" [matMenuTriggerFor]="actionMenu" aria-label="Actions"
+                mat-icon-button
+                type="button">
+          <mat-icon>more_vert</mat-icon>
+        </button>
+
+        <mat-menu #actionMenu="matMenu">
+          <button (click)="analyze(row.id)"
+                  *appAuthorized="['management.invoice.analyze']"
+                  aria-label="Analyze"
+                  mat-menu-item
+                  type="button">
+            <mat-icon>find_replace</mat-icon>
+            <span>{{'button.analyze' | transloco}}</span>
+          </button>
+          <button (click)="delete(row.id)"
+                  *appAuthorized="['management.invoice.delete']"
+                  aria-label="Supprimer"
+                  mat-menu-item
+                  type="button">
+            <mat-icon>delete</mat-icon>
+            <span>{{'button.delete' | transloco}}</span>
+          </button>
+          <a *ngIf="row.pdf && canDownloadPDF"
+             [href]="row.pdf.raw"
+             aria-label="Download"
+             download
+             mat-menu-item
+             target="_blank">
+            <mat-icon>picture_as_pdf</mat-icon>
+            <span>{{'button.download-pdf' | transloco}}</span>
+          </a>
+        </mat-menu>
+      </ng-container>
+    </mat-cell>
+  </ng-container>
+
+  <mat-header-row *cdkHeaderRowDef="displayedColumns; sticky: true"></mat-header-row>
+  <mat-row *cdkRowDef="let row; columns: displayedColumns; let even = even; let odd = odd"
+           [class.loading]="dataSource.loading"
+           [ngClass]="{'mat-row-even': even, 'mat-row-odd': odd}"
+           [queryResource]="['management.invoice.view']"
+           [routerLinkSecured]="'/invoice/' + row.id">
+  </mat-row>
+</mat-table>
+
+<app-table-no-result
+  [style.display]="(dataSource.total == 0 && !dataSource.loading) ? '' : 'none'">
+</app-table-no-result>
+
+<mat-paginator
+  [length]="dataSource.total"
+  [pageIndex]="0"
+  [pageSizeOptions]="[25, 50, 75, 100]"
+  [pageSize]="25"
+  [style.display]="(dataSource.total === 0) ? 'none' : ''">
+</mat-paginator>

@@ -1,0 +1,54 @@
+<app-header
+  [icon]="'account_balance'"
+  [mode]="'list'"
+  [title]="'report.breadcrumb.detail' | transloco">
+</app-header>
+
+<div class="page-content">
+  <div class="vertical-mode">
+    <mat-tab-group class="vertical-tab-group" disableRipple="true">
+      <mat-tab>
+        <ng-template mat-tab-label>
+          <mat-icon>assignment</mat-icon>
+          {{'report.invoice-summary' | transloco}}
+        </ng-template>
+        <mat-card>
+          <app-form-block title="{{'report.invoice-summary' | transloco}}">
+            <mat-form-field>
+              <input [value]="reportAnalysis.invoice.reference" disabled matInput placeholder="Référence">
+            </mat-form-field>
+            <mat-form-field>
+              <input [value]="(reportAnalysis.invoice.amount_ht) | amountConverter: 10000000" disabled matInput
+                     placeholder="{{'common.excluding-vat-amount' | transloco}}">
+              <span matSuffix>€</span>
+            </mat-form-field>
+            <mat-form-field>
+              <input [value]="reportAnalysis.invoice.amount_tva | amountConverter: 10000000" disabled matInput
+                     placeholder="{{'common.vat-amount' | transloco}}">
+              <span matSuffix>€</span>
+            </mat-form-field>
+            <mat-form-field>
+              <input [value]="reportAnalysis.invoice.amount_ttc | amountConverter: 10000000" disabled matInput
+                     placeholder="{{'common.tax-included-amount' | transloco}}">
+              <span matSuffix>€</span>
+            </mat-form-field>
+          </app-form-block>
+
+          <app-form-block title="{{'common.import-report' | transloco}}">
+            <app-report-stat
+              [reportAnalysis]="reportAnalysis">
+            </app-report-stat>
+          </app-form-block>
+        </mat-card>
+      </mat-tab>
+
+      <mat-tab *appAuthorized="['management.delivery_point.view']">
+        <ng-template mat-tab-label>
+          <mat-icon>gps_fixed</mat-icon>
+          {{'report.detail-by-dp' | transloco}}
+        </ng-template>
+        <app-report-detail [reportAnalysis]="reportAnalysis"></app-report-detail>
+      </mat-tab>
+    </mat-tab-group>
+  </div>
+</div>

@@ -1,0 +1,58 @@
+{
+  "home": "Accoglienza",
+  "tooltip": {
+    "error": "Contiene uno o più errori",
+    "alert": "Contiene uno o più avvisi",
+    "processing": "In lavorazione",
+    "unsolved": "Trattare",
+    "ignored": "Ignorato",
+    "solved": "Risolto",
+    "ok": "Ok"
+  },
+  "widget": {
+    "label-field": "Etichetta widget",
+    "filter-label": "Filtri",
+    "year-field": "Anni",
+    "started-at": "Data d'inizio",
+    "finished-at": "Data di fine",
+    "chart-type": "Tipo di grafico",
+    "histogram": "ISTOGRAMMA",
+    "spline": "CURVA",
+    "consumption-display": "Mostra consumo per  ",
+    "month-year": "MESE PER ANNO",
+    "year": "ANNO",
+    "custom-color": "Personalizzazione del colore",
+    "real-budget": "Budget reale",
+    "theoretical-budget": "Budget teorico",
+    "estimated-budget": "Budget stimato",
+    "delivery-point-color-in-scope": "Colore dei punti di consegna nel perimetro :",
+    "delivery-point-color-not-in-scope": "Colore dei punti di consegna fuori dal perimetro :",
+    "address": "Indirizzo : ",
+    "power-subscribed": "Power sottoscritto : ",
+    "delivery-point-in-scope": "{{number}} punto(i) nel perimetro",
+    "delivery-point-out-of-scope": "{{number}} punto(i) fuori dal perimetro",
+    "delivery-point-ungeolocalized": "{{number}}  punto(i) non geolocalizzato",
+    "select-delivery-point": "Seleziona i punti di consegna",
+    "global-stats": {
+      "delivery-point-in-scope": "Punto(i) nel perimetro",
+      "delivery-point-out-of-scope": "Punto(i) fuori dal perimetro",
+      "invoice": "Fattura(e)",
+      "alert": "Avviso(i)"
+    },
+    "pricing": {
+      "period": "Periodo",
+      "price": "Prezzi",
+      "august2010": "Agosto 2010",
+      "july2011": "Luglio 2011",
+      "july2012": "Luglio 2012",
+      "august2013": "Agosto 2013",
+      "november2014": "Novembre 2014",
+      "august2015": "Agosto 2015",
+      "august2016": "Agosto 2016",
+      "august2017": "Agosto 2017",
+      "february2018": "Febbraio 2018",
+      "august2018": "Agosto 2018"
+    }
+  }
+}
+

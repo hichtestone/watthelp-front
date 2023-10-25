@@ -1,0 +1,33 @@
+{
+  "breadcrumb": {
+    "label": "Utenti",
+    "title": "Elenco utenti",
+    "edit": "Modifica di un utente",
+    "create": "Creazione di un utilizzo"
+  },
+  "updated-success": "Utente modificati con successo",
+  "created-success": "Utente creato con successo",
+  "add-new": "Crea un utente",
+  "authorization": "Permessi",
+  "last-name": "Nome",
+  "first-name": "Conome",
+  "email": "Email",
+  "phone": "Telefono",
+  "role": "Ruolo",
+  "roles": "Ruoli",
+  "avatar": "Avatar",
+  "password": "Password",
+  "security": "Sicurezza",
+  "update-picture": "Aggiorna immagine",
+  "confirmation-password": "Conferma password",
+  "other": "altro",
+  "others": "altri",
+  "upload-image-error": "Si è verificato un errore durante l'importazione dell'immagine",
+  "dialog": {
+    "deletion": {
+      "title": "Elimina un utente",
+      "description": "Sei sicuro di voler eliminare questo utente?",
+      "success": "L'utente è stato eliminato"
+    }
+  }
+}

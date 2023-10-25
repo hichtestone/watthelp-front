@@ -1,0 +1,34 @@
+<app-generic-list
+  (uploadButtonSelected)="openImportDialog()"
+  [actionImport]="actionImport"
+  [actionLink]="actionLink"
+  headerIcon="euro_symbol"
+  headerTitle="{{'pricing.breadcrumb.title' | transloco}}"
+>
+  <div slot="filter">
+    <app-generic-filter-block (clear)="reset()">
+      <form [formGroup]="form ">
+        <mat-form-field>
+          <mat-label>{{'common.name' | transloco}}</mat-label>
+          <input formControlName="name" matInput>
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label>{{'common.type' | transloco}}</mat-label>
+          <mat-select formControlName="type">
+            <mat-option>{{'common.none' | transloco}}</mat-option>
+            <mat-option value="regulated">{{'common.regulated' | transloco}}</mat-option>
+            <mat-option value="negotiated">{{'common.negotiated' | transloco}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </form>
+    </app-generic-filter-block>
+  </div>
+  <div slot="table">
+    <app-pricing-table #table
+                       (deleteSelected)="onDelete($event)"
+                       (exportExcel)="onExportPricingToExcel($event)"
+                       [dataSource]="dataSource">
+    </app-pricing-table>
+  </div>
+</app-generic-list>

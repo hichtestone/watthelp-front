@@ -1,0 +1,38 @@
+{
+  "welcome-message": "Dashboard - Welcome {{fullName}}",
+  "header-edit-dashboard": "Dashboard customization",
+  "header-quit-edit-mode": "Exit",
+  "header-cancel-change": "Cancel",
+  "header-add-item": "Add new widget",
+  "header-save": "Save",
+  "empty-dashboard-title": "Start customizing your dashboard",
+  "empty-dashboard-content": "Before designing the charts, we need some data to fill them all",
+  "empty-dashboard-submit": "Design dashboard",
+  "modal-title": "Choose any widget to add",
+  "modal-group": {
+    "alert": "Alerts",
+    "global": "Global",
+    "price": "Prices",
+    "alert-by-type": "Alerts by type",
+    "global-stats": "Global stats",
+    "budget": "Budgets",
+    "consumption": "Consumption",
+    "consumption-vs-budget": "Consumption vs Budget",
+    "map": "Map",
+    "taxes-subs-consumption": "Taxes + Subscription + Consumption",
+    "price-evolution": "Price trending"
+  },
+  "modal-cancel": "Cancel",
+  "dashboard-widget-preview": "Preview",
+  "dashboard-widget-setting": "Settings",
+  "dashboard-widget-delete": "Delete",
+  "widget": {
+    "chart-type": "Chart type",
+    "histogram": "HISTOGRAM",
+    "spline": "SPLINE",
+    "consumption-display": "View consumption by ",
+    "month-year": "MONTH BY YEAR",
+    "year": "YEAR"
+  }
+}
+

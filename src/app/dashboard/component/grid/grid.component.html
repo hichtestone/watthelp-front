@@ -1,0 +1,80 @@
+<app-header
+  [hideBreadcrumb]="true"
+  [icon]="'home'"
+  [mode]="'list'"
+  [title]="'dashboard.welcome-message' | transloco : {fullName : fullName}">
+  <div *ngIf="widgets.length > 0 || edition" class="setting-menu">
+    <a (click)="edit = false" *ngIf="edition && !dashboard.updated"
+       mat-raised-button>{{'dashboard.header-quit-edit-mode' | transloco}}</a>
+    <a (click)="cancel()" *ngIf="edition && dashboard.updated"
+       mat-raised-button>{{'dashboard.header-cancel-change' | transloco}}</a>
+    <a (click)="edit = true" *ngIf="!edition" mat-raised-button>{{'dashboard.header-edit-dashboard' | transloco}}</a>
+    <a (click)="addWidgetModal()" mat-raised-button>{{'dashboard.header-add-item' | transloco}}</a>
+    <a (click)="save()" *ngIf="edition" [disabled]="!dashboard.updated"
+       mat-raised-button>{{'dashboard.header-save' | transloco}}</a>
+    <mat-menu #widgetsMenu="matMenu" yPosition="below">
+      <button (click)="addWidget(component.selector)" *ngFor="let component of components"
+              mat-menu-item>{{ component.componentType.title }}</button>
+    </mat-menu>
+  </div>
+</app-header>
+
+<!-- Empty dashboard -->
+<div *ngIf="widgets.length === 0 && !edition" class="no-dashboard">
+  <div *appAuthorized="['other.dashboard.view']" class="wrapper">
+    <img alt="dashboard" src="/assets/dashboard.svg"/>
+    <h2>{{'dashboard.empty-dashboard-title' | transloco}}</h2>
+    <div class="description">{{'dashboard.empty-dashboard-content' | transloco}}</div>
+    <button (click)="edit = true" color="primary"
+            mat-raised-button>{{'dashboard.empty-dashboard-submit' | transloco}}</button>
+  </div>
+</div>
+
+<!-- Dashboard -->
+<ng-container *appAuthorized="['other.dashboard.view']">
+  <gridster *ngIf="dashboard"
+            [ngClass]="edition ? 'grid-edit' : 'grid-view'"
+            [options]="options"
+            [style.display]="widgets.length > 0 || edition ? 'block' : 'none'">
+    <gridster-item (mousedown)="selectWidget(widgetData)"
+                   *ngFor="let widgetData of widgets"
+                   [item]="widgetData">
+      <ng-template (loadingChange)="widgetData.isLoading = $event" [widgetData]="widgetData" appWidget></ng-template>
+
+      <div *ngIf="widgetData.isLoading" class="widget-overlay">
+        <mat-spinner [diameter]="40" [strokeWidth]="4"></mat-spinner>
+      </div>
+      <div *ngIf="edition" class="more-menu">
+        <button [matMenuTriggerFor]="moreMenu" aria-label="More" mat-icon-button
+                type="button">
+          <mat-icon>more_vert</mat-icon>
+        </button>
+        <mat-menu #moreMenu="matMenu" xPosition="before">
+          <button (click)="showWidget(widgetData)" *ngIf="widgetData.editable && widgetData.isEditing"
+                  aria-label="Edit"
+                  mat-menu-item
+                  type="button">
+            <mat-icon>settings</mat-icon>
+            <span>{{'dashboard.dashboard-widget-preview' | transloco}}</span>
+          </button>
+          <button (click)="editWidget(widgetData)" *ngIf="widgetData.editable && !widgetData.isEditing"
+                  aria-label="Edit"
+                  mat-menu-item
+                  type="button">
+            <mat-icon>settings</mat-icon>
+            <span>{{'dashboard.dashboard-widget-setting' | transloco}}</span>
+          </button>
+          <button (click)="removeWidget(widgetData)"
+                  aria-label="Edit"
+                  mat-menu-item
+                  type="button">
+            <mat-icon>delete</mat-icon>
+            <span>{{'dashboard.dashboard-widget-delete' | transloco}}</span>
+          </button>
+        </mat-menu>
+      </div>
+    </gridster-item>
+  </gridster>
+</ng-container>
+
+

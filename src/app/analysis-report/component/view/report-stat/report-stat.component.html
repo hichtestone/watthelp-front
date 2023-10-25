@@ -1,0 +1,43 @@
+<div class="stat-main">
+  <div class="stat-report">
+    <mat-card class="stat-card card-purple">
+      <mat-card-content class="stat-content">
+        <mat-icon class="big-icon">gps_fixed</mat-icon>
+        <div class="stat-data">
+          <div class="stat-count">{{ reportAnalysis?.delivery_point_invoice_analyses?.length || 0 }}</div>
+          <div class="stat-label">{{'common.dp-analyzed' | transloco}}</div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+
+    <mat-card class="stat-card card-green">
+      <mat-card-content class="stat-content">
+        <mat-icon class="big-icon">check_circle</mat-icon>
+        <div class="stat-data">
+          <div class="stat-count">{{ analysisOk }}</div>
+          <div class="stat-label">{{'common.nb-treatments-ok' | transloco}}</div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+
+    <mat-card class="stat-card card-orange">
+      <mat-card-content class="stat-content">
+        <mat-icon class="big-icon">warning</mat-icon>
+        <div class="stat-data">
+          <div class="stat-count">{{ analysisIgnored }}</div>
+          <div class="stat-label">{{'common.treatment-not-performed' | transloco}}</div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+
+    <mat-card class="stat-card card-red">
+      <mat-card-content class="stat-content">
+        <mat-icon class="big-icon">error</mat-icon>
+        <div class="stat-data">
+          <div class="stat-count">{{ analysisError }}</div>
+          <div class="stat-label">{{'common.nb-alert-found' | transloco}}</div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>

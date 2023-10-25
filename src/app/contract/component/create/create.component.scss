@@ -1,0 +1,21 @@
+mat-card {
+  display: flex;
+  flex-direction: column;
+
+  app-form-block {
+    flex: 1;
+    padding-right: 20px;
+
+    .btn-add-rate {
+      padding: 15px;
+      float: right;
+    }
+
+    .no-content {
+      padding-top: 5px;
+      display: flex;
+      font-style: italic;
+      justify-content: center;
+    }
+  }
+}

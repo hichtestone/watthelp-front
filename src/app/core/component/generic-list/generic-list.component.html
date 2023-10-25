@@ -1,0 +1,33 @@
+<app-header
+  (createButtonSelected)="createButtonSelected.emit()"
+  (uploadButtonSelected)="uploadButtonSelected.emit()"
+  *ngIf="displayHeader"
+  [actionCreate]="actionCreate"
+  [actionLink]="actionLink"
+  [actionUpload]="actionImport"
+  [icon]="headerIcon"
+  [mode]="headerMode"
+  [title]="headerTitle">
+</app-header>
+
+<div class="page-content">
+
+  <!--  Handle the list display with its filter-->
+  <div *ngIf="withFilter; else noFilter" class="vertical-mode">
+    <div class="left-filter">
+      <ng-content select="[slot=filter]"></ng-content>
+    </div>
+    <div class="right-list">
+      <ng-content select="[slot=table]"></ng-content>
+    </div>
+  </div>
+
+  <!--  Display the single list-->
+  <ng-template #noFilter>
+    <div class="vertical-mode">
+      <div class="list-without-filter">
+        <ng-content></ng-content>
+      </div>
+    </div>
+  </ng-template>
+</div>

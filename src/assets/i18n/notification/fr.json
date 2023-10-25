@@ -1,0 +1,22 @@
+{
+  "breadcrumb": {
+    "label": "Notifications",
+    "title": "Liste des notifications"
+  },
+  "message": "Message",
+  "created-at": "Créée le",
+  "read-at": "Lue le",
+  "read": "Lu",
+  "unread": "Non lu",
+  "selected-notifications": "Les {{number}} notification(s) ont été sélectionnées",
+  "select-all-notifications": "Sélectionner les {{number}} notification(s)",
+  "all-selected-notifications": "Toutes les notification(s) ({{number}}) sont sélectionnées",
+  "dialog": {
+    "delete": {
+      "title": "Confirmation",
+      "description": "Êtes vous sûr de vouloir supprimer cette (ces) notification(s) ?",
+      "success": "La suppression a bien été effectuée.",
+      "error": "Oups une erreur est survenue. Merci de contacter votre administrateur."
+    }
+  }
+}

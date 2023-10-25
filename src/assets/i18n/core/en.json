@@ -1,0 +1,58 @@
+{
+  "home": "Home",
+  "tooltip": {
+    "error": "Contains one or many errors",
+    "alert": "Contains one or many anomalies",
+    "processing": "Processing",
+    "unsolved": "Unsolved",
+    "ignored": "Ignored",
+    "solved": "Solved",
+    "ok": "Ok"
+  },
+  "widget": {
+    "label-field": "Widget label",
+    "filter-label": "Filters",
+    "year-field": "Year(s)",
+    "started-at": "Start date",
+    "finished-at": "End date",
+    "chart-type": "Chart type",
+    "histogram": "HISTOGRAM",
+    "spline": "SPLINE",
+    "consumption-display": "View consumption by ",
+    "month-year": "MONTH BY YEAR",
+    "year": "YEAR",
+    "custom-color": "Customize colors",
+    "real-budget": "Real budget",
+    "theoretical-budget": "Theoretical budget",
+    "estimated-budget": "Estimated budget",
+    "delivery-point-color-in-scope": "Delivery points in scope color :",
+    "delivery-point-color-not-in-scope": "Delivery points not in scope color :",
+    "address": "Address : ",
+    "power-subscribed": "Power subscribed : ",
+    "delivery-point-in-scope": "{{number}} delivery point(s) in scope",
+    "delivery-point-out-of-scope": "{{number}} delivery point(s) out of scope",
+    "delivery-point-ungeolocalized": "{{number}} delivery point(s) ungeolocalized",
+    "select-delivery-point": "Select delivery points",
+    "global-stats": {
+      "delivery-point-in-scope": "Delivery point(s) in scope",
+      "delivery-point-out-of-scope": "Delivery point(s) out of scope",
+      "invoice": "Invoice(s)",
+      "alert": "Anomaly(ies)"
+    },
+    "pricing": {
+      "period": "Period",
+      "price": "Prices",
+      "august2010": "August 2010",
+      "july2011": "July 2011",
+      "july2012": "July 2012",
+      "august2013": "August 2013",
+      "november2014": "November 2014",
+      "august2015": "August 2015",
+      "august2016": "August 2016",
+      "august2017": "August 2017",
+      "february2018": "February 2018",
+      "august2018": "August 2018"
+    }
+  }
+}
+

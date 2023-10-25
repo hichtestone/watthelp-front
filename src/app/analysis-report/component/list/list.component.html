@@ -1,0 +1,26 @@
+<app-generic-list
+  [withFilter]="hasResourceAccess"
+  headerIcon="euro_symbol"
+  headerTitle="{{'report.breadcrumb.title' | transloco}}">
+  <div *ngIf="hasResourceAccess" slot="filter">
+    <app-generic-filter-block (clear)="reset()">
+      <form [formGroup]="form ">
+        <mat-form-field>
+          <mat-label>{{'common.invoice' | transloco}}</mat-label>
+          <mat-select formControlName="invoices">
+            <mat-option>{{'common.none' | transloco}}</mat-option>
+            <mat-option *ngFor="let invoice of invoices" [value]="invoice.id">
+              {{invoice.reference}} ({{invoice.emitted_at | date: 'dd/MM/yyyy'}})
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </form>
+    </app-generic-filter-block>
+  </div>
+  <div slot="table">
+    <app-report-table #table (deleteSelection)="remove($event)"
+                      [dataSource]="dataSource">
+    </app-report-table>
+  </div>
+</app-generic-list>
+

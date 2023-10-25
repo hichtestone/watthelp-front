@@ -1,0 +1,18 @@
+{
+  "breadcrumb": {
+    "title": "Le tasse",
+    "new": "Creazione di una tassa",
+    "detail": "Modifica di una tassa"
+  },
+  "create-tax": "Aggiungi nuova imposta",
+  "dialog": {
+    "deletion": {
+      "title": "Conferma",
+      "description": "Vuoi eliminare questa / queste anomalie?",
+      "success": "L'eliminazione è riuscita",
+      "error": "Si è verificato un errore durante l'eliminazione"
+    }
+  },
+  "created-success": "L'imposta è stata creata",
+  "updated-success": "L'imposta è stata aggiornata"
+}

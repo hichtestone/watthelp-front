@@ -1,0 +1,157 @@
+<app-header
+  [icon]="'gps_fixed'"
+  [mode]="'list'"
+  [title]="title">
+</app-header>
+
+<div class="page-content">
+  <div class="vertical-mode">
+
+    <form [formGroup]="form">
+      <mat-tab-group class="vertical-tab-group" disableRipple="true">
+        <mat-tab>
+          <ng-template mat-tab-label>
+            <mat-icon>assignment</mat-icon>
+            Informations générales
+          </ng-template>
+          <mat-card>
+            <app-form-block title="Rappel sur le budget de point de livraison de l'année dernière">
+              <div *ngIf="deliveryPointBudget?.previous; else noPreviousDPB" class="row">
+                <mat-form-field *ngIf="deliveryPointBudget?.previous?.total_consumption" class="form-w50">
+                  <input [value]="deliveryPointBudget.previous.total_consumption | amountConverter: 100" decimal="true"
+                         decimalSeparator="."
+                         digitOnly
+                         disabled
+                         matInput
+                         min="0"
+                         placeholder="Consommation d'énergie" type="text">
+                  <span matSuffix>kWh</span>
+                </mat-form-field>
+
+                <mat-form-field *ngIf="deliveryPointBudget?.previous?.total" class="form-w50">
+                  <input [value]="deliveryPointBudget.previous.total | amountConverter" decimal="true"
+                         decimalSeparator="."
+                         digitOnly
+                         disabled
+                         matInput
+                         min="0" placeholder="Budget prévisionnel annuel HT" type="text">
+                  <span matSuffix><mat-icon>euro_symbol</mat-icon></span>
+                </mat-form-field>
+              </div>
+
+              <ng-template #noPreviousDPB>
+                <span class="no-data">
+                  Aucun budget de point de livraison de l'année dernière trouvé
+                </span>
+              </ng-template>
+            </app-form-block>
+
+            <div *appAuthorized="['management.budget.edit']" class="invoice-assist">
+              <mat-slide-toggle (change)="assistEnabled = !assistEnabled" [checked]=assistEnabled color="primary">
+                Aide à la saisie
+              </mat-slide-toggle>
+            </div>
+
+            <app-forecast-consumption
+              [form]="form"
+              [powerWarning]="powerWarning">
+            </app-forecast-consumption>
+
+            <app-forecast-budget-consumption
+              [form]="form"
+              [newPowerWarning]="newPowerWarning"
+              [year]="deliveryPointBudget.budget.year">
+            </app-forecast-budget-consumption>
+          </mat-card>
+        </mat-tab>
+
+        <mat-tab *appAuthorized="['management.delivery_point.view']">
+          <ng-template mat-tab-label>
+            <mat-icon>gps_fixed</mat-icon>
+            Point de livraison
+          </ng-template>
+          <mat-card>
+            <app-form-block title="Informations sur le point de livraison">
+              <div class="row">
+                <mat-form-field class="form-w50">
+                  <input formControlName="reference" matInput matTooltip="Ce champ ne peut être modifié"
+                         readonly/>
+                  <mat-placeholder>Référence</mat-placeholder>
+                  <mat-error *ngIf="form.controls.reference.invalid">
+                    <span *ngIf="form.controls.reference.errors.api">{{ form.controls.reference.errors.api }}</span>
+                  </mat-error>
+                </mat-form-field>
+
+                <mat-form-field class="form-w50">
+                  <mat-placeholder>Adresse</mat-placeholder>
+                  <input
+                    class="form-w50"
+                    formControlName="address"
+                    matInput
+                    matTooltip="Ce champ ne peut être modifié"
+                    readonly/>
+                  <mat-error *ngIf="form.controls.address.invalid">
+                    <span *ngIf="form.controls.address.errors.api">{{ form.controls.address.errors.api }}</span>
+                  </mat-error>
+                </mat-form-field>
+              </div>
+
+              <div class="row">
+                <mat-form-field class="form-w50">
+                  <input formControlName="meter_reference" matInput matTooltip="Ce champ ne peut être modifié"
+                         readonly/>
+                  <mat-label>Référence compteur</mat-label>
+                  <mat-error *ngIf="form.controls.meter_reference.invalid">
+                    <span *ngIf="form.controls.meter_reference.errors.api">
+                      {{ form.controls.meter_reference.errors.api }}
+                    </span>
+                  </mat-error>
+                </mat-form-field>
+
+                <mat-form-field class="form-w50">
+                  <input decimal="true" decimalSeparator="." digitOnly formControlName="power" matInput
+                         matTooltip="Ce champ ne peut être modifié"
+                         readonly
+                         type="text">
+                  <mat-label>Puissance souscrite</mat-label>
+                  <span matSuffix>(KW ou kVA)</span>
+                  <mat-error *ngIf="form.controls.power.invalid">
+                    <span *ngIf="form.controls.power.errors.api">{{ form.controls.power.errors.api }}</span>
+                  </mat-error>
+                </mat-form-field>
+              </div>
+            </app-form-block>
+
+            <app-form-block *appAuthorized="['management.delivery_point.map']" title="Visualisation">
+              <div class="row">
+                <agm-map *ngIf="marker" [latitude]="marker.latitude" [longitude]="marker.longitude" [zoom]="zoom"
+                         style="width: 100%; height: 400px;">
+                  <agm-marker [latitude]="marker.latitude" [longitude]="marker.longitude"></agm-marker>
+                </agm-map>
+                <mat-card-content *ngIf="!marker || isLoading">
+                  <div *ngIf="isLoading" class="progress-spinner">
+                    <mat-progress-spinner
+                      [color]="'primary'"
+                      [mode]="'indeterminate'"
+                      [value]="50">
+                    </mat-progress-spinner>
+                  </div>
+                  <div class="map-w">
+                    En attente d'une latitude et longitude
+                  </div>
+                </mat-card-content>
+              </div>
+            </app-form-block>
+          </mat-card>
+        </mat-tab>
+      </mat-tab-group>
+
+      <button (click)="submit()" *appAuthorized="['management.budget.edit']"
+              [disabled]="form.invalid" class="btn-save"
+              color="warn" mat-fab
+              type="submit">
+        <mat-icon>check circle</mat-icon>
+      </button>
+    </form>
+  </div>
+</div>

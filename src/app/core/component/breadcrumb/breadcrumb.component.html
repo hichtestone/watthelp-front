@@ -1,0 +1,12 @@
+<ol class="breadcrumb">
+  <li>
+    <a [routerLink]="rootPath" class="breadcrumb">{{ 'core.home' | transloco}}</a>
+  </li>
+  <li *ngFor="let breadcrumb of breadcrumbs; trackBy: trackByIndex; let i = index; let last = last">
+    <a *ngIf="!last; else notLast"
+       [routerLink]="[breadcrumb.url, breadcrumb.params]">{{ breadcrumb.label | transloco}}</a>
+    <ng-template #notLast>
+      <span *ngIf="last">{{ breadcrumb.label | transloco }}</span>
+    </ng-template>
+  </li>
+</ol>

@@ -1,0 +1,17 @@
+<ng-container>
+  <div class="language">
+    <button [mat-menu-trigger-for]="settings" disableRipple=true mat-icon-button>
+      <img [src]="'/assets/country-flags/' + selected + '-flag.png'" alt="country-flag" class="flag-out"
+           height="20"
+           width="20">
+      {{ selected | languagePipe}}
+    </button>
+
+    <mat-menu #settings="matMenu" xPosition="before" yPosition="below">
+      <button (click)="switchLanguage(lang)" *ngFor="let lang of languages" class="country-select-item" mat-menu-item>
+        <img [src]="'/assets/country-flags/' + lang + '-flag.png'" alt="lang" height="20" width="20">
+        {{ lang | languagePipe}}
+      </button>
+    </mat-menu>
+  </div>
+</ng-container>

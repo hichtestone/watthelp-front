@@ -1,0 +1,18 @@
+{
+  "breadcrumb": {
+    "label": "Gestion des rôles",
+    "title": "Liste des rôles",
+    "edit": "Edition d'un rôle",
+    "create": "Création d'un rôle",
+    "duplicate": "Duplication d'un rôle"
+  },
+  "updated-success": "Role mis à jour avec succès",
+  "created-success": "Role créé avec succès",
+  "add-new": "Créer un rôle",
+  "copy-of": "Copie de ",
+  "authorization": "Permissions",
+  "enable": "Actif",
+  "disable": "Inactif",
+  "undefined": "Non défini"
+}
+

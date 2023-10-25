@@ -1,0 +1,33 @@
+<div *ngIf="mode === 'list'" class="breadcrumb-bg"></div>
+
+<div class="header-nav" ngClass="mode === 'detail' ? header-nav-with-bg : ''">
+  <div class="header-nav-title">
+    <app-breadcrumb *ngIf="!hideBreadcrumb"></app-breadcrumb>
+    <h3>
+      <mat-icon [svgIcon]="svgIcon">{{icon}}</mat-icon>
+      {{title}}
+    </h3>
+  </div>
+  <span class="align-right"></span>
+  <div class="header-nav-actions">
+    <ng-container *ngIf="!!actionLink">
+      <button *appAuthorized="actionLink.authorize" [routerLink]="actionLink.routerLink" mat-raised-button>
+        <mat-icon>{{actionLink.iconTitle}}</mat-icon>
+        {{actionLink.buttonTitle | transloco}}
+      </button>
+    </ng-container>
+    <ng-container *ngIf="!!actionCreate">
+      <button (click)="openCreate()" *appAuthorized="actionCreate.authorize" mat-raised-button>
+        <mat-icon>{{actionCreate.iconTitle}}</mat-icon>
+        {{actionCreate.buttonTitle | transloco}}
+      </button>
+    </ng-container>
+    <ng-container *ngIf="!!actionUpload">
+      <button (click)="openUpload()" *appAuthorized="actionUpload.authorize" mat-raised-button>
+        <mat-icon>{{actionUpload.iconTitle}}</mat-icon>
+        {{actionUpload.buttonTitle | transloco}}
+      </button>
+    </ng-container>
+    <ng-content></ng-content>
+  </div>
+</div>

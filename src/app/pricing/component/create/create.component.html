@@ -1,0 +1,130 @@
+<app-header
+  [icon]="'account_balance'"
+  [mode]="'list'"
+  [title]="title | transloco">
+</app-header>
+
+<div class="page-content">
+  <div class="vertical-mode">
+    <form [formGroup]="form">
+      <mat-tab-group class="vertical-tab-group" disableRipple="true">
+
+        <mat-tab>
+          <ng-template mat-tab-label>
+            <mat-icon>assignment</mat-icon>
+            {{'common.general-info' | transloco}}
+          </ng-template>
+          <mat-card>
+            <app-form-block title="{{'common.general-info' | transloco}}">
+              <mat-form-field>
+                <input formControlName="name" matInput
+                       placeholder="{{'common.name' | transloco}}"
+                       required/>
+                <mat-error *ngIf="form.controls.name.invalid">
+                  <span *ngIf="form.controls.name.errors.api">{{ form.controls.name.errors.api }}</span>
+                  <span *ngIf="form.controls.name.errors.required">{{'error.required-field' | transloco}}</span>
+                </mat-error>
+              </mat-form-field>
+
+              <mat-form-field>
+                <mat-label>{{'common.type' | transloco}}</mat-label>
+                <mat-select formControlName="type" required>
+                  <mat-option [value]="null">{{'common.none' | transloco}}</mat-option>
+                  <mat-option value="regulated">{{'common.regulated' | transloco}}</mat-option>
+                  <mat-option value="negotiated">{{'common.negotiated' | transloco}}</mat-option>
+                </mat-select>
+                <mat-error *ngIf="form.controls.type.invalid">
+                  <span
+                    *ngIf="form.controls.type.errors.api">{{ form.controls.type.errors.api }}</span>
+                  <span *ngIf="form.controls.type.errors.required">{{'error.required-field' | transloco}}</span>
+                </mat-error>
+              </mat-form-field>
+
+              <mat-form-field *ngIf="form.controls.type.value === 'regulated'">
+                <input
+                  decimal="true"
+                  decimalSeparator="."
+                  digitOnly
+                  formControlName="subscription_price" matInput
+                  placeholder="{{'common.subscription' | transloco}}"
+                  required
+                  type="text">
+                <span matSuffix>€/kVA/{{'pricing.month' | transloco}}</span>
+                <mat-error *ngIf="form.controls.subscription_price.invalid">
+                  <span *ngIf="form.controls.subscription_price.errors.api">
+                    {{ form.controls.subscription_price.errors.api }}
+                  </span>
+                  <span
+                    *ngIf="form.controls.subscription_price.errors.required">{{'error.required-field' | transloco}}</span>
+                  <span *ngIf="form.controls.subscription_price.errors.pattern">
+                    {{'error.decimal-input' | transloco : {number: 2} }}
+                  </span>
+                </mat-error>
+              </mat-form-field>
+
+              <mat-form-field class="form-w50">
+                <input
+                  decimal="true"
+                  decimalSeparator="."
+                  digitOnly
+                  formControlName="consumption_base_price" matInput
+                  placeholder="{{'common.consumption' | transloco}}"
+                  required
+                  type="text">
+                <span matSuffix>cts €/kWh</span>
+                <mat-error *ngIf="form.controls.consumption_base_price.invalid">
+                  <span
+                    *ngIf="form.controls.consumption_base_price.errors.api">{{ form.controls.consumption_base_price.errors.api }}</span>
+                  <span
+                    *ngIf="form.controls.consumption_base_price.errors.required">{{'error.required-field' | transloco}}</span>
+                  <span
+                    *ngIf="form.controls.consumption_base_price.errors.pattern">{{'error.decimal-input' | transloco : {number: 3} }}</span>
+                </mat-error>
+              </mat-form-field>
+            </app-form-block>
+
+            <app-form-block title="{{'common.period' | transloco}}">
+              <div class="row">
+                <mat-form-field class="form-w50">
+                  <mat-label>{{'common.started-at' | transloco}}</mat-label>
+                  <input [matDatepicker]="started" formControlName="started_at" matInput required>
+                  <mat-datepicker-toggle [for]="started" matSuffix></mat-datepicker-toggle>
+                  <mat-datepicker #started></mat-datepicker>
+                  <mat-error *ngIf="form.controls.started_at.invalid" class="error">
+                <span *ngIf="form.controls.started_at.errors.unauthorizedDate">
+                   {{'error.unauthorized-date' | transloco}}
+                </span>
+                    <span *ngIf="form.controls.started_at.errors.api">{{ form.controls.started_at.errors.api }}</span>
+                    <span *ngIf="form.controls.started_at.errors.required">{{'error.required-field' | transloco}}</span>
+                  </mat-error>
+                </mat-form-field>
+
+                <mat-form-field class="form-w50">
+                  <mat-label>{{'common.finished-at' | transloco}}</mat-label>
+                  <input [matDatepicker]="finished" formControlName="finished_at" matInput required>
+                  <mat-datepicker-toggle [for]="finished" matSuffix></mat-datepicker-toggle>
+                  <mat-datepicker #finished></mat-datepicker>
+                  <mat-error *ngIf="form.controls.finished_at.invalid" class="error">
+                <span *ngIf="form.controls.finished_at.errors.unauthorizedDate">
+                   {{'error.unauthorized-date' | transloco}}
+                </span>
+                    <span *ngIf="form.controls.finished_at.errors.api">{{ form.controls.finished_at.errors.api }}</span>
+                    <span
+                      *ngIf="form.controls.finished_at.errors.required">{{'error.required-field' | transloco}}</span>
+                  </mat-error>
+                </mat-form-field>
+              </div>
+            </app-form-block>
+          </mat-card>
+        </mat-tab>
+
+      </mat-tab-group>
+      <button (click)="submit()" *appAuthorized="['system.pricing.edit']" [disabled]="form.invalid" class="btn-save"
+              color="warn" mat-fab
+              type="submit">
+        <mat-icon>check circle</mat-icon>
+      </button>
+    </form>
+  </div>
+</div>
+

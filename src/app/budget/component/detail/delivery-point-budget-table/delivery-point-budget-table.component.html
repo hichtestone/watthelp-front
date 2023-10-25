@@ -1,0 +1,143 @@
+<div [ngClass]="{'list-action': selection.hasValue() }">
+  <span *ngIf="selection.hasValue() && !selection.isSelected('*')" class="selected-count">
+    Les {{ selection.isSelected('*') ? dataSource.total : selection.selected.length }} budgets de cette page sont sélectionnés.
+    <span *ngIf="selection.selected.length === paginator.pageSize && dataSource.total > selection.selected.length"
+          class="selected-count">
+        <a (click)="selectAll()"><strong>Sélectionner les {{ dataSource.total }} budgets.</strong></a>
+    </span>
+  </span>
+  <span *ngIf="selection.isSelected('*')" class="selected-count">Tous les budgets ({{ dataSource.total }}) sont sélectionnés.</span>
+  <span *ngIf="selection.selected.length > 0">
+    <button *appAuthorized="['management.delivery_point.delete']" [matMenuTriggerFor]="tableOptions" mat-icon-button>
+      <mat-icon>more_vert</mat-icon>
+    </button>
+    <mat-menu #tableOptions="matMenu">
+      <button (click)="deleteSelection()"
+              *appAuthorized="['management.delivery_point.delete']"
+              [disabled]="!selection.hasValue()"
+              aria-label="Delete"
+              mat-menu-item
+              type="button">
+      <mat-icon>delete_forever</mat-icon>
+      <span>Tout supprimer</span>
+    </button>
+  </mat-menu>
+  </span>
+</div>
+
+<mat-table [dataSource]="dataSource" [trackBy]="trackById" matSort>
+
+  <ng-container matColumnDef="select">
+    <mat-header-cell *matHeaderCellDef mat-header-cell style="flex: 0 0 50px;">
+      <mat-checkbox (change)="$event ? masterToggle() : null"
+                    *appAuthorized="['management.delivery_point.delete']"
+                    [checked]="selection.hasValue()"
+                    [indeterminate]="selection.hasValue() && !isAllSelected">
+      </mat-checkbox>
+    </mat-header-cell>
+    <mat-cell *matCellDef="let row" mat-cell style="flex: 0 0 50px;">
+      <mat-checkbox (change)="$event ? selection.toggle(row) : null"
+                    (click)="$event.stopPropagation()"
+                    *appAuthorized="['management.delivery_point.delete']"
+                    [checked]="selection.isSelected(row)">
+      </mat-checkbox>
+    </mat-cell>
+  </ng-container>
+
+  <ng-container cdkColumnDef="reference">
+    <mat-header-cell *cdkHeaderCellDef>Ref. point de livraison</mat-header-cell>
+    <mat-cell *cdkCellDef="let row">{{row.delivery_point?.reference}}</mat-cell>
+  </ng-container>
+
+  <ng-container cdkColumnDef="name">
+    <mat-header-cell *cdkHeaderCellDef>Dénomination</mat-header-cell>
+    <mat-cell *cdkCellDef="let row">{{row.delivery_point?.name}}</mat-cell>
+  </ng-container>
+
+  <ng-container cdkColumnDef="address">
+    <mat-header-cell *cdkHeaderCellDef>Adresse</mat-header-cell>
+    <mat-cell *cdkCellDef="let row">
+      {{row.delivery_point?.address }}
+    </mat-cell>
+  </ng-container>
+
+  <ng-container cdkColumnDef="code">
+    <mat-header-cell *cdkHeaderCellDef mat-sort-header>Code interne</mat-header-cell>
+    <mat-cell *cdkCellDef="let row">{{ row.delivery_point?.code || '-' }}</mat-cell>
+  </ng-container>
+
+  <ng-container cdkColumnDef="contract_reference">
+    <mat-header-cell *cdkHeaderCellDef>Référence du contrat</mat-header-cell>
+    <mat-cell *cdkCellDef="let row">{{ row.delivery_point?.contract.reference || '-' }}</mat-cell>
+  </ng-container>
+
+  <ng-container cdkColumnDef="total_consumption">
+    <mat-header-cell *cdkHeaderCellDef mat-sort-header>Consommation d'énergie annuelle</mat-header-cell>
+    <mat-cell *cdkCellDef="let row">
+      {{ row.total_consumption ? (row.total_consumption | amountConverter: 100) + ' kWh' : '-'}}
+    </mat-cell>
+  </ng-container>
+
+  <ng-container cdkColumnDef="total">
+    <mat-header-cell *cdkHeaderCellDef mat-sort-header>Budget prévisionnel annuel</mat-header-cell>
+    <mat-cell
+      *cdkCellDef="let row"> {{ row.total ? (row.total | amountConverter | number: '1.2-2') + ' €' : '-' }}</mat-cell>
+  </ng-container>
+
+  <ng-container cdkColumnDef="is_in_scope">
+    <mat-header-cell *cdkHeaderCellDef>Dans périmètre</mat-header-cell>
+    <mat-cell *cdkCellDef="let row">
+      <mat-icon *ngIf="row.delivery_point?.is_in_scope" class="enabled">done</mat-icon>
+      <mat-icon *ngIf="!row.delivery_point?.is_in_scope" class="disabled">clear</mat-icon>
+    </mat-cell>
+  </ng-container>
+
+  <ng-container cdkColumnDef="actions">
+    <mat-header-cell *cdkHeaderCellDef style="flex: 0 0 75px;">
+      <button (click)="openSelectionDialog()" *appAuthorized="['management.delivery_point.delete']"
+              aria-label="Settings" mat-icon-button type="button">
+        <mat-icon>settings</mat-icon>
+      </button>
+    </mat-header-cell>
+    <mat-cell *cdkCellDef="let row" style="flex: 0 0 75px;">
+      <ng-container *appAuthorized="['management.delivery_point.delete']">
+        <button (click)="$event.stopPropagation();" [matMenuTriggerFor]="actionMenu" aria-label="Actions"
+                mat-icon-button
+                type="button">
+          <mat-icon>more_vert</mat-icon>
+        </button>
+
+        <mat-menu #actionMenu="matMenu">
+          <button (click)="delete(row.id)"
+                  *appAuthorized="['management.delivery_point.delete']"
+                  aria-label="Supprimer"
+                  mat-menu-item
+                  type="button">
+            <mat-icon>delete</mat-icon>
+            <span>Supprimer</span>
+          </button>
+        </mat-menu>
+      </ng-container>
+    </mat-cell>
+  </ng-container>
+
+  <mat-header-row *cdkHeaderRowDef="displayedColumns; sticky: true"></mat-header-row>
+  <mat-row *cdkRowDef="let row; columns: displayedColumns; let even = even; let odd = odd"
+           [ngClass]="{'mat-row-even': even, 'mat-row-odd': odd}"
+           [queryResource]="['management.delivery_point.view']"
+           [routerLinkSecured]="'delivery/' + row.id">
+  </mat-row>
+</mat-table>
+
+<app-table-no-result
+  [style.display]="(dataSource.total === 0) ? '' : 'none'">
+</app-table-no-result>
+
+<mat-paginator
+  [length]="dataSource.total"
+  [pageIndex]="0"
+  [pageSizeOptions]="[25, 50, 75, 100]"
+  [pageSize]="25"
+  [style.display]="(dataSource.total === 0) ? 'none' : ''">
+</mat-paginator>
+

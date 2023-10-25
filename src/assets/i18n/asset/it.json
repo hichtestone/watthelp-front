@@ -1,0 +1,20 @@
+{
+  "breadcrumb": {
+    "title": "Elenco delle note di credito"
+  },
+  "list": {
+    "selected-assets": "Tutte le {{number}} note di credito in questa pagina sono state selezionate",
+    "select-all-assets": "Seleziona tutte le {{number}} note di credito",
+    "all-selected-assets": "Sono state selezionate tutte le {{number}} note di credito",
+    "invoice-reference": "Riferimento fattura",
+    "power-subscribed": "Power sottoscritto : "
+  },
+  "dialog": {
+    "export-excel": {
+      "title": "Esporta conferma excel",
+      "description": "Esportare note di credito in formato Excel?",
+      "success": "Il file Excel è stato generato con successo, sarà disponibile a breve nelle tue notifiche.",
+      "error": "Si è verificato un errore durante la generazione del file Excel."
+    }
+  }
+}

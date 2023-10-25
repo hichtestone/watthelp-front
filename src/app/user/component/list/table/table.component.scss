@@ -1,0 +1,49 @@
+.serial-numbers {
+  display: flex;
+  align-items: center;
+
+  mat-icon {
+    margin-right: 5px;
+  }
+
+  div {
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+.line-pictos {
+  height: 35px;
+}
+
+.avatar {
+  flex: 0 0 100px;
+  display: flex;
+  align-items: center;
+
+  .list-avatar {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    overflow: hidden;
+    position: relative;
+    border: 1px solid rgba(0, 0, 0, 0.45);
+
+    img {
+      object-fit: cover;
+      width: 100%;
+      height: 100%;
+    }
+
+    .no-avatar {
+      height: 100%;
+      width: 100%;
+    }
+  }
+}
+
+
+
+.flex-2 {
+  flex: 2;
+}

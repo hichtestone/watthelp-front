@@ -1,0 +1,160 @@
+<app-header
+  [icon]="'account_balance'"
+  [mode]="'list'"
+  [title]="title | transloco">
+</app-header>
+
+<div class="page-content">
+  <div class="vertical-mode">
+    <form [formGroup]="form">
+      <mat-tab-group class="vertical-tab-group" disableRipple="true">
+        <mat-tab>
+          <ng-template mat-tab-label>
+            <mat-icon>assignment</mat-icon>
+            {{'common.general-info' | transloco}}
+          </ng-template>
+          <mat-card>
+            <app-form-block title="{{'common.general-info' | transloco}}">
+              <div class="row">
+                <mat-form-field class="form-w50">
+                  <input formControlName="reference" matInput
+                         placeholder="{{'contract.list.reference' | transloco}}"
+                         required/>
+                  <mat-error *ngIf="form.controls.reference.invalid">
+                    <span *ngIf="form.controls.reference.errors.api">{{ form.controls.reference.errors.api }}</span>
+                    <span *ngIf="form.controls.reference.errors.required">{{'error.required-field' | transloco}}</span>
+                  </mat-error>
+                </mat-form-field>
+
+                <mat-form-field class="form-w50">
+                  <mat-label>{{'contract.list.provider' | transloco}}</mat-label>
+                  <mat-select formControlName="provider" required>
+                    <mat-option [value]="null">{{'contract.list.none' | transloco}}</mat-option>
+                    <mat-option *ngFor="let provider of providers" [value]="provider">
+                      {{provider | enumToLabel | transloco}}
+                    </mat-option>
+                  </mat-select>
+                  <mat-error *ngIf="form.controls.provider.invalid">
+                    <span *ngIf="form.controls.provider.errors.api">{{ form.controls.provider.errors.api }}</span>
+                    <span *ngIf="form.controls.provider.errors.required">{{'error.required-field' | transloco}}</span>
+                  </mat-error>
+                </mat-form-field>
+              </div>
+
+              <div class="row">
+                <mat-form-field class="form-w50">
+                  <mat-label>{{'common.type' | transloco}}</mat-label>
+                  <mat-select formControlName="type" required>
+                    <mat-option [value]="null">{{'contract.list.none' | transloco}}</mat-option>
+                    <mat-option value="regulated">{{'contract.list.regulated' | transloco}}</mat-option>
+                    <mat-option value="negotiated">{{'contract.list.negotiated' | transloco}}</mat-option>
+                  </mat-select>
+                  <mat-error *ngIf="form.controls.type.invalid">
+                    <span *ngIf="form.controls.type.errors.api">{{ form.controls.type.errors.api }}</span>
+                    <span *ngIf="form.controls.type.errors.required">{{'error.required-field' | transloco}}</span>
+                  </mat-error>
+                </mat-form-field>
+
+                <mat-form-field class="form-w50">
+                  <mat-label>{{'contract.list.invoice-period' | transloco}}</mat-label>
+                  <mat-select formControlName="invoice_period">
+                    <mat-option [value]="null">{{'contract.list.none' | transloco}}</mat-option>
+                    <mat-option *ngFor="let invoicePeriod of invoicePeriods" [value]="invoicePeriod">
+                      {{ invoicePeriod | invoicePeriodLabel | transloco}}
+                    </mat-option>
+                  </mat-select>
+                  <mat-error *ngIf="form.controls.invoice_period.invalid">
+                    <span *ngIf="form.controls.invoice_period.errors.api">
+                      {{ form.controls.invoice_period.errors.api }}
+                    </span>
+                    <span
+                      *ngIf="form.controls.invoice_period.errors.required">{{'error.required-field' | transloco}}</span>
+                  </mat-error>
+                </mat-form-field>
+              </div>
+            </app-form-block>
+
+            <app-form-block title="{{'common.period' | transloco}}">
+              <div class="row">
+                <mat-form-field class="form-w50">
+                  <mat-label>{{'contract.list.started-at' | transloco}}</mat-label>
+                  <input [matDatepicker]="started" formControlName="started_at" matInput required>
+                  <mat-datepicker-toggle [for]="started" matSuffix></mat-datepicker-toggle>
+                  <mat-datepicker #started></mat-datepicker>
+                  <mat-error *ngIf="form.controls.started_at.invalid" class="error">
+                <span *ngIf="form.controls.started_at.errors.unauthorizedDate">
+                   {{'error.unauthorized-date' | transloco}}
+                </span>
+                    <span *ngIf="form.controls.started_at.errors.api">{{ form.controls.started_at.errors.api }}</span>
+                    <span *ngIf="form.controls.started_at.errors.required">{{'error.required-field' | transloco}}</span>
+                  </mat-error>
+                </mat-form-field>
+
+                <mat-form-field class="form-w50">
+                  <mat-label>{{'contract.list.finished-at' | transloco}}</mat-label>
+                  <input [matDatepicker]="finished" formControlName="finished_at" matInput>
+                  <mat-datepicker-toggle [for]="finished" matSuffix></mat-datepicker-toggle>
+                  <mat-datepicker #finished></mat-datepicker>
+                  <mat-error *ngIf="form.controls.finished_at.invalid" class="error">
+                <span *ngIf="form.controls.finished_at.errors.unauthorizedDate">
+                  {{'error.unauthorized-date' | transloco}}
+                </span>
+                    <span *ngIf="form.controls.finished_at.errors.api">{{ form.controls.finished_at.errors.api }}</span>
+                  </mat-error>
+                </mat-form-field>
+              </div>
+            </app-form-block>
+          </mat-card>
+        </mat-tab>
+
+        <mat-tab *appAuthorized="['system.pricing.view']">
+          <ng-template mat-tab-label>
+            <mat-icon>euro_symbol</mat-icon>
+            {{'contract.list.contract-price' | transloco}}
+          </ng-template>
+          <mat-card>
+            <app-form-block title="{{'contract.list.new-price-on-contract' | transloco}}">
+              <div
+                *ngIf="(!!form.controls.type.value) || (pricingDropdownList && pricingDropdownList.length > 0); else noRates"
+                class="row">
+                <mat-form-field class="form-w50">
+                  <mat-select formControlName="rate" placeholder="{{'contract.list.price-field' | transloco}}">
+                    <mat-option *ngFor="let rate of pricingDropdownList" [value]="rate">
+                      {{ rate.name }} {{ rate.started_at | date: 'yyyy' }}/{{ rate.finished_at | date: 'yyyy'}}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+                <div *ngIf="!!form.controls.type.value && !!form.controls.rate.value" class="btn-add-rate">
+                  <a (click)="addItemForm(form.controls.rate.value)"
+                     color="primary" mat-raised-button>
+                    <mat-icon>add</mat-icon>
+                    {{'contract.list.add-selected-price' | transloco}}
+                  </a>
+                </div>
+              </div>
+              <ng-template #noRates>
+                <span class="no-content">{{'contract.list.no-price-found' | transloco}}</span>
+              </ng-template>
+            </app-form-block>
+
+            <app-form-block title="{{'contract.list.contract-price' | transloco}}">
+              <app-rate-table #paginatorRate
+                              (deleteSelected)="onDelete($event)"
+                              [dataSourceRate]="dataSourceRate">
+              </app-rate-table>
+            </app-form-block>
+          </mat-card>
+        </mat-tab>
+
+      </mat-tab-group>
+      <button (click)="submit()"
+              *appAuthorized="['management.contract.edit']"
+              [disabled]="form.invalid"
+              class="btn-save"
+              color="warn" mat-fab
+              type="submit">
+        <mat-icon>check circle</mat-icon>
+      </button>
+    </form>
+  </div>
+</div>

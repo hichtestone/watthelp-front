@@ -1,0 +1,16 @@
+<button (click)="onClick($event)"
+        [color]="color"
+        [disabled]="disabled || loading"
+        [type]="type"
+        class="action-button"
+        mat-raised-button>
+  <mat-progress-spinner
+    *ngIf="loading"
+    [diameter]="18"
+    class="login-spinner"
+    mode="indeterminate"></mat-progress-spinner>
+  <span *ngIf="loading; else loaded">{{ labelLoading }}</span>
+  <ng-template #loaded>
+    <span>{{ label }}</span>
+  </ng-template>
+</button>

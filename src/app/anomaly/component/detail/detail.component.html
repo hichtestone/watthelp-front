@@ -1,0 +1,36 @@
+<app-header
+  [icon]="'gps_fixed'"
+  [mode]="'list'"
+  title="{{'anomaly.breadcrumb.detail' | transloco}}">
+</app-header>
+<div class="page-content">
+  <div class="vertical-mode">
+    <mat-tab-group class="vertical-tab-group" disableRipple=true>
+      <mat-tab>
+        <ng-template mat-tab-label>
+          <mat-icon>assignment</mat-icon>
+          {{'common.general-info' | transloco}}
+        </ng-template>
+        <app-general-info
+          (patchStatus)="patchStatus()"
+          [anomaly]="anomaly"
+          [formNote]="formNote"
+          [form]="form"
+        ></app-general-info>
+      </mat-tab>
+
+      <mat-tab>
+        <ng-template mat-tab-label>
+          <mat-icon>message</mat-icon>
+          {{'anomaly.list.comments' | transloco}}
+        </ng-template>
+        <app-comment
+          (postComment)="postComment()"
+          [currentUser]="currentUser"
+          [formNote]="formNote"
+          [notes]="notes"
+        ></app-comment>
+      </mat-tab>
+    </mat-tab-group>
+  </div>
+</div>

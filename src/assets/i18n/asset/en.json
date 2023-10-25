@@ -1,0 +1,20 @@
+{
+  "breadcrumb": {
+    "title": "Assets list"
+  },
+  "list": {
+    "selected-assets": "All {{number}} assets on this page are selected",
+    "select-all-assets": "Select all {{number}} assets",
+    "all-selected-assets": "All the {{number}} assets have been selected",
+    "invoice-reference": "Invoice reference",
+    "power-subscribed": "Power subscribed : "
+  },
+  "dialog": {
+    "export-excel": {
+      "title": "Export excel confirmation",
+      "description": "Export assets to excel format ?",
+      "success": "The Excel file has been generated successfully, it will be available shortly in your notifications.",
+      "error": "An error occurred while generating the Excel file."
+    }
+  }
+}

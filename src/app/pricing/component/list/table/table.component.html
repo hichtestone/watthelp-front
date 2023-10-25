@@ -1,0 +1,133 @@
+<div *ngIf="isDisplayActions" [ngClass]="{'list-action': selection.hasValue() }">
+  <span *ngIf="selection.hasValue() && !selection.isSelected('*')" class="selected-count">
+    {{'pricing.list.selected-pricing' | transloco : {number: selection.isSelected('*') ? dataSource.total : selection.selected.length} }}
+    <span
+      *ngIf="selection.selected.length == paginator.pageSize && dataSource.total > selection.selected.length && !selection.isSelected('*')"
+      class="selected-count">
+        <a
+          (click)="selectAll()"><strong>{{'pricing.list.select-all-pricing' | transloco : {number: dataSource.total} }}</strong></a>
+  </span>
+  </span>
+  <span *ngIf="selection.isSelected('*')"
+        class="selected-count">{{'pricing.list.all-selected-pricing' | transloco : {number: dataSource.total} }}</span>
+  <span *ngIf="selection.selected.length > 0">
+    <button *appAuthorized="['system.pricing.export']"
+            [matMenuTriggerFor]="tableOptions"
+            mat-icon-button>
+      <mat-icon>more_vert</mat-icon>
+    </button>
+    <mat-menu #tableOptions="matMenu">
+      <button
+        (click)="exportExcel.emit(selection)"
+        *appAuthorized="['system.pricing.export']"
+        [disabled]="!selection.hasValue()"
+        aria-label="Excel"
+        mat-menu-item
+        type="button">
+        <mat-icon>view_list</mat-icon>
+         <span>{{'button.export-excel-invoice' | transloco}}</span>
+      </button>
+    </mat-menu>
+  </span>
+</div>
+
+<mat-table [dataSource]="dataSource" [trackBy]="trackById" matSort>
+
+  <ng-container matColumnDef="select">
+    <mat-header-cell *matHeaderCellDef>
+      <ng-container *ngIf="isDisplayActions">
+        <mat-checkbox (change)="$event ? masterToggle() : null"
+                      *appAuthorized="['system.pricing.export']"
+                      [checked]="selection.hasValue()"
+                      [indeterminate]="selection.hasValue() && !isAllSelected">
+        </mat-checkbox>
+      </ng-container>
+
+    </mat-header-cell>
+    <mat-cell *matCellDef="let row">
+      <ng-container *ngIf="isDisplayActions">
+        <mat-checkbox (change)="$event ? selection.toggle(row) : null"
+                      (click)="$event.stopPropagation()"
+                      *appAuthorized="['system.pricing.export']"
+                      [checked]="selection.isSelected(row)">
+        </mat-checkbox>
+      </ng-container>
+    </mat-cell>
+  </ng-container>
+
+  <ng-container cdkColumnDef="name">
+    <mat-header-cell *cdkHeaderCellDef mat-sort-header>{{'common.name' | transloco}}</mat-header-cell>
+    <mat-cell *cdkCellDef="let row">{{ row.name }}</mat-cell>
+  </ng-container>
+
+  <ng-container cdkColumnDef="type">
+    <mat-header-cell *cdkHeaderCellDef mat-sort-header>{{'common.type' | transloco}}</mat-header-cell>
+    <mat-cell *cdkCellDef="let row">{{ row.type | enumToLabel | transloco}}</mat-cell>
+  </ng-container>
+
+  <ng-container cdkColumnDef="started_at">
+    <mat-header-cell *cdkHeaderCellDef mat-sort-header>{{'common.started-at' | transloco}}</mat-header-cell>
+    <mat-cell *cdkCellDef="let row">
+      {{ row.started_at | date: 'dd/MM/yyyy' }}
+    </mat-cell>
+  </ng-container>
+
+  <ng-container cdkColumnDef="finished_at">
+    <mat-header-cell *cdkHeaderCellDef mat-sort-header>{{'common.finished-at' | transloco}}</mat-header-cell>
+    <mat-cell *cdkCellDef="let row">
+      {{ row.finished_at | date: 'dd/MM/yyyy' }}
+    </mat-cell>
+  </ng-container>
+
+  <ng-container cdkColumnDef="actions">
+    <mat-header-cell *cdkHeaderCellDef style="flex: 0 0 75px;">
+      <ng-container *ngIf="isDisplayActions">
+        <button (click)="openSelectionDialog()" aria-label="Settings" mat-icon-button type="button">
+          <mat-icon>settings</mat-icon>
+        </button>
+      </ng-container>
+    </mat-header-cell>
+    <mat-cell *cdkCellDef="let row" style="flex: 0 0 75px;">
+      <ng-container *ngIf="isDisplayActions">
+        <ng-container *appAuthorized="['system.pricing.delete', 'system.pricing.export']">
+          <button (click)="$event.stopPropagation();" [matMenuTriggerFor]="actionMenu" aria-label="Actions"
+                  mat-icon-button
+                  type="button">
+            <mat-icon>more_vert</mat-icon>
+          </button>
+
+          <mat-menu #actionMenu="matMenu">
+            <button (click)="delete(row.id)"
+                    *appAuthorized="['system.pricing.delete']"
+                    aria-label="Supprimer"
+                    mat-menu-item
+                    type="button">
+              <mat-icon>delete</mat-icon>
+              <span>{{'button.delete' | transloco}}</span>
+            </button>
+          </mat-menu>
+        </ng-container>
+      </ng-container>
+    </mat-cell>
+  </ng-container>
+
+  <mat-header-row *cdkHeaderRowDef="displayedColumns; sticky: true"></mat-header-row>
+  <mat-row *cdkRowDef="let row; columns: displayedColumns; let even = even; let odd = odd"
+           [class.loading]="dataSource.loading"
+           [ngClass]="{'mat-row-even': even, 'mat-row-odd': odd}"
+           [queryResource]="['system.pricing.view']"
+           [routerLinkSecured]="'/pricing/' + row.id"
+           [style.background-color]="backgroundColor(row.started_at, row.finished_at)">
+  </mat-row>
+</mat-table>
+<app-table-no-result
+  [style.display]="(dataSource.total == 0 && !dataSource.loading) ? '' : 'none'">
+</app-table-no-result>
+
+<mat-paginator
+  [length]="dataSource.total"
+  [pageIndex]="0"
+  [pageSizeOptions]="[25, 50, 75, 100]"
+  [pageSize]="25"
+  [style.display]="(dataSource.total === 0) ? 'none' : ''">
+</mat-paginator>

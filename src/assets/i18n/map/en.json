@@ -1,0 +1,6 @@
+{
+  "breadcrumb": "Map",
+  "title": "Delivery points map",
+  "delivery-point-in-scope": "{{number}} delivery point(s) in scope",
+  "delivery-point-out-of-scope": "{{number}} delivery point(s) out of scope"
+}

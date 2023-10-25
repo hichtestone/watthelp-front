@@ -1,0 +1,15 @@
+<mat-card>
+  <mat-card-content>
+    <form [formGroup]="form" class="map-filters">
+      <mat-form-field>
+        <mat-label>{{'core.widget.label-field' | transloco}}</mat-label>
+        <input formControlName="label" matInput required>
+        <mat-error *ngIf="form.controls.label.invalid">
+          <span *ngIf="form.controls.label.errors.required">
+            {{'error.required-field' | transloco}}
+          </span>
+        </mat-error>
+      </mat-form-field>
+    </form>
+  </mat-card-content>
+</mat-card>

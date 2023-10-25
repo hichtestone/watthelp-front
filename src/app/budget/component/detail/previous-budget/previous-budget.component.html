@@ -1,0 +1,44 @@
+<div *ngIf="previousBudgetData; else noData">
+  <form [formGroup]="form">
+    <div class="row">
+      <mat-form-field class="form-w50">
+        <mat-label>Budget consommé calculé</mat-label>
+        <input formControlName="calculated_amount" matInput type="text">
+        <span matSuffix><mat-icon>euro_symbol</mat-icon></span>
+      </mat-form-field>
+
+      <mat-form-field class="form-w50">
+        <mat-label>Consommation calculée</mat-label>
+        <input formControlName="calculated_quantity" matInput type="text">
+        <span matSuffix>kWh</span>
+      </mat-form-field>
+    </div>
+
+    <div class="row">
+      <mat-form-field class="form-w50">
+        <mat-label>Consommation d'énergie annuelle</mat-label>
+        <input formControlName="total_consumption" matInput type="text">
+        <span matSuffix>kWh</span>
+      </mat-form-field>
+
+      <mat-form-field class="form-w50">
+        <mat-label>Budget prévisionnel annuel</mat-label>
+        <input formControlName="total_amount" matInput type="text">
+        <span matSuffix><mat-icon>euro_symbol</mat-icon></span>
+      </mat-form-field>
+    </div>
+
+    <div class="row">
+      <mat-form-field class="form-w50">
+        <mat-label>Année</mat-label>
+        <input formControlName="year" matInput type="text">
+      </mat-form-field>
+    </div>
+  </form>
+</div>
+
+<ng-template #noData>
+  <span class="no-data">
+    Aucun budget de l'année dernière trouvé
+  </span>
+</ng-template>

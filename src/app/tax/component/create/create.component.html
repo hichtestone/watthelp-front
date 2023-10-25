@@ -1,0 +1,140 @@
+<app-header
+  [icon]="'account_balance'"
+  [mode]="'list'"
+  [title]="title | transloco">
+</app-header>
+
+<div class="page-content">
+  <div class="vertical-mode">
+    <form [formGroup]="form">
+      <mat-tab-group class="vertical-tab-group" disableRipple="true">
+
+        <mat-tab>
+          <ng-template mat-tab-label>
+            <mat-icon>assignment</mat-icon>
+            {{'common.general-info' | transloco}}
+          </ng-template>
+          <mat-card>
+            <app-form-block title=" {{'common.general-info' | transloco}}">
+              <div class="row">
+                <mat-form-field class="form-w50">
+                  <input
+                    decimal="true"
+                    decimalSeparator="."
+                    digitOnly
+                    formControlName="cspe" matInput
+                    placeholder="CSPE"
+                    required
+                    type="text">
+                  <span matSuffix>cts €/kWh</span>
+                  <mat-error *ngIf="form.controls.cspe.invalid">
+                    <span *ngIf="form.controls.cspe.errors.api">{{ form.controls.cspe.errors.api }}</span>
+                    <span *ngIf="form.controls.cspe.errors.required">Champ obligatoire</span>
+                    <span
+                      *ngIf="form.controls.cspe.errors.pattern">{{'error.decimal-input' | transloco : {number: 5} }}</span>
+                  </mat-error>
+                </mat-form-field>
+
+                <mat-form-field class="form-w50">
+                  <input
+                    decimal="true"
+                    decimalSeparator="."
+                    digitOnly
+                    formControlName="tdcfe" matInput
+                    placeholder="TDCFE"
+                    required
+                    type="text">
+                  <span matSuffix>cts €/kWh</span>
+                  <mat-error *ngIf="form.controls.tdcfe.invalid">
+                    <span *ngIf="form.controls.tdcfe.errors.api">{{ form.controls.tdcfe.errors.api }}</span>
+                    <span *ngIf="form.controls.tdcfe.errors.required">{{'error.required-field' | transloco}}</span>
+                    <span
+                      *ngIf="form.controls.tdcfe.errors.pattern">{{'error.decimal-input' | transloco : {number: 5} }}</span>
+                  </mat-error>
+                </mat-form-field>
+              </div>
+
+              <div class="row">
+                <mat-form-field class="form-w50">
+                  <input
+                    decimal="true"
+                    decimalSeparator="."
+                    digitOnly
+                    formControlName="tccfe" matInput
+                    placeholder="TCCFE"
+                    required
+                    type="text">
+                  <span matSuffix>cts €/kWh</span>
+                  <mat-error *ngIf="form.controls.tccfe.invalid">
+                    <span *ngIf="form.controls.tccfe.errors.api">{{ form.controls.tccfe.errors.api }}</span>
+                    <span *ngIf="form.controls.tccfe.errors.required">{{'error.required-field' | transloco}}</span>
+                    <span
+                      *ngIf="form.controls.tccfe.errors.pattern">{{'error.decimal-input' | transloco : {number: 5} }}</span>
+                  </mat-error>
+                </mat-form-field>
+
+                <mat-form-field class="form-w50">
+                  <input
+                    decimal="true"
+                    decimalSeparator="."
+                    digitOnly
+                    formControlName="cta" matInput
+                    placeholder="CTA"
+                    required
+                    type="text">
+                  <span matSuffix>%</span>
+                  <mat-error *ngIf="form.controls.cta.invalid">
+                    <span *ngIf="form.controls.cta.errors.api">{{ form.controls.cta.errors.api }}</span>
+                    <span *ngIf="form.controls.cta.errors.required">{{'error.required-field' | transloco}}</span>
+                    <span
+                      *ngIf="form.controls.cta.errors.pattern">{{'error.decimal-input' | transloco : {number: 2} }}</span>
+                  </mat-error>
+                </mat-form-field>
+              </div>
+            </app-form-block>
+
+            <app-form-block title="{{'common.period' | transloco}}">
+              <div class="row">
+                <mat-form-field class="form-w50">
+                  <mat-label>{{'common.started-at' | transloco}}</mat-label>
+                  <input [matDatepicker]="started" formControlName="started_at" matInput required>
+                  <mat-datepicker-toggle [for]="started" matSuffix></mat-datepicker-toggle>
+                  <mat-datepicker #started></mat-datepicker>
+                  <mat-error *ngIf="form.controls.started_at.invalid" class="error">
+                <span *ngIf="form.controls.started_at.errors.unauthorizedDate">
+                  {{'error.unauthorized-date' | transloco}}
+                </span>
+                    <span *ngIf="form.controls.started_at.errors.api">{{ form.controls.started_at.errors.api }}</span>
+                    <span *ngIf="form.controls.started_at.errors.required">{{'error.required-field' | transloco}}</span>
+                  </mat-error>
+                </mat-form-field>
+
+                <mat-form-field class="form-w50">
+                  <mat-label>{{'common.finished-at' | transloco}}</mat-label>
+                  <input [matDatepicker]="finished" formControlName="finished_at" matInput required>
+                  <mat-datepicker-toggle [for]="finished" matSuffix></mat-datepicker-toggle>
+                  <mat-datepicker #finished></mat-datepicker>
+                  <mat-error *ngIf="form.controls.finished_at.invalid" class="error">
+                <span *ngIf="form.controls.finished_at.errors.unauthorizedDate">
+                  {{'error.unauthorized-date' | transloco}}
+                </span>
+                    <span *ngIf="form.controls.finished_at.errors.api">{{ form.controls.finished_at.errors.api }}</span>
+                    <span
+                      *ngIf="form.controls.finished_at.errors.required">{{'error.required-field' | transloco}}</span>
+                  </mat-error>
+                </mat-form-field>
+              </div>
+            </app-form-block>
+          </mat-card>
+        </mat-tab>
+
+      </mat-tab-group>
+      <button (click)="submit()" *appAuthorized="['system.tax.edit']" [disabled]="form.invalid" class="btn-save"
+              color="warn" mat-fab
+              type="submit">
+        <mat-icon>check circle</mat-icon>
+      </button>
+    </form>
+  </div>
+</div>
+

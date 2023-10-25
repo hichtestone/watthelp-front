@@ -1,0 +1,86 @@
+<mat-table [dataSource]="dataSource" [trackBy]="trackById" matSort>
+  <ng-container cdkColumnDef="name">
+    <mat-header-cell *cdkHeaderCellDef mat-sort-header>{{'common.name' | transloco}}</mat-header-cell>
+    <mat-cell *cdkCellDef="let row">
+      {{ row.name }}
+    </mat-cell>
+  </ng-container>
+  <ng-container cdkColumnDef="description">
+    <mat-header-cell *cdkHeaderCellDef> {{'common.description' | transloco}}</mat-header-cell>
+    <mat-cell *cdkCellDef="let row">
+      {{row.description | truncate: lengthLimit : true : true}}
+    </mat-cell>
+  </ng-container>
+  <ng-container cdkColumnDef="created_at">
+    <mat-header-cell *cdkHeaderCellDef mat-sort-header>{{'common.creation-date' | transloco}}</mat-header-cell>
+    <mat-cell *cdkCellDef="let row">
+      {{ row.created_at | date: 'dd/MM/yyyy à HH:mm' }}
+    </mat-cell>
+  </ng-container>
+  <ng-container cdkColumnDef="updated_at">
+    <mat-header-cell *cdkHeaderCellDef mat-sort-header>{{'common.last-update' | transloco}}</mat-header-cell>
+    <mat-cell *cdkCellDef="let row">
+      {{ row.updated_at | date: 'dd/MM/yyyy à HH:mm' }}
+    </mat-cell>
+  </ng-container>
+  <ng-container cdkColumnDef="actions">
+    <mat-header-cell *cdkHeaderCellDef style="flex: 0 0 75px;">
+      <button (click)="openSelectionDialog()" aria-label="Settings" mat-icon-button type="button">
+        <mat-icon>settings</mat-icon>
+      </button>
+    </mat-header-cell>
+    <mat-cell *cdkCellDef="let row" style="flex: 0 0 75px;">
+      <ng-container *appAuthorized="['system.role.edit', 'system.role.delete']">
+        <button (click)="$event.stopPropagation();" [matMenuTriggerFor]="actionMenu" aria-label="Actions"
+                mat-icon-button
+                type="button">
+          <mat-icon>more_vert</mat-icon>
+        </button>
+
+        <mat-menu #actionMenu="matMenu">
+          <button (click)="duplicateSelected.emit(row.id)" *appAuthorized="['system.role.edit']"
+                  aria-label="Dupliquer"
+                  mat-menu-item
+                  type="button">
+            <mat-icon>filter_none</mat-icon>
+            <span>{{'button.duplicate' | transloco}}</span>
+          </button>
+
+          <ng-container *appAuthorized="['system.role.delete']">
+            <div [matTooltipDisabled]="row.users.length === 0"
+                 matTooltip="Impossible de supprimer ce rôle. Des utilisateurs sont encore attachés dessus.">
+              <button (click)="deleteSelected.emit(row.id)"
+                      [disabled]="row.users.length > 0"
+                      aria-label="Supprimer"
+                      mat-menu-item
+                      type="button">
+                <mat-icon>delete</mat-icon>
+                <span>{{'button.delete' | transloco}}</span>
+              </button>
+            </div>
+          </ng-container>
+        </mat-menu>
+      </ng-container>
+    </mat-cell>
+  </ng-container>
+
+  <mat-header-row *cdkHeaderRowDef="displayedColumns; sticky: true"></mat-header-row>
+  <mat-row *cdkRowDef="let row; columns: displayedColumns; let even = even; let odd = odd; let index = index;"
+           [class.loading]="dataSource.loading"
+           [ngClass]="{'mat-row-even': even, 'mat-row-odd': odd}"
+           [queryResource]="['system.role.view']"
+           [routerLinkSecured]="row.id">
+  </mat-row>
+</mat-table>
+
+<app-table-no-result
+  [style.display]="(dataSource.total === 0 && !dataSource.loading) ? '' : 'none'">
+</app-table-no-result>
+
+<mat-paginator
+  [length]="dataSource.total"
+  [pageIndex]="0"
+  [pageSizeOptions]="[25, 50, 75, 100]"
+  [pageSize]="25"
+  [style.display]="(dataSource.total === 0) ? 'none' : ''">
+</mat-paginator>

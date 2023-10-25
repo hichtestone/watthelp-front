@@ -1,0 +1,53 @@
+{
+  "toolbar-menu": {
+    "home": "Accueil",
+    "management": {
+      "label": "Gestion",
+      "submenu": {
+        "contracts": "Contrats",
+        "delivery-points": "Points de livraison",
+        "cartography": "Cartographie",
+        "billing": "Données de facturation",
+        "budget": "Budgets"
+      }
+    },
+    "analysis": {
+      "label": "Analyse",
+      "submenu": {
+        "report": "Rapport",
+        "anomaly": "Alertes",
+        "asset": "Avoirs"
+      }
+    },
+    "system": {
+      "label": "Système",
+      "submenu": {
+        "taxes": "Taxes",
+        "prices": "Tarifs",
+        "users": "Utilisateurs",
+        "role-management": "Gestion des rôles"
+      }
+    },
+    "logout": "Se déconnecter",
+    "import-report": "Rapport d'import",
+    "profile": "Mon profil",
+    "language-dialog": {
+      "title": "Changement de langue",
+      "content": "Vous êtes sur le point de changer la langue de toute l'application.<br><br>Êtes-vous sûr de vouloir continuer ?",
+      "confirm": "Oui",
+      "cancel": "Non"
+    },
+    "notification-bar": {
+      "title": "Notifications",
+      "mark-all-read": "Tout marquer comme lu",
+      "read-all": "Voir tout",
+      "no-message": "Vous n'avez aucune notification",
+      "download-tooltip": "Cliquez sur l'icône pour télécharger le fichier.",
+      "detail-tooltip": "Cliquez sur l'icône pour voir le détail.",
+      "progress": "Avancement : en cours ...",
+      "see-more": "Voir plus",
+      "see-less": "Résuire",
+      "update-error": "Une erreur est survenue lors de la mise à jour de vos notifications."
+    }
+  }
+}

@@ -1,0 +1,40 @@
+<h2 mat-dialog-title>{{title}}</h2>
+<mat-dialog-content>
+  <form [formGroup]="form">
+    <div class="upload-zone">
+      <button (click)="triggerChangeFile()" mat-raised-button>
+        <mat-icon class="mat-12">file_upload</mat-icon>
+        <span *ngIf="fileInput">{{fileLabel}}</span>
+        <span *ngIf="!fileInput">
+              {{ isLoading ? ('common.loading' | transloco) : ('common.select-file' | transloco)}}
+            </span>
+        <mat-progress-spinner
+          *ngIf="isLoading"
+          [diameter]="18"
+          class="login-spinner"
+          mode="indeterminate">
+        </mat-progress-spinner>
+      </button>
+      <input #fileInputRef (change)="onFileChange($event)"
+             [accept]="acceptSheetType"
+             formControlName="file"
+             id="file"
+             style="display: none;"
+             type="file"/>
+      <mat-error *ngIf="form.controls.file.invalid" class="error">
+        <span *ngIf="form.controls.file.errors.api">{{form.controls.file.errors.api}}</span>
+      </mat-error>
+    </div>
+  </form>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-dialog-close="cancel" mat-stroked-button>{{'button.cancel' | transloco}}</button>
+  <button (click)="submit()"
+          [disabled]="!fileInput || isLoading"
+          color="primary"
+          mat-raised-button
+          type="submit">
+    {{'button.import' | transloco}}
+  </button>
+</mat-dialog-actions>

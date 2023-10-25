@@ -1,0 +1,41 @@
+<app-widget (resizeWidget)="resize($event)"
+            [isLoading]="isLoading"
+            svgIcon="bar-stats"
+            title="{{config.label}}">
+
+  <div [class.voted]="flipped" class="rotate" id="rotate">
+    <!-- Graph -->
+    <div [style.display]="!flipped ? '' : 'none'" class="front">
+      <div class="chart-content" id="{{id}}"></div>
+
+      <div class="legend-container">
+        <div class="legend-item">
+          <div class="legend-color dodgerblue"></div>
+          <div class="legend-text">Abonnement</div>
+        </div>
+
+        <div class="legend-item">
+          <div class="legend-color black"></div>
+          <div class="legend-text">Consommation</div>
+        </div>
+
+        <div class="legend-item">
+          <div class="legend-color orange"></div>
+          <div class="legend-text">Taxes</div>
+        </div>
+      </div>
+
+
+    </div>
+
+    <!-- Settings -->
+    <div [style.display]="flipped ? '' : 'none'">
+      <div class="back">
+        <app-widget-period
+          (valueChange)="filterChange($event)"
+          [config]="config">
+        </app-widget-period>
+      </div>
+    </div>
+  </div>
+</app-widget>

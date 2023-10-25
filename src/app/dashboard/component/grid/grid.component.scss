@@ -1,0 +1,93 @@
+.no-dashboard {
+  width: 100%;
+  height: calc(100% - 124px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  .wrapper {
+    width: 100%;
+    text-align: center;
+
+    img {
+      width: 30%;
+
+      @media only screen and (max-width: 700px) {
+        width: 80%;
+      }
+    }
+
+    h2 {
+      @media only screen and (max-width: 700px) {
+        font-size: 1.2em;
+      }
+    }
+
+    button {
+      margin-top: 20px;
+    }
+  }
+}
+
+
+.grid-view {
+  background-color: transparent !important;
+
+  .gridster-row {
+    border: 1px transparent;
+  }
+
+  .gridster-column {
+    border: 1px transparent;
+  }
+}
+
+.grid-view::-webkit-scrollbar {
+  display: none;
+}
+
+.grid-edit {
+  background-color: transparent !important;
+
+  .gridster-row {
+    border: 1px dotted grey;
+  }
+
+  .gridster-column {
+    border: 1px dotted grey;
+  }
+}
+
+gridster-item {
+  background-color: transparent !important;
+  overflow: visible !important;
+}
+
+.widget-overlay {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(255, 255, 255, 0.7);
+  justify-content: center;
+  align-items: center;
+  display: flex;
+}
+
+.setting-menu {
+  float: right;
+}
+
+.more-menu {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+/**
+ * Hack to remove 1 of double scroll zone
+ */
+gridster {
+  position: inherit !important;
+}

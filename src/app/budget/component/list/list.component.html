@@ -1,0 +1,14 @@
+<app-generic-list
+  (createButtonSelected)="openCreateDialog()"
+  (uploadButtonSelected)="openImportDialog()"
+  [actionCreate]="actionCreateBudget"
+  [actionImport]="actionImport"
+  [withFilter]="false"
+  headerIcon="show_chart"
+  headerTitle="Liste des budgets">
+  <app-budget-table #table
+                    (deleteSelected)="remove($event)"
+                    (exportExcel)="onExportBudgetToExcel($event)"
+                    [dataSource]="dataSource">
+  </app-budget-table>
+</app-generic-list>

@@ -1,0 +1,71 @@
+<button [matMenuTriggerFor]="notificationMenu" mat-icon-button>
+  <div class="ring-bell">
+    <app-nav-bar-ring-bell
+      [countUnread]="countUnread"
+      [newNotification]="newNotification">
+    </app-nav-bar-ring-bell>
+  </div>
+</button>
+
+<mat-menu #notificationMenu="matMenu" [overlapTrigger]="false" class="navigation-bar">
+  <div class="notification-header">
+    <h2>{{'layout.toolbar-menu.notification-bar.title' | transloco}}</h2>
+  </div>
+  <div *ngIf="notifications.length > 0; else noNotifications">
+    <div class="notification-content">
+      <div *ngFor="let notification of notifications">
+        <div (click)="markAsRead($event, notification.id)"
+             [ngClass]="notification.is_read ? 'notification-read' : 'notification-unread'"
+             class="notification-line">
+          <div class="notification-message">
+            {{notification.message | truncate: messageLimit : completeWord : showAll}}
+
+            <span *ngIf="notification.message.length >= messageLimit">
+                <a (click)="triggerReadMore()" [hidden]="showAll">
+                  {{'layout.toolbar-menu.notification-bar.see-more' | transloco}}
+                </a>
+
+                <a (click)="triggerReadMore()" [hidden]="!showAll">
+                  {{'layout.toolbar-menu.notification-bar.see-less' | transloco}}
+                </a>
+              </span>
+
+
+            <div *ngIf="!!notification.progress && notification.progress < 100"
+                 class="progress-bar">
+              <small>{{'layout.toolbar-menu.notification-bar.pogress' | transloco}} <strong>{{notification.progress}}%</strong></small>
+              <mat-progress-bar [value]="notification.progress" mode="buffer"></mat-progress-bar>
+            </div>
+            <div class="notification-date">{{ notification.created_at | amLocale:'fr' | amTimeAgo }}</div>
+          </div>
+          <ng-container>
+            <a *ngIf="!!notification.data" class="notification-url">
+              <mat-icon (click)="goToDetail(notification.data)"
+                        matTooltip="{{'layout.toolbar-menu.notification-bar.detail-tooltip' | transloco}}">
+                open_in_browser
+              </mat-icon>
+            </a>
+            <a *ngIf="notification.url" [href]="notification.url"
+               target="_blank">
+              <mat-icon matTooltip="{{'layout.toolbar-menu.notification-bar.download-tooltip' | transloco}}">attach_file</mat-icon>
+            </a>
+          </ng-container>
+        </div>
+        <mat-divider></mat-divider>
+      </div>
+    </div>
+    <div class="notification-actions">
+      <div>
+        <a (click)="markAllAsRead()" class="notification-button first" mat-button>
+          {{'layout.toolbar-menu.notification-bar.mark-all-read' | transloco}}
+        </a>
+        <a [routerLink]="[currentRootPath + '/notification']" class="notification-button" mat-button>
+          {{'layout.toolbar-menu.notification-bar.read-all' | transloco}}
+        </a>
+      </div>
+    </div>
+  </div>
+  <ng-template #noNotifications>
+    <div class="no-notifications">{{'layout.toolbar-menu.notification-bar.no-message' | transloco}}</div>
+  </ng-template>
+</mat-menu>

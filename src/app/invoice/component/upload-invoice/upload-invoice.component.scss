@@ -1,0 +1,19 @@
+.supplier-info {
+  width: 270px;
+  min-height: 34px;
+  line-height: 17px;
+}
+
+.upload-zone {
+  margin: 35px 0 0 0;
+
+  .error-message {
+    color: red;
+    padding: 12px;
+    max-width: 360px;
+  }
+
+  button {
+    width: 100%;
+  }
+}

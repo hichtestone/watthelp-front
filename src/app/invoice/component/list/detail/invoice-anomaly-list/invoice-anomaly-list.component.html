@@ -1,0 +1,8 @@
+<app-invoice-anomaly-table
+  #table
+  (deleteSelection)="remove($event)"
+  (exportExcel)="onExportAnomaliesToExcel($event)"
+  [canDownloadInvoice]="canDownloadInvoice"
+  [dataSource]="anomalyDataSource"
+  [externalInvoiceRouteAccess]="true">
+</app-invoice-anomaly-table>

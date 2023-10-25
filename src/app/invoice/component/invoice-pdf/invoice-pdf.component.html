@@ -1,0 +1,10 @@
+<div class="container">
+  <app-upload-file
+    (pdfUploaded)="pdfUpload($event)"
+    [fieldTitle]="fieldTitle"
+    [fileInput]="file"
+    [showControls]=showControls
+    loadingLabel="{{'invoice.dialog.upload.loading'}}">
+  </app-upload-file>
+</div>
+

@@ -1,0 +1,42 @@
+@import "../../../../styles/variables";
+
+.breadcrumb {
+  margin: 0;
+  padding: 0 0 15px 0;
+
+  li {
+    display: inline;
+
+    + li::before {
+      display: inline-block;
+      padding-right: .5rem;
+      padding-left: .5rem;
+      color: $primary-text-color;
+      content: ">";
+    }
+
+    a,
+    a:visited,
+    a:hover {
+      color: $primary-text-color;
+      text-decoration: none;
+      font-size: 14px;
+    }
+
+    span {
+      color: $primary-text-color;
+      font-size: 14px;
+      line-height: 1.5;
+      font-weight: 300;
+      outline: none;
+      text-align: -webkit-match-parent;
+      text-align: match-parent;
+    }
+
+    :last-child {
+      mat-icon {
+        display: none;
+      }
+    }
+  }
+}

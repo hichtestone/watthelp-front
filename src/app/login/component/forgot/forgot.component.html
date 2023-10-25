@@ -1,0 +1,30 @@
+<h2 class="title">Mot de passe oublié ?</h2>
+
+<p *ngIf="isSuccess" class="global-success">
+  Nous vous avons envoyé un e-mail contenant un lien qui vous permettra de réinitialiser votre mot de passe.<br/>
+  <br/>
+  Si vous ne recevez pas cet e-mail d'ici quelques minutes, veuillez réessayer.
+</p>
+
+<form (ngSubmit)="submit()" [formGroup]="form" class="form-signin">
+  <mat-form-field>
+    <input formControlName="email" matInput placeholder="Email"/>
+    <mat-icon matSuffix>email</mat-icon>
+    <mat-error *ngIf="form.get('email').invalid" class="error">
+      <span *ngIf="form.get('email').errors.required">Email obligatoire.</span>
+      <span *ngIf="form.get('email').errors.email">Cet email n'est pas valide.</span>
+      <span *ngIf="form.get('email').errors.api">{{ form.get('email').errors.api }}</span>
+    </mat-error>
+  </mat-form-field>
+  <div class="button">
+    <app-action-button [disabled]="form.invalid"
+                       [loading]="isLoading"
+                       label="Continuer"
+                       labelLoading="Envoi en cours..." type="submit">
+    </app-action-button>
+  </div>
+</form>
+
+<div class="actions">
+  <a (click)="back()">< Retour</a>
+</div>

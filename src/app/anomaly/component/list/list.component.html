@@ -1,0 +1,25 @@
+<app-generic-list
+  headerIcon="warning"
+  headerTitle="{{ 'anomaly.list.title' | transloco }}"
+>
+  <div slot="filter">
+    <app-generic-filter-block (clear)="reset()">
+      <app-anomaly-filter
+        (deleteSavedSearch)="deleteUsedSavedSearch()"
+        (filter)="filter($event)"
+        (save)="saveFilters($event)"
+        [(currentSavedSearch)]="currentSavedSearch"
+        [form]="form"
+        [savedSearches]="savedSearches">
+      </app-anomaly-filter>
+    </app-generic-filter-block>
+  </div>
+  <div slot="table">
+    <app-anomaly-table #table
+                       (deleteSelection)="remove($event)"
+                       (exportExcel)="onExportAnomaliesToExcel($event)"
+                       [canDownloadInvoice]="canDownloadInvoice"
+                       [dataSource]="dataSource">
+    </app-anomaly-table>
+  </div>
+</app-generic-list>

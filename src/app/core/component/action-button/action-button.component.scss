@@ -1,0 +1,15 @@
+button.action-button {
+  width: 100%;
+
+  &.active {
+    cursor: not-allowed;
+  }
+
+  span {
+    text-transform: uppercase;
+  }
+
+  mat-progress-spinner {
+    margin-right: 5px;
+  }
+}

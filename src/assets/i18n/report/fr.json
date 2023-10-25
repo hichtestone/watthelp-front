@@ -1,0 +1,23 @@
+{
+  "breadcrumb": {
+    "label": "Rapport d'analyse",
+    "title": "Liste des rapports d'analyse",
+    "detail": "Détail d'un rapport"
+  },
+  "list": {
+    "title": "Liste des alertes",
+    "selected-reports": "Les {{number}} rapport(s) d'analyse ont été sélectionnés",
+    "select-all-reports": "Sélectionner les {{number}} rapport(s) d'analyse",
+    "all-selected-reports": "Tous les rapport(s) ({{number}}) sont sélectionnés"
+  },
+  "invoice-summary": "Résumé de la facture",
+  "detail-by-dp": "Détail par point de livraison",
+  "dialog": {
+    "deletion": {
+      "title": "Confirmation",
+      "description": "Êtes vous sûr de vouloir supprimer ce(s) rapport(s) d'analyse ?",
+      "success": "La suppression a bien été effectuée",
+      "error": "Une erreur est survenue lors de suppression des rapports d'analyse."
+    }
+  }
+}

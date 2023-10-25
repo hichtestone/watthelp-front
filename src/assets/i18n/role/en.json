@@ -1,0 +1,18 @@
+{
+  "breadcrumb": {
+    "label": "Role management",
+    "title": "Roles list",
+    "edit": "Role's edition",
+    "create": "Role creation",
+    "duplicate": "Duplicate a role"
+  },
+  "updated-success": "Role successfully updated",
+  "created-success": "Role successfully created",
+  "add-new": "Add new role",
+  "copy-of": "Copy of ",
+  "authorization": "Authorizations",
+  "enable": "Enable",
+  "disable": "Disable",
+  "undefined": "Undefined"
+}
+

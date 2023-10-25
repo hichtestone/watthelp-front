@@ -1,0 +1,28 @@
+.title {
+  font-family: Oswald, Roboto, sans-serif;
+  font-weight: bold;
+  text-align: center;
+  font-size: 30px;
+  color: grey;
+  margin-top: 0;
+}
+
+.form-signin {
+  margin: 10px 0;
+
+  .actions {
+    display: flex;
+    flex-direction: column;
+    text-align: end;
+  }
+
+  .button {
+    margin: 20px 0 0 0;
+    width: 100%;
+  }
+}
+
+.forgot {
+  margin-top: 30px;
+  font-size: 0.8em;
+}

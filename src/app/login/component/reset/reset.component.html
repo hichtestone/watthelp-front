@@ -1,0 +1,31 @@
+<h1 class="title">Reset du mot de passe</h1>
+
+<p *ngIf="error" class="global-error">{{ error }}</p>
+
+<form (ngSubmit)="submit()" [formGroup]="form" class="form-signin">
+  <mat-form-field>
+    <input formControlName="password" matInput placeholder="Nouveau mot de passe" type="password"/>
+    <mat-error *ngIf="form.get('password').invalid" class="error">
+      <span *ngIf="form.get('password').errors.required">Mot de passe obligatoire.</span>
+      <span *ngIf="form.get('password').errors.strength">{{ form.get('password').errors.strength }}</span>
+    </mat-error>
+  </mat-form-field>
+  <mat-form-field>
+    <input formControlName="confirm_password" matInput placeholder="Confirmation du mot de passe" type="password"/>
+    <mat-error *ngIf="form.get('confirm_password').invalid" class="error">
+      <span *ngIf="form.get('confirm_password').errors.required">Confirmation du mot de passe obligatoire</span>
+      <span *ngIf="form.get('confirm_password').errors.confirm">{{ form.get('confirm_password').errors.confirm }}</span>
+    </mat-error>
+  </mat-form-field>
+  <div class="button">
+    <app-action-button [disabled]="form.invalid"
+                       [loading]="isLoading"
+                       label="Continuer"
+                       labelLoading="Envoi en cours..."
+                       type="submit">
+    </app-action-button>
+  </div>
+  <div class="actions">
+    <a [routerLink]="'/login'">< Retour</a>
+  </div>
+</form>

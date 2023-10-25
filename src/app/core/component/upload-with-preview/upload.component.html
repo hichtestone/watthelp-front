@@ -1,0 +1,30 @@
+<div class="form-block">
+  <div class="title">
+    <mat-icon *ngIf="!!uploadIcon">{{ uploadIcon }}</mat-icon>
+    {{ uploadLabel }}
+  </div>
+
+  <div class="content">
+
+    <button
+      (click)="fileInput.click();"
+      *ngIf="files.length === 0"
+      [disabled]="fileUploading"
+      class="action-add" color="primary"
+      mat-raised-button>
+      <mat-icon *ngIf="!fileUploading">note_add</mat-icon>
+      <span *ngIf="!fileUploading">Ajouter un fichier</span>
+      <mat-spinner *ngIf="fileUploading" [diameter]="36" [strokeWidth]="3"></mat-spinner>
+      <span *ngIf="fileUploading">Envoi en cours</span>
+    </button>
+    <input #fileInput (change)="uploadFile($event)" style="display: none;" type="file"/>
+
+    <div class="previews" fxLayout="row" fxLayout.xs="column" fxLayoutAlign="start stretch" fxLayoutGap="20px">
+      <app-file-preview
+        (remove)="removeFile($event)"
+        *ngFor="let file of files" [file]="file"
+        [files]="files">
+      </app-file-preview>
+    </div>
+  </div>
+</div>

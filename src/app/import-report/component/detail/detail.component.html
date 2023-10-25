@@ -1,0 +1,176 @@
+<app-header
+  [icon]="'receipt'"
+  [mode]="'list'"
+  title="{{'import.breadcrumb.detail' | transloco}}">
+</app-header>
+<div class="page-content">
+  <div class="vertical-mode">
+    <!-- Main content -->
+    <mat-tab-group class="vertical-tab-group" disableRipple=true>
+      <mat-tab *ngIf="importReport.status !== 'error'">
+        <ng-template mat-tab-label>
+          <mat-icon>assignment</mat-icon>
+          {{'common.general-info' | transloco}}
+        </ng-template>
+
+        <ng-container *ngIf="importReport.status === 'ok' || importReport.status === 'warning'">
+          <!--          INVOICE LIST-->
+          <ng-container *appAuthorized="['management.import.invoice']">
+            <div *ngIf="importReport.import.type === 'invoice'">
+              <mat-table [dataSource]="dataSource" [trackBy]="trackById" matSort>
+                <ng-container cdkColumnDef="reference">
+                  <mat-header-cell *cdkHeaderCellDef
+                                   mat-sort-header>{{'common.reference' | transloco}}</mat-header-cell>
+                  <mat-cell *cdkCellDef="let row">{{ row.reference || '-' }}</mat-cell>
+                </ng-container>
+
+                <ng-container cdkColumnDef="amount_ht">
+                  <mat-header-cell *cdkHeaderCellDef
+                                   mat-sort-header>{{'common.excluding-vat-amount' | transloco}}</mat-header-cell>
+                  <mat-cell *cdkCellDef="let row"
+                  >{{ row.amount_ht | amountConverter | currency:'EUR':'symbol' }}</mat-cell>
+                </ng-container>
+
+                <ng-container cdkColumnDef="amount_tva">
+                  <mat-header-cell *cdkHeaderCellDef
+                                   mat-sort-header>{{'common.vat-amount' | transloco}}</mat-header-cell>
+                  <mat-cell *cdkCellDef="let row"
+                  >{{ row.amount_tva| amountConverter | currency:'EUR':'symbol' }}</mat-cell>
+                </ng-container>
+
+                <ng-container cdkColumnDef="amount_ttc">
+                  <mat-header-cell *cdkHeaderCellDef
+                                   mat-sort-header>{{'common.tax-included-amount' | transloco}}</mat-header-cell>
+                  <mat-cell *cdkCellDef="let row"
+                  >{{ row.amount_ttc | amountConverter | currency:'EUR':'symbol' }}</mat-cell>
+                </ng-container>
+
+                <ng-container cdkColumnDef="emitted_at">
+                  <mat-header-cell *cdkHeaderCellDef>{{'common.emitted-at' | transloco}}</mat-header-cell>
+                  <mat-cell *cdkCellDef="let row">{{ row.emitted_at | date: 'dd/MM/yyyy' }}
+                  </mat-cell>
+                </ng-container>
+
+                <ng-container cdkColumnDef="analysis">
+                  <mat-header-cell *cdkHeaderCellDef>{{'common.analysis' | transloco}}</mat-header-cell>
+                  <mat-cell *cdkCellDef="let row">
+                  <span *ngIf="row.analysis && row.analysis?.status === 'error'"><mat-icon
+                    color="warn">error</mat-icon></span>
+                    <span *ngIf="row.analysis && row.analysis?.status === 'warning'"><mat-icon
+                      color="accent">warning</mat-icon></span>
+                    <span *ngIf="row.analysis && row.analysis?.status === 'ok'" style="color: #4CAF50"><mat-icon>check</mat-icon></span>
+                    <span *ngIf="row.analysis">&nbsp;{{ row.analysis.created_at | date: 'dd/MM/yyyy HH:mm:ss' }}</span>
+                  </mat-cell>
+                </ng-container>
+
+                <mat-header-row *cdkHeaderRowDef="defaultColumns; sticky: true"></mat-header-row>
+                <mat-row
+                  *cdkRowDef="let row; columns: defaultColumns; let even = even; let odd = odd; let index = index"
+                  [ngClass]="{'mat-row-even': even, 'mat-row-odd': odd}"
+                  [queryResource]="['management.invoice.view']"
+                  [routerLinkSecured]="'/invoice/' + row.id"
+                  class="index-{{index}}">
+                </mat-row>
+              </mat-table>
+
+              <app-table-no-result
+                [style.display]="(dataSource.data.length === 0) ? '' : 'none'">
+              </app-table-no-result>
+
+              <mat-paginator
+                [length]="dataSource.data.length"
+                [pageIndex]="0"
+                [pageSizeOptions]="[25, 50, 75, 100]"
+                [pageSize]="25">
+              </mat-paginator>
+            </div>
+          </ng-container>
+
+          <!--          DELIVERY POINT LIST-->
+          <ng-container *appAuthorized="['management.import.scope']">
+            <div *ngIf="importReport.import.type === 'scope'">
+              <app-delivery-point-table
+                [dataSource]="deliveryPointDataSource"
+                [defaultColumns]="deliveryPointsColumns"
+                [isDisplayActions]="false">
+              </app-delivery-point-table>
+            </div>
+          </ng-container>
+
+          <!--          BUDGET LIST-->
+          <ng-container *appAuthorized="['management.import.budget']">
+            <div *ngIf="importReport.import.type === 'budget'">
+              <app-budget-table
+                [dataSource]="budgetDataSource"
+                [defaultColumns]="budgetColumns"
+                [isDisplayActions]="false">
+              </app-budget-table>
+            </div>
+          </ng-container>
+
+          <!--          PRICING LIST-->
+          <ng-container *appAuthorized="['system.pricing.import']">
+            <div *ngIf="importReport.import.type === 'pricing'">
+              <app-pricing-table
+                [dataSource]="pricingDataSource"
+                [defaultColumns]="pricingColumns"
+                [isDisplayActions]="false">
+              </app-pricing-table>
+            </div>
+          </ng-container>
+
+
+        </ng-container>
+      </mat-tab>
+
+      <!--  ANOMALIES LIST-->
+
+      <ng-container *appAuthorized="['management.anomaly.view']">
+        <mat-tab
+          *ngIf="importReport.import.type === 'invoice' && importReport?.status === 'warning'">
+          <ng-template mat-tab-label>
+            <mat-icon>warning</mat-icon>
+            {{'role.line.anomaly' | transloco}}
+          </ng-template>
+          <mat-card>
+            <app-import-anomaly-table
+              [dataSource]="anomalyDataSource">
+            </app-import-anomaly-table>
+          </mat-card>
+        </mat-tab>
+      </ng-container>
+
+
+      <!--  REIMPORT INVOICES LIST-->
+      <mat-tab
+        *ngIf="importReport.import.type === 'invoice' && importReport?.status === 'error' && importReport.invoices.length > 0">
+        <ng-template mat-tab-label>
+          <mat-icon>receipt</mat-icon>
+          {{'common.re-import-invoices' | transloco}}
+        </ng-template>
+        <mat-card>
+          <app-reimport-invoice-table
+            (reimportInvoice)="onReimportInvoice($event, importReport.import)"
+            [dataSource]="reimportInvoiceDataSource">
+          </app-reimport-invoice-table>
+        </mat-card>
+      </mat-tab>
+
+      <!--      ERRORS FACED DURING FILE IMPORT -->
+      <mat-tab
+        *ngIf="(importReport.import.type === 'invoice' || importReport.import.type === 'scope' || importReport.import.type === 'budget' || importReport.import.type === 'pricing') && importReport.status === 'error'">
+        <ng-template mat-tab-label>
+          <mat-icon>error</mat-icon>
+          {{'common.error-encountered' | transloco}}
+        </ng-template>
+        <mat-card>
+          <div class="console">
+          <span *ngFor="let message of importReport.messages">
+            {{message}}<br>
+          </span>
+          </div>
+        </mat-card>
+      </mat-tab>
+    </mat-tab-group>
+  </div>
+</div>

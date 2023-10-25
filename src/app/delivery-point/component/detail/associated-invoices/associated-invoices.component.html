@@ -1,0 +1,145 @@
+<mat-table [dataSource]="dataSource">
+  <ng-container matColumnDef="analysis">
+    <mat-header-cell *matHeaderCellDef mat-header-cell>
+      <span
+        *appAuthorized="['management.analysis.view']">{{'deliverypoint.list.billing-data.analysis' | transloco}}</span>
+    </mat-header-cell>
+    <mat-cell *matCellDef="let row" mat-cell>
+      <ng-container *appAuthorized="['management.analysis.view']">
+        <mat-icon [style.color]="row?.delivery_point_invoice_analysis?.status === 'error' ? 'red' : ''">assignment
+        </mat-icon>
+      </ng-container>
+    </mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="reference">
+    <mat-header-cell *matHeaderCellDef
+                     mat-header-cell>{{'deliverypoint.list.billing-data.invoice-reference' | transloco}}</mat-header-cell>
+    <mat-cell *matCellDef="let row" mat-cell>
+      {{ row.invoice.reference }}
+    </mat-cell>
+  </ng-container>
+
+  <ng-container cdkColumnDef="type">
+    <mat-header-cell *cdkHeaderCellDef>{{'deliverypoint.list.billing-data.type' | transloco}}</mat-header-cell>
+    <mat-cell *cdkCellDef="let row">{{ row.type | enumToLabel | transloco}}</mat-cell>
+  </ng-container>
+
+  <ng-container cdkColumnDef="emitted_at">
+    <mat-header-cell *matHeaderCellDef
+                     mat-header-cell>{{'deliverypoint.list.billing-data.emitted-at' | transloco}}</mat-header-cell>
+    <mat-cell *matCellDef="let row" mat-cell>
+      {{ row.invoice.emitted_at | date: 'dd/MM/yyyy' }}
+    </mat-cell>
+  </ng-container>
+
+  <ng-container cdkColumnDef="amount_ht">
+    <mat-header-cell
+      *cdkHeaderCellDef>{{'deliverypoint.list.billing-data.excluding-vat-amount' | transloco}}</mat-header-cell>
+    <mat-cell *cdkCellDef="let row">
+      {{ ((row.amount_ht | amountConverter) | currency:'EUR':'symbol') || '-' }}
+    </mat-cell>
+  </ng-container>
+
+  <ng-container cdkColumnDef="amount_tva">
+    <mat-header-cell *cdkHeaderCellDef>{{'deliverypoint.list.billing-data.vat-amount' | transloco}}</mat-header-cell>
+    <mat-cell *cdkCellDef="let row">
+      {{ ((row.amount_tva | amountConverter) | currency:'EUR':'symbol') || '-' }}
+    </mat-cell>
+  </ng-container>
+
+  <ng-container cdkColumnDef="amount_ttc">
+    <mat-header-cell
+      *cdkHeaderCellDef>{{'deliverypoint.list.billing-data.tax-included-amount' | transloco}}</mat-header-cell>
+    <mat-cell *cdkCellDef="let row">
+      {{ ((row.amount_ttc | amountConverter) | currency:'EUR':'symbol') || '-'  }}
+    </mat-cell>
+  </ng-container>
+
+  <ng-container cdkColumnDef="power_subscribed">
+    <mat-header-cell *cdkHeaderCellDef>{{'deliverypoint.list.power-subscribed' | transloco}}</mat-header-cell>
+    <mat-cell *cdkCellDef="let row">{{ row.power_subscribed }} kW
+    </mat-cell>
+  </ng-container>
+
+  <ng-container cdkColumnDef="status">
+    <mat-header-cell *cdkHeaderCellDef
+                     class="status">{{'deliverypoint.list.billing-data.status' | transloco}}</mat-header-cell>
+    <mat-cell *cdkCellDef="let row" class="status">
+      <app-status [status]="row.invoice?.analysis?.status">
+      </app-status>
+    </mat-cell>
+  </ng-container>
+
+  <ng-container cdkColumnDef="actions">
+    <mat-header-cell *cdkHeaderCellDef style="flex: 0 0 40px;">
+      {{'common.actions' | transloco}}
+    </mat-header-cell>
+    <mat-cell *cdkCellDef="let row" style="flex: 0 0 40px;">
+      <button (click)="$event.stopPropagation()" [matMenuTriggerFor]="visualize"
+              aria-label="Actions"
+              mat-icon-button
+              type="button">
+        <mat-icon>more_vert</mat-icon>
+      </button>
+      <mat-menu #visualize="matMenu">
+        <button (click)="visualizeInvoice(row)"
+                mat-menu-item
+                type="button">
+          <mat-icon>remove_red_eye</mat-icon>
+          <span>{{'deliverypoint.list.see-edf-template' | transloco}}</span>
+        </button>
+      </mat-menu>
+    </mat-cell>
+  </ng-container>
+
+  <ng-container cdkColumnDef="detail">
+    <mat-header-cell *cdkHeaderCellDef style="flex: 0 0 40px;">
+    </mat-header-cell>
+    <mat-cell *cdkCellDef="let row" style="flex: 0 0 40px;">
+      <ng-container *appAuthorized="['management.analysis.view']">
+        <button (click)="toggleExpand(row);$event.stopPropagation();"
+                *ngIf="row.invoice?.analysis"
+                aria-label="Voir le detail" mat-icon-button
+                type="button">
+          <mat-icon *ngIf="!isExpanded(row)">expand_more</mat-icon>
+          <mat-icon *ngIf="isExpanded(row)">expand_less</mat-icon>
+        </button>
+      </ng-container>
+
+    </mat-cell>
+  </ng-container>
+
+  <mat-header-row *cdkHeaderRowDef="defaultColumns; sticky: true"></mat-header-row>
+  <mat-row
+    *cdkRowDef="let row; columns: defaultColumns; let even = even; let odd = odd; let index = index"
+    [appCdkDetailRowTpl]="tpl" [appCdkDetailRow]="row"
+    [ngClass]="{'mat-row-even': even, 'mat-row-odd': odd}"
+    [routerLink]="'/delivery-point/' + this.deliveryPoint.id + '/invoice-info/' + row.id"
+    [style.background-color]="assetColor(row.consumption.quantity < 0)"
+    class="index-{{index}}">
+  </mat-row>
+</mat-table>
+
+<app-table-no-result
+  [style.display]="(dataSource.data.length == 0) ? '' : 'none'">
+</app-table-no-result>
+
+<mat-paginator
+  [length]="dataSource.data.length"
+  [pageIndex]="0"
+  [pageSizeOptions]="[25, 50, 75, 100]"
+  [pageSize]="25">
+</mat-paginator>
+
+<ng-template #tpl let-element>
+  <div *ngIf="element.delivery_point_invoice_analysis; else noItemAnalyses">
+    <app-expanded-analysis [itemAnalysis]="element.delivery_point_invoice_analysis?.item_analyses">
+    </app-expanded-analysis>
+  </div>
+  <ng-template #noItemAnalyses>
+    <span class="no-content">
+      {{'deliverypoint.list.no-analysis-performed' | transloco}}
+    </span>
+  </ng-template>
+</ng-template>

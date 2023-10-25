@@ -1,0 +1,109 @@
+<mat-table [dataSource]="dataSource" [trackBy]="trackById" matSort>
+
+  <ng-container cdkColumnDef="reference">
+    <mat-header-cell *cdkHeaderCellDef mat-sort-header>{{'contract.list.reference' | transloco}}</mat-header-cell>
+    <mat-cell *cdkCellDef="let row">
+      <div>{{ row.reference }}</div>
+    </mat-cell>
+  </ng-container>
+
+  <ng-container cdkColumnDef="nb_pricings">
+    <mat-header-cell *cdkHeaderCellDef>{{'contract.list.price-number' | transloco}}</mat-header-cell>
+    <mat-cell *cdkCellDef="let row">
+      <div>{{ row.pricings ? row.pricings.length : 0 }}</div>
+    </mat-cell>
+  </ng-container>
+
+  <ng-container cdkColumnDef="provider">
+    <mat-header-cell *cdkHeaderCellDef mat-sort-header>{{'contract.list.provider' | transloco}}</mat-header-cell>
+    <mat-cell *cdkCellDef="let row">
+      <div>{{ row.provider | enumToLabel | transloco}}</div>
+    </mat-cell>
+  </ng-container>
+
+  <ng-container cdkColumnDef="type">
+    <mat-header-cell *cdkHeaderCellDef mat-sort-header>{{'contract.list.type' | transloco}}</mat-header-cell>
+    <mat-cell *cdkCellDef="let row">
+      <div>{{ row.type | enumToLabel | transloco}}</div>
+    </mat-cell>
+  </ng-container>
+
+  <ng-container cdkColumnDef="invoice_period">
+    <mat-header-cell *cdkHeaderCellDef mat-sort-header>{{'contract.list.invoice-period' | transloco}}</mat-header-cell>
+    <mat-cell *cdkCellDef="let row">
+      <div>{{ row.invoice_period | invoicePeriodLabel | transloco}}</div>
+    </mat-cell>
+  </ng-container>
+
+  <ng-container cdkColumnDef="started_at">
+    <mat-header-cell *cdkHeaderCellDef mat-sort-header>{{'contract.list.started-at' | transloco}}</mat-header-cell>
+    <mat-cell *cdkCellDef="let row">
+      {{ row.started_at ? (row.started_at | date: 'dd/MM/yyyy') : '-' }}
+    </mat-cell>
+  </ng-container>
+
+  <ng-container cdkColumnDef="finished_at">
+    <mat-header-cell *cdkHeaderCellDef mat-sort-header>{{'contract.list.finished-at' | transloco}}</mat-header-cell>
+    <mat-cell *cdkCellDef="let row">
+      {{ row.finished_at ? (row.finished_at | date: 'dd/MM/yyyy') : '-' }}
+    </mat-cell>
+  </ng-container>
+
+  <ng-container cdkColumnDef="actions">
+    <mat-header-cell *cdkHeaderCellDef style="flex: 0 0 75px;">
+      <button (click)="openSelectionDialog()" aria-label="Settings" mat-icon-button type="button">
+        <mat-icon>settings</mat-icon>
+      </button>
+    </mat-header-cell>
+    <mat-cell *cdkCellDef="let row" style="flex: 0 0 75px;">
+      <ng-container
+        *appAuthorized="['management.contract.view', 'management.contract.delete', 'management.contract.edit']">
+        <button (click)="$event.stopPropagation();" [matMenuTriggerFor]="actionMenu" aria-label="Actions"
+                mat-icon-button
+                type="button">
+          <mat-icon>more_vert</mat-icon>
+        </button>
+
+        <mat-menu #actionMenu="matMenu">
+          <button (click)="applyToAll(row.id)"
+                  *appAuthorized="['management.contract.edit']"
+                  aria-label="Apply"
+                  mat-menu-item type="button">
+            <mat-icon>done_all</mat-icon>
+            <span>{{'contract.list.apply-contract-to-all' | transloco}}</span>
+          </button>
+          <button (click)="delete(row.id)"
+                  *appAuthorized="['management.contract.delete']"
+                  aria-label="Supprimer"
+                  mat-menu-item
+                  type="button">
+            <mat-icon>delete</mat-icon>
+            <span>{{'button.delete' | transloco}}</span>
+          </button>
+        </mat-menu>
+      </ng-container>
+    </mat-cell>
+  </ng-container>
+
+  <mat-header-row *cdkHeaderRowDef="displayedColumns; sticky: true"></mat-header-row>
+  <mat-row *cdkRowDef="let row; columns: displayedColumns; let even = even; let odd = odd"
+           [class.loading]="dataSource.loading"
+           [ngClass]="{'mat-row-even': even, 'mat-row-odd': odd}"
+           [queryResource]="['management.contract.view']"
+           [routerLinkSecured]="'/contract/' + row.id"
+           [style.background-color]="backgroundColor(row.started_at, row.finished_at)">
+  </mat-row>
+</mat-table>
+
+<app-table-no-result
+  [style.display]="(dataSource.total == 0 && !dataSource.loading) ? '' : 'none'">
+</app-table-no-result>
+
+<mat-paginator
+  [length]="dataSource.total"
+  [pageIndex]="0"
+  [pageSizeOptions]="[25, 50, 75, 100]"
+  [pageSize]="25"
+  [style.display]="(dataSource.total === 0) ? 'none' : ''">
+</mat-paginator>
+

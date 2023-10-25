@@ -1,0 +1,49 @@
+{
+  "breadcrumb": {
+    "title": "Billing data",
+    "detail": "Invoice details"
+  },
+  "upload-invoice": "Upload an invoice",
+  "list": {
+    "title": "Billing data list",
+    "invoice-analyzed-field": "Factures déjà analysées ?",
+    "selected-invoices": "Les {{number}} facture(s) ont été sélectionnées",
+    "select-all-invoices": "Sélectionner les {{number}} facture(s)",
+    "all-selected-invoices": "Toutes les facture(s) ({{number}}) sont sélectionnées",
+    "analyze-all-invoices": "Analyser toutes les factures"
+  },
+  "dialog": {
+    "deletion": {
+      "title": "Suppression d'une facture",
+      "description": "Êtes vous sûr de vouloir supprimer cette facture ?",
+      "success": "La facture a bien été supprimée"
+    },
+    "analysis-handling": {
+      "title": "Facture déjà analysée",
+      "description": "Les données de l'analyse précédente (rapport, alertes et commentaires) seront supprimées. Souhaitez-vous malgré tout relancer une nouvelle analyse?",
+      "success": "Analyse lancée avec succès.",
+      "error": "Une erreur est survenue lors de l'analyse de la facture."
+    },
+    "analyze-invoice": {
+      "title": "Confirmation",
+      "description": "Vous êtes sur le point d'analyser toutes les factures sélectionnées. Voulez-vous continuer ?"
+    },
+    "upload": {
+      "title": "Importer une facture",
+      "provider": "Fournisseur",
+      "loading": "Chargement...",
+      "choose-file": "Choisir un fichier",
+      "import": "Importer",
+      "label-zip": "Choisir une archive en .zip *",
+      "label-excel": "Choisir un fichier excel *",
+      "edf-info": "Archive exportée de Dialège attendue.",
+      "engie-info": "L'archive doit inclure les fichiers facture.xlsx et index.xlsx."
+    }
+  },
+  "detail": {
+    "delivery-point-invoice": {
+      "title": "Facture points de livraison",
+      "alert-list": "Liste des alertes"
+    }
+  }
+}

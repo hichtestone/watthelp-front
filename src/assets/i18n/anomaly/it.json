@@ -1,0 +1,46 @@
+{
+  "breadcrumb": {
+    "title": "Avvisi",
+    "detail": "Dettaglio di un avviso"
+  },
+  "list": {
+    "title": "Elenco degli avvisi",
+    "selected-anomalies": "Tutte le {{number}} anomalie in questa pagina sono state selezionate",
+    "select-all-anomalies": "Seleziona tutte le {{number}} anomalie",
+    "all-selected-anomalies": "Sono state selezionate tutte le {{number}} anomalie",
+    "comments": "Commentaires",
+    "no-applied-rules": "Abbiamo cercato molto ma purtroppo non abbiamo trovato una o più regole applicate",
+    "no-description": "Non esiste alcuna descrizione per questo avviso"
+  },
+  "dialog": {
+    "deletion": {
+      "title": "Conferma",
+      "description": "Vuoi eliminare questa / queste anomalie?",
+      "success": "Anomalia eliminata con successo",
+      "error": "Si è verificato un errore durante l'eliminazione delle anomalie"
+    },
+    "export-excel": {
+      "title": "Esporta conferma excel",
+      "description": "Esportare anomalie in formato Excel?",
+      "success": "Il file Excel è stato generato con successo, sarà disponibile a breve nelle tue notifiche.",
+      "error": "Si è verificato un errore durante la generazione del file Excel."
+    },
+    "search": {
+      "title": "Salvataggio della ricerca",
+      "description": "Avviso: questo backup sarà disponibile solo su questo computer.",
+      "name": "Nome della tua ricerca",
+      "success": "Ricerca salvata con successo.",
+      "saved-search": "Ricerca salvata",
+      "searches": "Le tue ricerche",
+      "save": "Memorizzare"
+    }
+  },
+  "comment": {
+    "note": "Appunti",
+    "write": "Commento...",
+    "at": "Il",
+    "by": "Da"
+  },
+  "status-updated": "Stato aggiornato con successo.",
+  "note-created": "Il tuo commento è stato creato con successo."
+}

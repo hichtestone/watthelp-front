@@ -1,0 +1,26 @@
+
+.chart-container {
+  display: flex;
+  flex-direction: row;
+  border-radius: 4px;
+  width: 300px;
+  border: 2px solid #1f9cd8;
+  cursor: pointer;
+
+  .enabled {
+    padding: 3px;
+    width: 100%;
+    background-color: #1f9cd8;
+    color: #FFFFFF;
+    font-weight: bold;
+    border-right-color: #FFFFFF;
+  }
+
+  .disabled {
+    padding: 3px;
+    width: 100%;
+    background-color: #FFFFFF;
+    font-weight: bold;
+    color: #1f9cd8;
+  }
+}

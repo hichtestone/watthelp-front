@@ -1,0 +1,38 @@
+<div *ngIf="dp" class="info-window">
+  <div class="title">
+    <div class="point-image">
+      <img *ngIf="dp.photo" src="{{dp.photo.raw}}"/>
+      <mat-icon *ngIf="!dp.photo" class="no-photo">photo</mat-icon>
+    </div>
+    <h2>{{dp.name}}</h2>
+    <div class="code">
+      <mat-icon *ngIf="dp.is_in_scope" class="enabled">done</mat-icon>
+      <mat-icon *ngIf="!dp.is_in_scope" class="disabled">clear</mat-icon>
+    </div>
+  </div>
+  <div class="wrapper">
+    <h3>{{'core.widget.address' | transloco}} {{dp.address }} </h3>
+
+    <div class="empty"></div>
+
+    <div>{{'core.widget.power-subscribed' | transloco}} {{dp.power}} kW</div>
+
+    <div class="delivery-point-detail">
+      <div class="delivery-point">
+        <div class="empty"></div>
+        <div>{{dp.created_at | date: 'dd/MM/yyyy'}} {{dp.reference}}</div>
+        <button [routerLink]="'/delivery-point/' + dp.id" mat-icon-button>
+          <mat-icon>visibility</mat-icon>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<mat-progress-spinner *ngIf="!dp"
+                      class="loading"
+                      color="primary"
+                      diameter="40"
+                      mode="indeterminate"
+                      strokeWidth="3">
+</mat-progress-spinner>

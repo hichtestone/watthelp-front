@@ -1,0 +1,40 @@
+<mat-card>
+  <mat-card-title>{{'core.widget.filter-label' | transloco}}</mat-card-title>
+  <mat-card-content>
+    <form [formGroup]="form">
+      <mat-form-field>
+        <mat-label>{{'core.widget.label-field' | transloco}}</mat-label>
+        <input formControlName="label" matInput>
+      </mat-form-field>
+
+      <div class="row">
+        <mat-form-field class="form-w50">
+          <mat-label>{{'core.widget.started-at' | transloco}}</mat-label>
+          <input [matDatepicker]="started" formControlName="start" matInput>
+          <mat-datepicker-toggle [for]="started" matSuffix></mat-datepicker-toggle>
+          <mat-datepicker #started></mat-datepicker>
+          <mat-error *ngIf="form.controls.start.invalid" class="error">
+                <span *ngIf="form.controls.start.errors.unauthorizedDate">
+                  {{'error.unauthorized-date' | transloco}}
+                </span>
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="form-w50">
+          <mat-label>{{'core.widget.finished-at' | transloco}}</mat-label>
+          <input [matDatepicker]="finished" formControlName="end" matInput>
+          <mat-datepicker-toggle [for]="finished" matSuffix></mat-datepicker-toggle>
+          <mat-datepicker #finished></mat-datepicker>
+          <mat-error *ngIf="form.controls.end.invalid" class="error">
+                <span *ngIf="form.controls.end.errors.unauthorizedDate">
+                  {{'error.unauthorized-date' | transloco}}
+                </span>
+          </mat-error>
+        </mat-form-field>
+      </div>
+    </form>
+  </mat-card-content>
+</mat-card>
+
+
+

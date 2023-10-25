@@ -1,0 +1,93 @@
+.ring-bell {
+  position: absolute;
+  top: 11px;
+  left: 6px;
+}
+
+.mat-menu-content {
+  padding: 0;
+}
+
+.notification-header {
+  min-height: 70px;
+  background-color: #f0f0f0;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+}
+
+.notification-header h2 {
+  font-size: 17px;
+  margin: 0 0 0 16px;
+  line-height: 70px;
+  font-weight: normal;
+}
+
+.no-notifications {
+  display: flex;
+  justify-content: center;
+  padding: 10px;
+}
+
+.notification-content {
+  overflow: scroll;
+  max-height: 300px;
+  max-width: 570px;
+}
+
+.notification-content {
+  .notification-line {
+    padding: 16px;
+    font-size: 14px;
+
+    .notification-message {
+      * a {
+        color: #1f9cd8;
+      }
+    }
+  }
+}
+
+.notification-content .notification-line.notification-unread {
+  background-color: #edf2fa;
+}
+
+.notification-content .notification-line:hover {
+  background-color: #fafafa;
+}
+
+.notification-content .notification-line .notification-date {
+  margin-top: 7px;
+  font-size: 10px;
+}
+
+.notification-actions {
+  border-top: 1px solid rgba(0, 0, 0, 0.12);
+  line-height: 48px;
+
+  > div {
+    flex-direction: row;
+    box-sizing: border-box;
+    display: flex;
+    place-content: center;
+    align-items: center;
+  }
+}
+
+.notification-actions a {
+  line-height: 48px;
+}
+
+.notification-button.first {
+  flex: 1 1 100%;
+  box-sizing: border-box;
+  max-width: 70%;
+  align-self: center;
+  border-right: 1px solid rgba(0, 0, 0, 0.12);
+}
+
+.progress-bar {
+  margin: 10px 0;
+
+  mat-progress-bar {
+    margin-top: 5px;
+  }
+}

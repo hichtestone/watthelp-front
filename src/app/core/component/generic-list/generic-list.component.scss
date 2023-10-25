@@ -1,0 +1,17 @@
+.vertical-mode {
+  display: flex;
+  flex-direction: row;
+
+  .list-without-filter {
+    width: 100%;
+  }
+
+  .left-filter {
+    width: 250px;
+    margin-right: 20px;
+  }
+
+  .right-list {
+    flex: 1 1;
+  }
+}

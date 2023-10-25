@@ -1,0 +1,9 @@
+<div class="widget">
+  <div class="widget-title">
+    <mat-icon svgIcon="{{svgIcon}}">{{icon}}</mat-icon>
+    <div class="title">{{title}}</div>
+  </div>
+  <div (resized)="onResize($event)" [class.no-padding]="noPadding" class="content">
+    <ng-content></ng-content>
+  </div>
+</div>

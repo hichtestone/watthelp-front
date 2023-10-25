@@ -1,0 +1,162 @@
+<app-header
+  [icon]="'assignment_ind'"
+  [mode]="'list'"
+  [title]="title | transloco"
+>
+</app-header>
+
+<div class="page-content">
+  <div class="vertical-mode">
+    <form [formGroup]="form">
+      <mat-tab-group class="vertical-tab-group" disableRipple="true">
+
+        <mat-tab>
+          <ng-template mat-tab-label>
+            <mat-icon>assignment</mat-icon>
+            {{'common.general-info' | transloco}}
+          </ng-template>
+          <mat-card>
+            <app-form-block *ngIf="isUpdate" title="{{'user.avatar' | transloco}}">
+              <div class="avatar">
+                <div class="avatar-content">
+                  <img *ngIf="user.avatar" alt="user" src="{{ user.avatar.raw }}">
+                  <mat-icon *ngIf="!user.avatar" class="no-avatar-big">person</mat-icon>
+                </div>
+                <button (click)="fileInput.click();"
+                        *appAuthorized="['system.user.edit']"
+                        [disabled]="imageUploading"
+                        class="action-add"
+                        color="primary"
+                        mat-raised-button>
+                  <mat-icon *ngIf="!imageUploading">add_a_photo</mat-icon>
+                  <span *ngIf="!imageUploading">{{'user.update-picture' | transloco}}</span>
+                  <span *ngIf="imageUploading">{{'common.loading' | transloco}}</span>
+                </button>
+                <input #fileInput (change)="uploadImage($event)" style="display: none;" type="file"/>
+              </div>
+            </app-form-block>
+            <app-form-block title="{{'common.general-info' | transloco}}">
+              <mat-form-field class="form-w50">
+                <input formControlName="first_name" matInput placeholder="{{'user.first-name' | transloco}}" required/>
+                <mat-error *ngIf="form.controls.first_name.invalid">
+                  <span *ngIf="form.controls.first_name.errors.api">{{ form.controls.first_name.errors.api }}</span>
+                  <span *ngIf="form.controls.first_name.errors.required">{{'error.required-field' | transloco}}</span>
+                </mat-error>
+              </mat-form-field>
+
+              <mat-form-field class="form-w50">
+                <input formControlName="last_name" matInput placeholder="{{'user.last-name' | transloco}}" required/>
+                <mat-error *ngIf="form.controls.last_name.invalid">
+                  <span *ngIf="form.controls.last_name.errors.required">{{'error.required-field' | transloco}}</span>
+                  <span *ngIf="form.controls.last_name.errors.api">{{ form.controls.last_name.errors.api }}</span>
+                </mat-error>
+              </mat-form-field>
+
+              <mat-form-field class="form-w100">
+                <input autocomplete="new-email" formControlName="email" matInput
+                       placeholder="{{'user.email' | transloco}}" required/>
+                <mat-error *ngIf="form.controls.email.invalid">
+                  <span *ngIf="form.controls.email.errors.required">{{'error.required-field' | transloco}}</span>
+                  <span *ngIf="form.controls.email.errors.email">{{'error.email' | transloco}}</span>
+                  <span *ngIf="form.controls.email.errors.api">{{ form.controls.email.errors.api }}</span>
+                </mat-error>
+              </mat-form-field>
+
+              <mat-form-field class="form-w50">
+                <ngx-mat-intl-tel-input
+                  [enablePlaceholder]="true"
+                  [enableSearch]="true"
+                  [preferredCountries]="['fr']"
+                  formControlName="phone"
+                  placeholder="{{'user.phone' | transloco}}">
+                </ngx-mat-intl-tel-input>
+                <mat-error *ngIf="form.controls.phone.invalid" class="error">
+                  <span *ngIf="form.get('phone').errors.validatePhoneNumber">{{'error.phone' | transloco}}</span>
+                  <span *ngIf="form.controls.phone.errors.api">{{ form.controls.phone.errors.api }}</span>
+                </mat-error>
+              </mat-form-field>
+            </app-form-block>
+
+            <app-form-block *appAuthorized="['system.user.edit_password', 'system.user.edit', 'system.role.view']"
+                            title="{{'user.security' | transloco}}">
+              <ng-container *appAuthorized="['system.user.edit_password']">
+                <mat-form-field class="form-w50">
+                  <input autocomplete="new-password" formControlName="password" matInput
+                         placeholder="{{'user.password' | transloco}}"
+                         required type="password"/>
+                  <mat-error *ngIf="form.controls.password.invalid">
+                    <span *ngIf="form.controls.password.errors.required">{{'error.required-field' | transloco}}</span>
+                    <span
+                      *ngIf="form.controls.password.errors.strength">{{ form.controls.password.errors.strength }}</span>
+                    <span *ngIf="form.controls.password.errors.api">{{ form.controls.password.errors.api }}</span>
+                  </mat-error>
+                </mat-form-field>
+
+                <mat-form-field class="form-w50">
+                  <input [required]="!!form.get('password').value" formControlName="password_confirm" matInput
+                         placeholder="{{'user.confirmation-password' | transloco}}"
+                         type="password"/>
+                  <mat-error *ngIf="form.controls.password_confirm.invalid">
+                    <span>{{'error.password-confirmation' | transloco}}</span>
+                  </mat-error>
+                </mat-form-field>
+              </ng-container>
+
+              <mat-form-field *appAuthorized="['system.user.edit', 'system.role.view']" class="form-w50">
+                <mat-label>{{'user.roles' | transloco}}</mat-label>
+                <mat-select [compareWith]="compareFn"
+                            formControlName="roles"
+                            multiple
+                            required>
+                  <mat-select-trigger>
+                    {{ !!form.controls.roles.value && !!form.controls.roles.value[0] ? form.controls.roles.value[0].name : '' }}
+                    <span *ngIf="form.controls.roles.value?.length > 1">
+                      (+{{ form.controls.roles.value.length - 1}} {{form.controls.roles.value?.length === 2 ? ('user.other' | transloco) : ('user.others' | transloco) }}
+                      )
+                    </span>
+                  </mat-select-trigger>
+                  <mat-option *ngFor="let userRole of roles" [value]="userRole">
+                    {{userRole.name}}
+                  </mat-option>
+                </mat-select>
+                <mat-error *ngIf="form.controls.roles.invalid">
+                  <span *ngIf="form.controls.roles.errors.required">{{'error.required-field' | transloco}}</span>
+                  <span *ngIf="form.controls.roles.errors.api">{{ form.controls.roles.errors.api }}</span>
+                </mat-error>
+              </mat-form-field>
+
+            </app-form-block>
+          </mat-card>
+        </mat-tab>
+
+        <mat-tab *ngIf="isUpdate && this.userRoles.length > 0">
+          <ng-template mat-tab-label>
+            <mat-icon>security</mat-icon>
+            {{'user.authorization' | transloco}}
+          </ng-template>
+          <mat-card>
+
+            <app-user-permission
+              *ngIf="!isLoading else noData"
+              [displayData]="displayData"
+              [form]="form">
+            </app-user-permission>
+
+            <ng-template #noData>
+              <app-table-no-result
+                [description]="noDataDescription">
+              </app-table-no-result>
+            </ng-template>
+          </mat-card>
+        </mat-tab>
+
+      </mat-tab-group>
+      <button (click)="submit()" *ngIf="canEdit || hasPermissionToEditOrCreate" [disabled]="form.invalid"
+              class="btn-save"
+              color="warn" mat-fab
+              type="submit">
+        <mat-icon>check circle</mat-icon>
+      </button>
+    </form>
+  </div>
+</div>

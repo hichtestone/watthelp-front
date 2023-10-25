@@ -1,0 +1,156 @@
+<mat-card>
+  <form [formGroup]="form">
+    <app-form-block title="{{'common.general-info' | transloco}}">
+      <div class="row">
+        <mat-form-field class="form-w50">
+          <input formControlName="name" matInput required/>
+          <mat-placeholder>{{'deliverypoint.list.name' | transloco}}</mat-placeholder>
+          <mat-error *ngIf="form.controls.name.invalid">
+            <span *ngIf="form.controls.name.errors.required">{{'error.required-field' | transloco}}</span>
+            <span *ngIf="form.controls.name.errors.api">{{ form.controls.name.errors.api }}</span>
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="form-w50">
+          <input formControlName="reference" matInput required/>
+          <mat-placeholder>{{'deliverypoint.list.reference-rae' | transloco}}</mat-placeholder>
+          <mat-error *ngIf="form.controls.reference.invalid">
+            <span *ngIf="form.controls.reference.errors.required">{{'error.required-field' | transloco}}</span>
+            <span *ngIf="form.controls.reference.errors.api">{{ form.controls.reference.errors.api }}</span>
+          </mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="row">
+        <mat-form-field class="form-w50">
+          <mat-placeholder>{{'deliverypoint.list.address' | transloco}}</mat-placeholder>
+          <app-input-gmaps-address
+            class="form-w50"
+            formControlName="address"
+            required>
+          </app-input-gmaps-address>
+          <mat-error *ngIf="form.controls.address.invalid">
+            <span *ngIf="form.controls.address.errors.required">{{'error.required-field' | transloco}}</span>
+            <span *ngIf="form.controls.address.errors.api">{{ form.controls.address.errors.api }}</span>
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="form-w50">
+          <input formControlName="code" matInput/>
+          <mat-placeholder>{{'deliverypoint.list.internal-code' | transloco}}</mat-placeholder>
+          <mat-error *ngIf="form.controls.code.invalid">
+            <span *ngIf="form.controls.code.errors.api">{{ form.controls.code.errors.api }}</span>
+          </mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="row">
+        <mat-form-field class="form-w50">
+          <mat-label>{{'deliverypoint.list.description' | transloco}}</mat-label>
+          <textarea cdkTextareaAutosize formControlName="description" matInput></textarea>
+        </mat-form-field>
+
+        <mat-form-field class="form-w50">
+          <app-contract-select formControlName="contract" placeholder="{{'deliverypoint.list.contract' | transloco}}"
+                               required></app-contract-select>
+          <mat-error *ngIf="form.controls.contract.invalid">
+            <span *ngIf="form.controls.contract.errors.required">{{'error.required-field' | transloco}}</span>
+            <span *ngIf="form.controls.contract.errors.api">{{ form.controls.contract.errors.api }}</span>
+          </mat-error>
+        </mat-form-field>
+      </div>
+
+      <div *appAuthorized="['management.delivery_point.edit']">
+        <app-upload [files]="files" uploadLabel="{{'deliverypoint.list.photo' | transloco}}"></app-upload>
+      </div>
+
+      <div *ngIf="!!isEditMode" class="row">
+        <mat-form-field class="form-w50">
+          <mat-label>{{'deliverypoint.list.scope-date' | transloco}}</mat-label>
+          <input [matDatepicker]="finished" formControlName="scope_date" matInput readonly>
+          <mat-datepicker #finished></mat-datepicker>
+        </mat-form-field>
+
+        <span>
+          {{'deliverypoint.list.dp-creation-mode' | transloco}} {{ mode | modeLabel | transloco}}
+        </span>
+      </div>
+
+      <div *ngIf="!!isEditMode" class="row">
+        <mat-checkbox formControlName="is_in_scope">{{'deliverypoint.list.in-scope' | transloco}}</mat-checkbox>
+      </div>
+    </app-form-block>
+
+    <app-form-block title="{{'deliverypoint.list.counter-info' | transloco}}">
+      <div class="row">
+        <mat-form-field class="form-w50">
+          <input formControlName="meter_reference" matInput required/>
+          <mat-label>{{'deliverypoint.list.counter-reference' | transloco}}</mat-label>
+          <mat-error *ngIf="form.controls.meter_reference.invalid">
+            <span *ngIf="form.controls.meter_reference.errors.required">{{'error.required-field' | transloco}}</span>
+            <span *ngIf="form.controls.meter_reference.errors.api">
+              {{ form.controls.meter_reference.errors.api }}
+            </span>
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="form-w50">
+          <input
+            decimal="true"
+            decimalSeparator="."
+            digitOnly
+            formControlName="power" matInput
+            required
+            type="text">
+          <mat-label>{{'deliverypoint.list.power-subscribed' | transloco}}</mat-label>
+          <span matSuffix>kW</span>
+          <mat-error *ngIf="form.controls.power.invalid">
+            <span *ngIf="form.controls.power.errors.required">{{'error.required-field' | transloco}}</span>
+            <span *ngIf="form.controls.power.errors.api">{{ form.controls.power.errors.api }}</span>
+            <span *ngIf="form.controls.power.errors.pattern">{{'error.decimal-input' | transloco : {number: 1} }}</span>
+          </mat-error>
+        </mat-form-field>
+      </div>
+    </app-form-block>
+
+    <app-form-block *appAuthorized="['management.delivery_point.map']"
+                    title="{{'deliverypoint.list.visualization' | transloco}}">
+      <div class="row">
+        <mat-form-field>
+          <input formControlName="latitude" matInput placeholder="{{'deliverypoint.list.latitude' | transloco}}"
+                 readonly>
+          <mat-icon matSuffix>room</mat-icon>
+          <mat-error *ngIf="form.controls.latitude.invalid">
+            <span *ngIf="form.controls.latitude.errors.api">{{ form.controls.latitude.errors.api }}</span>
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field>
+          <input formControlName="longitude" matInput placeholder="{{'deliverypoint.list.longitude' | transloco}}"
+                 readonly>
+          <mat-icon matSuffix>room</mat-icon>
+          <mat-error *ngIf="form.controls.longitude.invalid">
+            <span *ngIf="form.controls.longitude.errors.api">{{ form.controls.longitude.errors.api }}</span>
+          </mat-error>
+        </mat-form-field>
+      </div>
+
+      <agm-map *ngIf="marker" [latitude]="marker.lat" [longitude]="marker.lng" [zoom]="zoom"
+               style="width: 100%; height: 400px;">
+        <agm-marker [latitude]="marker.lat" [longitude]="marker.lng"></agm-marker>
+      </agm-map>
+      <mat-card-content *ngIf="!marker || isLoading">
+        <div *ngIf="isLoading" class="progress-spinner">
+          <mat-progress-spinner
+            [color]="'primary'"
+            [mode]="'indeterminate'"
+            [value]="50">
+          </mat-progress-spinner>
+        </div>
+        <div class="map-w">
+          {{'deliverypoint.list.waiting-geo-values' | transloco}}
+        </div>
+      </mat-card-content>
+    </app-form-block>
+
+  </form>
+</mat-card>

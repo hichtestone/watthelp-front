@@ -1,0 +1,9 @@
+mat-card {
+  display: flex;
+  flex-direction: column;
+
+  app-form-block {
+    flex: 1 1 auto;
+    padding-right: 20px;
+  }
+}

@@ -1,0 +1,21 @@
+<div class="chip-input">
+  <div class="row">
+    <mat-form-field>
+      <mat-chip-list #chipList>
+        <mat-chip (removed)="remove(item)"
+                  *ngFor="let item of selected"
+                  [removable]="removable" [selectable]="selectable">
+          {{item}}
+          <mat-icon *ngIf="removable" matChipRemove>cancel</mat-icon>
+        </mat-chip>
+        <input (matChipInputTokenEnd)="add($event)"
+               [matChipInputAddOnBlur]="addOnBlur"
+               [matChipInputFor]="chipList"
+               [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+               [maxLength]="maxLength"
+               [placeholder]="label"
+               digitOnly>
+      </mat-chip-list>
+    </mat-form-field>
+  </div>
+</div>

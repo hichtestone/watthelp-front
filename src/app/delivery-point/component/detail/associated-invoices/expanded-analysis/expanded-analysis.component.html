@@ -1,0 +1,57 @@
+<div class="element-detail">
+  <div class="detail-column">
+    <div class="group">
+      <div class="title">{{ 'common.subscription' | transloco }}</div>
+      <div *ngFor="let item of subscriptions" class="item">
+        <a *ngIf="item.status == 'error'; else elseDefault"
+           class="status {{ item.status }}"
+           matTooltip="{{ item.messages | join}}"></a>
+        <ng-template #elseDefault>
+          <div class="status {{ item.status }}"
+               matTooltip="{{item.anomaly?.current_value ? ('common.real-amount' | transloco) + item.anomaly.current_value + '.' : '' }} {{ item.messages | join }}"></div>
+        </ng-template>
+        <div class="label">{{ 'common.' + item.analyzer | transloco }}</div>
+      </div>
+    </div>
+
+    <div class="group">
+      <div class="title">{{ 'common.consumption' | transloco }}</div>
+      <div *ngFor="let item of consumptions" class="item">
+        <a *ngIf="item.status == 'error'; else elseDefault"
+           class="status {{ item.status }}"
+           matTooltip="{{item.anomaly?.current_value ? ('common.real-amount' | transloco) + item.anomaly.current_value + '.' : '' }} {{ item.messages | join }}"></a>
+        <ng-template #elseDefault>
+          <div class="status {{ item.status }}" matTooltip="{{ item.messages | join }}"></div>
+        </ng-template>
+        <div class="label">{{ 'common.' + item.analyzer | transloco }}</div>
+      </div>
+    </div>
+
+    <div class="group">
+      <div class="title">{{ 'common.tax' | transloco }}</div>
+      <div *ngFor="let item of taxes" class="item">
+        <a *ngIf="item.status == 'error'; else elseDefault"
+           class="status {{ item.status }}"
+           matTooltip="{{item.anomaly?.current_value ? ('common.real-amount' | transloco) + item.anomaly.current_value + '.' : '' }} {{ item.messages | join }}"></a>
+        <ng-template #elseDefault>
+          <div class="status {{ item.status }}" matTooltip="{{ item.messages | join }}"></div>
+        </ng-template>
+        <div class="label">{{ 'common.' + item.analyzer | transloco }}</div>
+      </div>
+    </div>
+
+    <div class="group">
+      <div class="title">{{ 'common.global' | transloco }}</div>
+      <div *ngFor="let item of globals" class="item">
+        <a *ngIf="item.status == 'error'; else elseDefault"
+           class="status {{ item.status }}"
+           matTooltip="{{ item.messages | join}}"></a>
+        <ng-template #elseDefault>
+          <div class="status {{ item.status }}"
+               matTooltip="{{item.anomaly?.current_value ? ('common.real-amount' | transloco) + item.anomaly.current_value + '.' : '' }} {{ item.messages | join }}"></div>
+        </ng-template>
+        <div class="label">{{ 'common.' + item.analyzer | transloco }}</div>
+      </div>
+    </div>
+  </div>
+</div>

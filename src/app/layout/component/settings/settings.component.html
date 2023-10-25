@@ -1,0 +1,16 @@
+<ng-container>
+  <button [mat-menu-trigger-for]="settings" disableRipple=true mat-icon-button>
+    <mat-icon svgIcon="settings"></mat-icon>
+  </button>
+  <mat-menu #settings="matMenu" xPosition="before" yPosition="below">
+    <button *appAuthorized="['management.import_report.view']" [routerLink]="'/import-report'" mat-menu-item>
+      <mat-icon>assignment</mat-icon>
+      <span>{{'layout.toolbar-menu.import-report' | transloco}}</span>
+    </button>
+
+    <button (click)="gotoProfile()" mat-menu-item>
+      <mat-icon>assignment_ind</mat-icon>
+      <span>{{'layout.toolbar-menu.profile' | transloco}}</span>
+    </button>
+  </mat-menu>
+</ng-container>

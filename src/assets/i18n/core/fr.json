@@ -1,0 +1,58 @@
+{
+  "home": "Accueil",
+  "tooltip": {
+    "error": "Contient une ou plusieurs erreurs",
+    "alert": "Contient une ou plusieurs alertes",
+    "processing": "En cours de traitement",
+    "unsolved": "A traiter",
+    "ignored": "Ignorée",
+    "solved": "Résolue",
+    "ok": "Ok"
+  },
+  "widget": {
+    "label-field": "Label du widget",
+    "filter-label": "Filtres",
+    "year-field": "Année(s)",
+    "started-at": "Date de début",
+    "finished-at": "Date de fin",
+    "chart-type": "Type de graphique",
+    "histogram": "HISTOGRAMME",
+    "spline": "COURBE",
+    "consumption-display": "Afficher les consommations par  ",
+    "month-year": "MOIS PAR ANNÉE",
+    "year": "ANNÉE",
+    "custom-color": "Personnalisation des couleurs",
+    "real-budget": "Budget réel",
+    "theoretical-budget": "Budget théorique",
+    "estimated-budget": "Budget prévisionnel",
+    "delivery-point-color-in-scope": "Couleur des points de livraison dans périmètre :",
+    "delivery-point-color-not-in-scope": "Couleur des points de livraison hors périmètre :",
+    "address": "Adresse : ",
+    "power-subscribed": "Puissance souscrite : ",
+    "delivery-point-in-scope": "{{number}} point(s) dans le périmètre",
+    "delivery-point-out-of-scope": "{{number}} point(s) hors périmètre",
+    "delivery-point-ungeolocalized": "{{number}} point(s) non géolocalisé(s)",
+    "select-delivery-point": "Sélectionner des points de livraison",
+    "global-stats": {
+      "delivery-point-in-scope": "Point(s) de livraison inclus dans le périmètre",
+      "delivery-point-out-of-scope": "Point(s) de livraison hors périmètre",
+      "invoice": "Facture(s)",
+      "alert": "Alerte(s)"
+    },
+    "pricing": {
+      "period": "Période",
+      "price": "Tarifs",
+      "august2010": "Août 2010",
+      "july2011": "Juillet 2011",
+      "july2012": "Juillet 2012",
+      "august2013": "Août 2013",
+      "november2014": "Novembre 2014",
+      "august2015": "Août 2015",
+      "august2016": "Août 2016",
+      "august2017": "Août 2017",
+      "february2018": "Février 2018",
+      "august2018": "Août 2018"
+    }
+  }
+}
+

@@ -1,0 +1,15 @@
+{
+  "breadcrumb": {
+    "label": "Rapporto di importazione",
+    "title": "Elenco dei rapporti di importazione",
+    "detail": "Dettaglio del report di importazione"
+  },
+  "dialog": {
+    "import": {
+      "title": "Confirmation",
+      "description": "Questa azione eliminerà tutte le fatture che desideri reimportare, comprese le scansioni e gli avvisi associati. <br> <br> Sei sicuro di voler continuare?",
+      "success": "È in corso la reimportazione delle fatture selezionate. Riceverai una notifica quando sarà finito.",
+      "error": "Abbiamo un problema con la reimportazione, riprova."
+    }
+  }
+}

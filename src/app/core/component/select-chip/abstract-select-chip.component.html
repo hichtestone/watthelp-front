@@ -1,0 +1,30 @@
+<mat-form-field>
+  <mat-chip-list #itemChipList>
+    <mat-chip
+      *ngFor="let item of selected; let i=index"
+      [selectable]="true"
+      [removable]="true"
+      [matTooltipPosition]="'right'"
+      [matTooltip]="displayTooltip(item)"
+      (removed)="remove(item.id)">
+      {{ displayName(item) }}
+      <mat-icon matChipRemove>cancel</mat-icon>
+    </mat-chip>
+    <input
+      [placeholder]="placeholder"
+      #itemInput
+      [formControl]="ctrl"
+      (focus)="search()"
+      (mousedown)="search()"
+      [matAutocomplete]="itemAuto"
+      [matChipInputFor]="itemChipList"
+      [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+      [matChipInputAddOnBlur]="false"
+      (matChipInputTokenEnd)="select($event)"/>
+  </mat-chip-list>
+  <mat-autocomplete #itemAuto="matAutocomplete" (optionSelected)="select($event)">
+    <mat-option *ngFor="let item of filtered" [value]="item">
+      {{ displayOption(item) }}
+    </mat-option>
+  </mat-autocomplete>
+</mat-form-field>

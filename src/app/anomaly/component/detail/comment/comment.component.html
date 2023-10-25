@@ -1,0 +1,35 @@
+<mat-card>
+  <app-form-block title="{{'anomaly.comment.note' | transloco}}">
+    <div class="messages-container">
+      <div *ngFor="let note of notes" [class.left-message]="currentUser.id === note.user.id">
+        <div class="message">
+          <div class="title">
+            <div>{{'anomaly.comment.at' | transloco}} {{ note.created_at | date: "dd-MM-yyyy ~ HH:mm" }}</div>
+            <div>{{'anomaly.comment.by' | transloco}} {{ note.user.first_name || '-'}} {{ note.user.last_name || '-'}}</div>
+          </div>
+          <div class="content">
+            {{ note.content || '-' }}
+          </div>
+        </div>
+      </div>
+
+      <div class="new-message">
+        <form [formGroup]="formNote">
+          <mat-form-field class="form-width">
+            <textarea formControlName="content" matInput
+                      placeholder="{{'anomaly.comment.write' | transloco}}"></textarea>
+          </mat-form-field>
+          <button (click)="onPostComment()"
+                  *appAuthorized="['management.anomaly_note.edit']"
+                  [disabled]="formNote.controls.content.value.length === 0"
+                  color="primary"
+                  mat-icon-button
+                  type="button">
+            <mat-icon>send</mat-icon>
+          </button>
+        </form>
+      </div>
+    </div>
+  </app-form-block>
+</mat-card>
+

@@ -1,0 +1,9 @@
+{
+  "login-label": "Connessione",
+  "login-loading": "Connessione corrente...",
+  "email": "Email",
+  "email-required": "Email obbligatoria",
+  "password": "Password",
+  "password-required": "Password richiesta",
+  "password-forgotten": "Hai dimenticato la password ?"
+}

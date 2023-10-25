@@ -1,0 +1,36 @@
+span {
+  font-size: 1.1em;
+  font-weight: 500;
+}
+
+mat-form-field {
+  width: 100%;
+}
+
+.having-radio-group {
+  margin-top: 0;
+  height: 30px;
+}
+
+.form-sep {
+  width: 30%;
+  margin: 12px auto;
+  border-top: 1px solid rgba(0, 0, 0, 0.42);
+  border-bottom: 0;
+}
+
+.or-form {
+  text-align: center;
+}
+
+.form-button {
+  width: 100%;
+  margin-top: 20px;
+}
+
+.del-saved {
+  display: flex;
+  justify-content: flex-end;
+  font-size: 0.75em;
+  color: #ff1744;
+}

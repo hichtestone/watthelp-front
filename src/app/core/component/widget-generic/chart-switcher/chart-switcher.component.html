@@ -1,0 +1,31 @@
+<h3>{{'core.widget.chart-type' | transloco}}</h3>
+
+<div class="chart-container">
+  <div (click)="onChartTypeChange()"
+       [ngClass]="!chartType ? 'enabled' : 'disabled'">
+    {{'core.widget.histogram' | transloco}}
+  </div>
+  <div (click)="onChartTypeChange()"
+       [ngClass]="chartType ? 'enabled' : 'disabled'">
+    {{'core.widget.spline' | transloco}}
+  </div>
+</div>
+
+<ng-container *ngIf="widgetName === 'consumption'">
+  <div class="divider">
+    <mat-divider></mat-divider>
+  </div>
+
+  <h3>{{'core.widget.consumption-display' | transloco}}</h3>
+
+  <div class="chart-container">
+    <div (click)="onChartByYearMonthChange()"
+         [ngClass]="chartByYearMonth ? 'enabled' : 'disabled'">
+      {{'core.widget.month-year' | transloco}}
+    </div>
+    <div (click)="onChartByYearMonthChange()"
+         [ngClass]="!chartByYearMonth ? 'enabled' : 'disabled'">
+      {{'core.widget.year' | transloco}}
+    </div>
+  </div>
+</ng-container>

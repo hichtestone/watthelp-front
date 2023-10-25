@@ -1,0 +1,22 @@
+<h1 mat-dialog-title>{{'anomaly.dialog.search.title' | transloco}}</h1>
+
+<div mat-dialog-content>
+  <form [formGroup]="form">
+    <mat-form-field>
+      <input formControlName="name" matInput placeholder="{{'anomaly.dialog.search.name' | transloco}}" required>
+      <mat-error *ngIf="form.controls.name.invalid">
+        <span *ngIf="form.controls.name.errors.required">{{'error.required-field' | transloco}}</span>
+      </mat-error>
+    </mat-form-field>
+
+    <div class="warning">
+      {{'anomaly.dialog.search.description' | transloco}}
+    </div>
+  </form>
+</div>
+
+<div mat-dialog-actions>
+  <button [mat-dialog-close]="false" id="dialog-cancel-btn" mat-button>{{'button.cancel' | transloco}}</button>
+  <button (click)="confirm()" [disabled]="!form.valid" color="primary"
+          mat-stroked-button>{{'button.ok' | transloco}}</button>
+</div>

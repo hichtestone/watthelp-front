@@ -1,0 +1,56 @@
+<div class="legend">
+  <div (click)="toggleDisplayRedMarkers()" [class.through]="!isRedMarkersVisible" class="item">
+    <span class="marker red"
+          matTooltip="Points de livraison hors périmètre"></span>
+    <span class="quantity">
+      {{'core.widget.delivery-point-out-of-scope' | transloco : {number: redMarkers.length} }}
+
+    </span>
+  </div>
+  <div (click)="toggleDisplayGreenMarkers()" [class.through]="!isGreenMarkersVisible" class="item">
+    <span class="marker green"
+          matTooltip="Points de livraison dans le périmètre"></span>
+    <span class="quantity">
+      {{'core.widget.delivery-point-in-scope' | transloco : {number: greenMarkers.length} }}
+    </span>
+  </div>
+
+  <ng-container *ngIf="numberOfNoLatLon > 0">
+    <div class="item">
+      |
+    </div>
+
+    <div class="item">
+      {{'core.widget.delivery-point-ungeolocalized' | transloco : {number: numberOfNoLatLon} }}
+    </div>
+  </ng-container>
+
+</div>
+
+<agm-map [fitBounds]="fitBounds"
+         [latitude]="latitude"
+         [longitude]="longitude"
+         [usePanning]="usePanning"
+         [zoom]="6">
+  <!-- Markers -->
+  <agm-marker (markerClick)="centerMap(marker.latitude, marker.longitude)"
+              *ngFor="let marker of _data"
+              [agmFitBounds]="true"
+              [iconUrl]="marker.marker_color"
+              [latitude]="marker.latitude"
+              [longitude]="marker.longitude"
+              [visible]="marker.is_visible">
+    <agm-snazzy-info-window [closeOnMapClick]="true"
+                            [closeWhenOthersOpen]="true"
+                            [maxHeight]="400"
+                            [maxWidth]="500"
+                            [showCloseButton]="false"
+                            borderRadius="6px"
+                            padding="0px">
+      <ng-template>
+        <app-info-windows [marker]="marker"></app-info-windows>
+      </ng-template>
+    </agm-snazzy-info-window>
+
+  </agm-marker>
+</agm-map>

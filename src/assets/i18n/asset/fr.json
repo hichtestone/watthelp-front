@@ -1,0 +1,20 @@
+{
+  "breadcrumb": {
+    "title": "Liste des avoirs"
+  },
+  "list": {
+    "selected-assets": "Les {{number}} avoir(s) ont été sélectionnés",
+    "select-all-assets": "Sélectionner les {{number}} avoir(s)",
+    "all-selected-assets": "Tous les avoir(s) ({{number}}) sont sélectionnés",
+    "invoice-reference": "Référence facture",
+    "power-subscribed": "Puissance souscrite : "
+  },
+  "dialog": {
+    "export-excel": {
+      "title": "Confirmation d'export",
+      "description": "Exporter les avoirs au format Excel ?",
+      "success": "Le fichier Excel a été généré avec succès, il sera disponible sous peu dans vos notifications.",
+      "error": "Une erreur est survenue lors de la génération du fichier Excel."
+    }
+  }
+}

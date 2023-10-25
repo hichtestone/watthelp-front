@@ -1,0 +1,16 @@
+<div class="row">
+  <mat-form-field>
+    <mat-label>{{inputLabel || ''}}</mat-label>
+    <input
+      [formControl]="ngControl.control"
+      [matDatepicker]="picker"
+      [required]="required"
+      matInput>
+    <mat-datepicker-toggle [for]="picker" matSuffix></mat-datepicker-toggle>
+    <mat-datepicker #picker [calendarHeaderComponent]="calendarHeader"></mat-datepicker>
+
+    <mat-error>
+      <ng-content></ng-content>
+    </mat-error>
+  </mat-form-field>
+</div>

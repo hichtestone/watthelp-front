@@ -1,0 +1,34 @@
+<div *ngIf="!isLoading" class="global-count">
+
+  <div class="stat-card card-green">
+    <mat-icon class="big-icon">gps_fixed</mat-icon>
+    <div>
+      <div class="stat-count">{{dataScope?.delivery_points_not_in_scope}}</div>
+      <div class="stat-label">{{'core.widget.global-stats.delivery-point-out-of-scope' | transloco}}</div>
+    </div>
+  </div>
+
+  <div class="stat-card card-blue">
+    <mat-icon class="big-icon">gps_fixed</mat-icon>
+    <div>
+      <div class="stat-count">{{dataScope?.delivery_points_in_scope}}</div>
+      <div class="stat-label">{{'core.widget.global-stats.delivery-point-in-scope' | transloco}}</div>
+    </div>
+  </div>
+
+  <div class="stat-card card-purple">
+    <mat-icon class="big-icon">receipt</mat-icon>
+    <div>
+      <div class="stat-count">{{data?.invoices}}</div>
+      <div class="stat-label">{{'core.widget.global-stats.invoice' | transloco}}</div>
+    </div>
+  </div>
+
+  <div class="stat-card card-red">
+    <mat-icon class="big-icon">warning</mat-icon>
+    <div>
+      <div class="stat-count">{{data?.anomalies}}</div>
+      <div class="stat-label">{{'core.widget.global-stats.alert' | transloco}}</div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,9 @@
+<app-generic-list
+  [withFilter]="false"
+  headerIcon="assignment"
+  headerTitle="{{'import.breadcrumb.title' | transloco}}">
+  <app-import-report-table
+      #table
+      [dataSource]="dataSource">
+  </app-import-report-table>
+</app-generic-list>

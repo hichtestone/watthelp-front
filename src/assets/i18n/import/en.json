@@ -1,0 +1,15 @@
+{
+  "breadcrumb": {
+    "label": "Import report",
+    "title": "Import reports list",
+    "detail": "Import report detail"
+  },
+  "dialog": {
+    "import": {
+      "title": "Confirmation",
+      "description": "This action will delete any invoices you want to re-import including the associated scans and alerts. <br> <br> Are you sure you want to continue?",
+      "success": "The re-import of the selected invoices is in progress. You will receive a notification when it is finished.",
+      "error": "We have a problem with your re-import, please try again."
+    }
+  }
+}

@@ -1,0 +1,19 @@
+.language {
+  position: absolute;
+  top: 11px;
+  right: 378px;
+
+  .flag-out {
+    padding-right: 3px;
+  }
+}
+
+.country-select-item {
+  display: flex;
+  align-items: center;
+  width: 150px;
+
+  img {
+    margin-right: 10px;
+  }
+}

@@ -1,0 +1,45 @@
+<form [formGroup]="form">
+  <div formGroupName="permissions">
+    <app-permission-legend></app-permission-legend>
+
+    <ng-container *ngFor="let group of displayData">
+      <h2 class="group-name">{{ 'role.group.' + group.name | transloco | uppercase}}</h2>
+      <div class="header">
+        <div class="primary-col"></div>
+        <div *ngFor="let group of group.columns">{{ 'role.column.' + group | transloco}}</div>
+      </div>
+
+      <div *ngFor="let line of group.lines" class="content-permissions">
+        <div class="permission-line">
+          <div class="primary-col">{{ 'role.line.' + line.name | transloco }}</div>
+
+          <div *ngFor="let groupColumnName of group.columns">
+
+            <div *ngFor="let column of line.columns">
+
+              <div *ngIf="groupColumnName === column.name; else emptyCell">
+
+                <div (click)="toggleValue(column.permissionId)"
+                     [matTooltip]="column.description || ''"
+                     [style.background-color]="permissionControl.controls[column.permissionId].value | activationColor"
+                     class="item">
+
+                  <mat-icon
+                    *ngIf="permissionControl.controls[column.permissionId].value; else unauthorized">
+                    check_circle
+                  </mat-icon>
+
+                  <ng-template #unauthorized>
+                    <mat-icon>clear</mat-icon>
+                  </ng-template>
+                </div>
+              </div>
+
+              <ng-template #emptyCell class="emptyCell"></ng-template>
+            </div>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+  </div>
+</form>

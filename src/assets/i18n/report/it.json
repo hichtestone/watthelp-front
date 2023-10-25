@@ -1,0 +1,23 @@
+{
+  "breadcrumb": {
+    "label": "Rapporto di analisi",
+    "title": "Elenco dei rapporti di analisi",
+    "detail": "Dettaglio di una relazione"
+  },
+  "list": {
+    "title": "Elenco degli avvisi",
+    "selected-reports": "Tutte le {{number}} rapporti di analisi in questa pagina sono state selezionate",
+    "select-all-reports": "Seleziona tutte le {{number}} rapporti di analisi",
+    "all-selected-reports": "Sono state selezionate tutte le {{number}} rapporti di analisi"
+  },
+  "invoice-summary": "Riepilogo della fattura",
+  "detail-by-dp": "Dettaglio per punto di consegna",
+  "dialog": {
+    "deletion": {
+      "title": "Conferma",
+      "description": "Vuoi eliminare questa / queste rapporti di analisi?",
+      "success": "Rapporto di scansione eliminato correttamente",
+      "error": "Si è verificato un errore durante l'eliminazione del rapporto di scansione"
+    }
+  }
+}

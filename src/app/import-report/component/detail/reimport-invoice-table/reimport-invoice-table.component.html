@@ -1,0 +1,118 @@
+<div [ngClass]="{'list-action': selection.hasValue() }">
+  <span *ngIf="selection.hasValue() && !selection.isSelected('*')" class="selected-count">
+     {{'invoice.list.selected-invoices' | transloco : {number: selection.isSelected('*') ? dataSource.total : selection.selected.length} }}
+    <span *ngIf="selection.selected.length === paginator.pageSize && dataSource.total > selection.selected.length"
+          class="selected-count">
+        <a
+          (click)="selectAll()"><strong>{{'invoice.list.select-all-invoices' | transloco : {number: dataSource.total} }}</strong></a>
+    </span>
+  </span>
+  <span *ngIf="selection.isSelected('*')"
+        class="selected-count">{{'invoice.list.all-selected-invoices' | transloco : {number: dataSource.total} }}</span>
+  <span *ngIf="selection.selected.length > 0">
+    <button [matMenuTriggerFor]="tableOptions" mat-icon-button>
+      <mat-icon>more_vert</mat-icon>
+    </button>
+    <mat-menu #tableOptions="matMenu">
+    <button (click)="reimportInvoice.emit(selection)"
+            [disabled]="!selection.hasValue()"
+            aria-label="ReimportAllInvoice"
+            mat-menu-item
+            type="button">
+      <mat-icon>cloud_upload</mat-icon>
+      <span>{{'button.re-import-all' | transloco}}</span>
+    </button>
+  </mat-menu>
+  </span>
+</div>
+
+<mat-table [dataSource]="dataSource" matSort>
+  <ng-container matColumnDef="select">
+    <mat-header-cell *matHeaderCellDef>
+      <mat-checkbox (change)="$event ? masterToggle() : null"
+                    [checked]="selection.hasValue() && isAllSelected"
+                    [indeterminate]="selection.hasValue() && !isAllSelected">
+      </mat-checkbox>
+    </mat-header-cell>
+    <mat-cell *matCellDef="let row">
+      <mat-checkbox (change)="$event ? selection.toggle(row) : null"
+                    (click)="$event.stopPropagation()"
+                    [checked]="selection.isSelected(row)">
+      </mat-checkbox>
+    </mat-cell>
+  </ng-container>
+
+  <ng-container cdkColumnDef="reference">
+    <mat-header-cell *cdkHeaderCellDef mat-sort-header>{{'common.reference' | transloco}}</mat-header-cell>
+    <mat-cell *cdkCellDef="let row">{{ row.reference || '-' }}</mat-cell>
+  </ng-container>
+
+  <ng-container cdkColumnDef="amount_ht">
+    <mat-header-cell *cdkHeaderCellDef mat-sort-header>{{'common.excluding-vat-amount' | transloco}}</mat-header-cell>
+    <mat-cell *cdkCellDef="let row"
+    >{{ row.amount_ht | amountConverter | currency:'EUR':'symbol' }}</mat-cell>
+  </ng-container>
+
+  <ng-container cdkColumnDef="amount_tva">
+    <mat-header-cell *cdkHeaderCellDef mat-sort-header>{{'common.vat-amount' | transloco}}</mat-header-cell>
+    <mat-cell *cdkCellDef="let row"
+    >{{ row.amount_tva| amountConverter | currency:'EUR':'symbol' }}</mat-cell>
+  </ng-container>
+
+  <ng-container cdkColumnDef="amount_ttc">
+    <mat-header-cell *cdkHeaderCellDef mat-sort-header>{{'common.tax-included-amount' | transloco}}</mat-header-cell>
+    <mat-cell *cdkCellDef="let row"
+    >{{ row.amount_ttc | amountConverter | currency:'EUR':'symbol' }}</mat-cell>
+  </ng-container>
+
+  <ng-container cdkColumnDef="emitted_at">
+    <mat-header-cell *cdkHeaderCellDef>{{'common.emitted-at' | transloco}}</mat-header-cell>
+    <mat-cell *cdkCellDef="let row">{{ row.emitted_at | date: 'dd/MM/yyyy' }}
+    </mat-cell>
+  </ng-container>
+
+  <ng-container cdkColumnDef="actions">
+    <mat-header-cell *cdkHeaderCellDef style="flex: 0 0 75px;">
+      {{'common.actions' | transloco}}
+    </mat-header-cell>
+    <mat-cell *cdkCellDef="let row" style="flex: 0 0 75px;">
+      <ng-container>
+        <button (click)="$event.stopPropagation();" [matMenuTriggerFor]="actionMenu" aria-label="Actions"
+                mat-icon-button
+                type="button">
+          <mat-icon>more_vert</mat-icon>
+        </button>
+
+        <mat-menu #actionMenu="matMenu">
+          <button (click)="reimportInvoice.emit(selection)"
+                  [disabled]="!selection.hasValue()"
+                  aria-label="reimport_invoice"
+                  mat-menu-item
+                  type="button">
+            <mat-icon>cloud_upload</mat-icon>
+            <span>{{'button.re-import' | transloco}}</span>
+          </button>
+        </mat-menu>
+      </ng-container>
+    </mat-cell>
+  </ng-container>
+
+  <mat-header-row *cdkHeaderRowDef="displayedColumns; sticky: true"></mat-header-row>
+  <mat-row *cdkRowDef="let row; columns: displayedColumns; let even = even; let odd = odd"
+           [class.loading]="dataSource.loading"
+           [ngClass]="{'mat-row-even': even, 'mat-row-odd': odd}"
+           [routerLink]="'../../invoice/' + row.id">
+  </mat-row>
+</mat-table>
+
+<app-table-no-result
+  [style.display]="(dataSource.data.length == 0 && !dataSource.loading) ? '' : 'none'">
+</app-table-no-result>
+
+<mat-paginator
+  [length]="dataSource.data.length"
+  [pageIndex]="0"
+  [pageSizeOptions]="[25, 50, 75, 100]"
+  [pageSize]="25"
+  [style.display]="(dataSource.total === 0) ? 'none' : ''">
+</mat-paginator>

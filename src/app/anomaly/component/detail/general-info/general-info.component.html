@@ -1,0 +1,186 @@
+<mat-card>
+  <form [formGroup]="form">
+    <app-form-block title="{{'common.invoice' | transloco}}">
+      <div class="block-container">
+        <div class="block">
+          <mat-card-subtitle>{{'common.invoice' | transloco}} :</mat-card-subtitle>
+          <mat-card-content>
+            {{ anomaly.item_analysis?.analysis?.invoice.reference || '-' }} {{'common.emitted-at' | transloco}}
+            {{ (anomaly.item_analysis?.analysis?.invoice.emitted_at | date : 'dd/MM/yyyy') || '-' }}
+          </mat-card-content>
+        </div>
+
+        <div class="block">
+          <mat-card-subtitle>{{'common.anomaly-date' | transloco}} :</mat-card-subtitle>
+          <mat-card-content>{{ anomaly.created_at | date : 'dd/MM/yyyy'}}</mat-card-content>
+        </div>
+
+        <div class="block">
+          <mat-card-subtitle>{{'common.anomaly-type' | transloco}} :</mat-card-subtitle>
+          <mat-card-content>{{ anomaly.type | labelFormat | transloco}}</mat-card-content>
+        </div>
+
+        <div class="block">
+          <mat-card-subtitle>{{'common.profit.label' | transloco}} :</mat-card-subtitle>
+          <mat-card-content>
+            <span *ngIf="anomaly.profit === 'client'"><mat-icon
+              class="dpi-ok">add</mat-icon> <em>({{'common.profit.gain' | transloco}})</em></span>
+            <span *ngIf="anomaly.profit === 'provider'"><mat-icon
+              class="dpi-error">remove</mat-icon> <em>({{'common.profit.loss' | transloco}})</em></span>
+            <span *ngIf="anomaly.profit === 'none'"><em>{{'common.none' | transloco}}</em></span>
+          </mat-card-content>
+        </div>
+      </div>
+
+      <div class="block-container">
+        <div class="block">
+          <mat-card-subtitle>{{'common.difference' | transloco}} :</mat-card-subtitle>
+          <mat-card-content> {{ !anomaly.total ? '- ' : (anomaly.total | amountConverter | number : '1.2-2') + ' €' }}</mat-card-content>
+        </div>
+
+        <div class="block">
+          <mat-card-subtitle>{{'common.diff-percentage' | transloco}} :</mat-card-subtitle>
+          <mat-card-content> {{ !anomaly.total_percentage ? '- ' : (anomaly.total_percentage | number : '1.2-2') + ' %' }}</mat-card-content>
+        </div>
+
+        <div class="block">
+          <mat-card-subtitle>{{'common.real-amount' | transloco}}</mat-card-subtitle>
+          <mat-card-content> {{ anomaly.current_value || '-' }}</mat-card-content>
+        </div>
+
+        <div class="block">
+          <mat-card-subtitle>{{'common.expected-amount' | transloco}} :</mat-card-subtitle>
+          <mat-card-content> {{ anomaly.expected_value || '-'}}</mat-card-content>
+        </div>
+      </div>
+
+      <div class="block-container">
+        <div *appAuthorized="['management.anomaly.edit']" class="block">
+          <mat-form-field class="form-size">
+            <mat-select (selectionChange)="patchStatus.emit()" formControlName="status"
+                        placeholder="{{'common.anomaly-state' | transloco}}">
+              <mat-option></mat-option>
+              <mat-option *ngFor="let availableStatus of availableStatuses" [value]="availableStatus">
+                {{ availableStatus | anomalyStatus | transloco}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="block-container">
+        <div class="block">
+          <div class="form-size">
+            <mat-card-subtitle>{{'common.description' | transloco}} :</mat-card-subtitle>
+            <mat-card-content>
+              <p>{{ anomaly.content || ('anomaly.list.no-description' | transloco)}}</p>
+            </mat-card-content>
+          </div>
+        </div>
+      </div>
+    </app-form-block>
+
+    <app-form-block title="{{'common.dp' | transloco}}">
+      <div class="block-container">
+        <div class="block">
+          <mat-card-subtitle>{{'common.dp-ref' | transloco}} :</mat-card-subtitle>
+          <mat-card-content>
+            {{ anomaly.item_analysis?.delivery_point_invoice_analysis?.delivery_point_invoice.delivery_point.reference || '-'  }}
+          </mat-card-content>
+        </div>
+        <div class="block">
+          <mat-card-subtitle>{{'common.denomination' | transloco}} :</mat-card-subtitle>
+          <mat-card-content>{{ anomaly.item_analysis?.delivery_point_invoice_analysis?.delivery_point_invoice.delivery_point.name || '-' }}</mat-card-content>
+        </div>
+
+        <div class="block">
+          <mat-card-subtitle>{{'common.power' | transloco}} :</mat-card-subtitle>
+          <mat-card-content>
+            {{ anomaly.item_analysis?.delivery_point_invoice_analysis?.delivery_point_invoice.power_subscribed || '- '}}
+            kW
+          </mat-card-content>
+        </div>
+      </div>
+
+      <div class="block-container">
+        <div class="block">
+          <mat-card-subtitle>{{'common.address' | transloco}} :</mat-card-subtitle>
+          <mat-card-content>{{ anomaly.item_analysis?.delivery_point_invoice_analysis?.delivery_point_invoice.delivery_point.address || '-' }}</mat-card-content>
+        </div>
+
+        <div class="block">
+          <mat-card-subtitle>{{'common.excluding-vat-amount' | transloco}} :</mat-card-subtitle>
+          <mat-card-content>{{ (anomaly.item_analysis?.delivery_point_invoice_analysis?.delivery_point_invoice.amount_ht | amountConverter | number : '1.2-2') || '- ' }}
+            €
+          </mat-card-content>
+        </div>
+
+        <div class="block">
+          <mat-card-subtitle>{{'common.vat-amount' | transloco}} :</mat-card-subtitle>
+          <mat-card-content>
+            {{(anomaly.item_analysis?.delivery_point_invoice_analysis?.delivery_point_invoice.amount_tva | amountConverter | number : '1.2-2') || '- ' }}
+            €
+          </mat-card-content>
+        </div>
+      </div>
+
+      <div class="block-container">
+        <div class="block">
+          <mat-card-subtitle>{{'common.tax-included-amount' | transloco}} :</mat-card-subtitle>
+          <mat-card-content>
+            {{ (anomaly.item_analysis?.delivery_point_invoice_analysis?.delivery_point_invoice.amount_ttc | amountConverter | number : '1.2-2') || '- '}}
+            €
+          </mat-card-content>
+        </div>
+      </div>
+    </app-form-block>
+
+    <app-form-block title="{{'common.applied-rules' | transloco}}">
+      <div
+        *ngIf="!!anomaly.applied_rules; else noRules"
+        [innerHTML]="anomaly.applied_rules | formulaFormatter">
+      </div>
+
+      <ng-template #noRules>
+        <app-table-no-result [description]="description | transloco" style="height: 500px"></app-table-no-result>
+      </ng-template>
+    </app-form-block>
+  </form>
+
+  <ng-container *appAuthorized="['management.import.file']">
+    <app-form-block
+      *ngIf="anomaly.import_report?.import || anomaly.item_analysis?.analysis?.invoice?.import_report?.import"
+      title="{{'common.import-file' | transloco}} :">
+      <div class="block-container">
+        <div class="block">
+          <mat-card-subtitle>{{'common.import-report-date' | transloco}} :</mat-card-subtitle>
+          <mat-card-content>{{!!anomaly.import_report?.import
+              ? (anomaly.import_report.import.created_at | date : 'dd/MM/yyyy')
+              : (anomaly.item_analysis.analysis.invoice.import_report.import.created_at | date : 'dd/MM/yyyy')  }}
+          </mat-card-content>
+        </div>
+      </div>
+
+      <div *appAuthorized="['management.import.file']" class="import_file">
+        <a
+          [href]="!!anomaly.import_report?.import
+        ? anomaly.import_report.import.file.raw
+        : anomaly.item_analysis.analysis.invoice.import_report.import.file?.raw"
+          aria-label="Download"
+          mat-raised-button
+          target="_blank"
+          type="button">
+          <mat-icon class="upload-icon">cloud_download</mat-icon>
+          <span>{{'button.download-import-file' | transloco}}</span>
+        </a>
+      </div>
+    </app-form-block>
+  </ng-container>
+
+  <app-form-block *appAuthorized="['management.invoice.view']" title="{{'common.pdf-invoice' | transloco}}">
+    <app-pdf-file
+      [file]="anomaly?.item_analysis?.analysis?.invoice?.pdf || null"
+      [showControls]="false">
+    </app-pdf-file>
+  </app-form-block>
+</mat-card>

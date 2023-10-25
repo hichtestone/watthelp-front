@@ -1,0 +1,85 @@
+<div [ngClass]="{'list-action': selection.hasValue() }">
+  <span *ngIf="selection.hasValue() && !selection.isSelected('*')" class="selected-count">
+    Les {{ selection.isSelected('*') ? dataSource.total : selection.selected.length }} points de livraison (s) de cette page sont sélectionnés.
+    <span *ngIf="selection.selected.length == paginator.pageSize && dataSource.total > selection.selected.length"
+          class="selected-count">
+        <a (click)="selectAll()"><strong>Sélectionner les {{ dataSource.total }} point(s) de livraison.</strong></a>
+    </span>
+  </span>
+  <span *ngIf="selection.isSelected('*')" class="selected-count">Tous les points de livraison ({{ dataSource.total }}) sont sélectionnés.</span>
+  <span *ngIf="selection.selected.length > 0">
+    <button [matMenuTriggerFor]="tableOptions" mat-icon-button>
+      <mat-icon>more_vert</mat-icon>
+    </button>
+    <mat-menu #tableOptions="matMenu">
+    <button (click)="validateSelection.emit(selection)"
+            [disabled]="!selection.hasValue()"
+            aria-label="Edit"
+            mat-menu-item
+            type="button">
+      <mat-icon>check_circle</mat-icon>
+      <span>Valider la sélection</span>
+    </button>
+
+  </mat-menu>
+  </span>
+</div>
+
+<mat-table [dataSource]="dataSource" [trackBy]="trackById" matSort>
+  <ng-container matColumnDef="select">
+    <mat-header-cell *matHeaderCellDef mat-header-cell style="flex: 0 0 50px;">
+      <mat-checkbox (change)="$event ? masterToggle() : null"
+                    [checked]="selection.hasValue()"
+                    [indeterminate]="selection.hasValue() && !isAllSelected">
+      </mat-checkbox>
+    </mat-header-cell>
+    <mat-cell *matCellDef="let row" mat-cell style="flex: 0 0 50px;">
+      <mat-checkbox (change)="$event ? selection.toggle(row) : null"
+                    (click)="$event.stopPropagation()"
+                    [checked]="selection.isSelected(row)">
+      </mat-checkbox>
+    </mat-cell>
+  </ng-container>
+
+  <ng-container cdkColumnDef="reference">
+    <mat-header-cell *cdkHeaderCellDef mat-sort-header>Référence RAE</mat-header-cell>
+    <mat-cell *cdkCellDef="let row">{{ row.reference || '-' }}</mat-cell>
+  </ng-container>
+
+  <ng-container cdkColumnDef="code">
+    <mat-header-cell *cdkHeaderCellDef mat-sort-header>Code interne</mat-header-cell>
+    <mat-cell *cdkCellDef="let row">{{ row.code || '-' }}</mat-cell>
+  </ng-container>
+
+  <ng-container cdkColumnDef="creation_mode">
+    <mat-header-cell *cdkHeaderCellDef mat-sort-header>Mode de création</mat-header-cell>
+    <mat-cell *cdkCellDef="let row">{{ (row.creation_mode | modeLabel | transloco) || '-' }}</mat-cell>
+  </ng-container>
+
+  <ng-container cdkColumnDef="is_in_scope">
+    <mat-header-cell *cdkHeaderCellDef>Dans périmètre</mat-header-cell>
+    <mat-cell *cdkCellDef="let row">
+      <mat-icon *ngIf="row.is_in_scope" class="enabled">done</mat-icon>
+      <mat-icon *ngIf="!row.is_in_scope" class="disabled">clear</mat-icon>
+    </mat-cell>
+  </ng-container>
+
+  <mat-header-row *cdkHeaderRowDef="displayedColumns; sticky: true"></mat-header-row>
+  <mat-row *cdkRowDef="let row; columns: displayedColumns; let even = even; let odd = odd"
+           [class.loading]="dataSource.loading"
+           [ngClass]="{'mat-row-even': even, 'mat-row-odd': odd}"
+           [style.cursor]="'not-allowed'">
+  </mat-row>
+</mat-table>
+
+<app-table-no-result
+  [style.display]="(dataSource.total == 0 && !dataSource.loading) ? '' : 'none'">
+</app-table-no-result>
+
+<mat-paginator
+  [length]="dataSource.total"
+  [pageIndex]="0"
+  [pageSizeOptions]="[25, 50, 75, 100]"
+  [pageSize]="25"
+  [style.display]="(dataSource.total === 0) ? 'none' : ''">
+</mat-paginator>

@@ -1,0 +1,54 @@
+{
+  "toolbar-menu": {
+    "home": "Accoglienza",
+    "management": {
+      "label": "Gestione",
+      "submenu": {
+        "contracts": "Contratti",
+        "delivery-points": "Punti di consegna",
+        "cartography": "Cartografia",
+        "billing": "Dati di fatturazione",
+        "budget": "Budget"
+      }
+    },
+    "analysis": {
+      "label": "Analisi",
+      "submenu": {
+        "report": "Rapporto",
+        "anomaly": "Avvisi",
+        "asset": "Risorse"
+      }
+    },
+    "system": {
+      "label": "Sistema",
+      "submenu": {
+        "taxes": "Le tasse",
+        "prices": "Prezzi",
+        "users": "Utenti",
+        "role-management": "Gestione dei ruoli"
+      }
+    },
+    "logout": "Disconnessione",
+    "import-report": "Rapporto di importazione",
+    "profile": "Il mio profilo",
+    "language-dialog": {
+      "title": "Cambia lingua",
+      "content": "Stai per cambiare la lingua dell'intera applicazione. <br> <br> Sei sicuro di voler continuare?",
+      "confirm": "Sì",
+      "cancel": "No"
+    },
+    "notification-bar": {
+      "title": "Notifiche",
+      "mark-all-read": "Segna tutti come letti",
+      "read-all": "Vedere tutto",
+      "no-message": "Nessuna notifica ricevuta",
+      "download-tooltip": "Fare clic sull'icona per scaricare il file.",
+      "detail-tooltip": "Clicca sull'icona per vedere i dettagli.",
+      "progress": "In corso ...",
+      "see-more": "Vedi altro",
+      "see-less": "Ridurre",
+      "update-error": "Si è verificato un errore durante l'aggiornamento delle notifiche."
+    }
+  }
+}
+

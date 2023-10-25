@@ -1,0 +1,62 @@
+<mat-card-title>{{ 'invoice.dialog.upload.title' | transloco}}</mat-card-title>
+<mat-card-content>
+  <form [formGroup]="form">
+    <div>
+      <mat-form-field>
+        <mat-label>{{ 'invoice.dialog.upload.provider' | transloco}}</mat-label>
+        <mat-select formControlName="provider" required>
+          <mat-option *ngFor="let val of providers" [value]="val.provider">
+            {{ val.provider | enumToLabel | transloco}}
+          </mat-option>
+        </mat-select>
+        <mat-error *ngIf="form.controls.provider.invalid" class="error">
+          <span *ngIf="form.controls.provider.errors.api">{{ form.controls.provider.errors.api }}</span>
+          <span *ngIf="form.controls.provider.errors.required">{{ 'error.required-field' | transloco}}</span>
+        </mat-error>
+      </mat-form-field>
+
+      <div class="supplier-info">{{ selectedSupplier ? (selectedSupplier.information | transloco) : '' }}</div>
+
+      <div class="upload-zone">
+        <button (click)="triggerChangeFile()" [disabled]="!form.controls.provider.value" mat-raised-button>
+          <mat-icon class="mat-12">file_upload</mat-icon>
+          <span *ngIf="fileInput">{{fileLabel}}</span>
+          <span *ngIf="!fileInput">
+              {{ isLoading ?
+              ('invoice.dialog.upload.loading' | transloco)
+              : (selectedSupplier ? (selectedSupplier.import_label | transloco) : ('invoice.dialog.upload.choose-file' | transloco)) }}
+            </span>
+          <mat-progress-spinner
+            *ngIf="isLoading"
+            [diameter]="18"
+            class="login-spinner"
+            mode="indeterminate">
+          </mat-progress-spinner>
+        </button>
+
+        <div *ngIf="!!error" class="error-message">{{error}}</div>
+
+        <input #fileInputRef (change)="onChange($event)"
+               [accept]="selectedSupplier ? selectedSupplier.accept_type : ''"
+               formControlName="file"
+               id="file"
+               style="display: none;"
+               type="file"/>
+        <mat-error *ngIf="form.controls.file.invalid" class="error">
+          <span *ngIf="form.controls.file.errors.api">{{form.controls.file.errors.api}}</span>
+        </mat-error>
+      </div>
+    </div>
+  </form>
+</mat-card-content>
+<mat-card-actions align="end">
+  <button mat-dialog-close="cancel" mat-stroked-button>{{'button.cancel' | transloco}}</button>
+  <button (click)="submit()"
+          [disabled]="!fileInput"
+          color="primary"
+          mat-raised-button
+          type="submit">
+    {{'invoice.dialog.upload.loading' | transloco}}
+  </button>
+</mat-card-actions>
+

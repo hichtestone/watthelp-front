@@ -1,0 +1,53 @@
+{
+  "toolbar-menu": {
+    "home": "Home",
+    "management": {
+      "label": "Management",
+      "submenu": {
+        "contracts": "Contracts",
+        "delivery-points": "Delivery points",
+        "cartography": "Map",
+        "billing": "Billing data",
+        "budget": "Budgets"
+      }
+    },
+    "analysis": {
+      "label": "Analysis",
+      "submenu": {
+        "report": "Reports",
+        "anomaly": "Anomalies",
+        "asset": "Assets"
+      }
+    },
+    "system": {
+      "label": "System",
+      "submenu": {
+        "taxes": "Taxes",
+        "prices": "Pricings",
+        "users": "Users",
+        "role-management": "Role management"
+      }
+    },
+    "logout": "Sign out",
+    "import-report": "Import report",
+    "profile": "My profile",
+    "language-dialog": {
+      "title": "Language change",
+      "content": "You are about to change the language of the whole application. <br> <br> Are you sure you want to continue?",
+      "confirm": "Yes",
+      "cancel": "No"
+    },
+    "notification-bar": {
+      "title": "Notifications",
+      "mark-all-read": "Mark all as read",
+      "read-all": "View all notifications",
+      "no-message": "No received notification",
+      "download-tooltip": "Click the icon to download the file.",
+      "detail-tooltip": "Click the icon to see the detail.",
+      "progress": "In progressing ...",
+      "see-more": "See more",
+      "see-less": "See less",
+      "update-error": "An error occurred while updating your notifications."
+    }
+  }
+}

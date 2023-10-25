@@ -1,0 +1,40 @@
+<app-generic-list
+  [displayHeader]="false">
+  <div slot="filter">
+    <app-generic-filter-block (clear)="reset()">
+      <form [formGroup]="form ">
+        <mat-form-field>
+          <input formControlName="reference" matInput placeholder="Référence RAE">
+        </mat-form-field>
+        <mat-form-field>
+          <input formControlName="code" matInput placeholder="Code interne">
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Dans périmètre</mat-label>
+          <mat-select formControlName="is_in_scope">
+            <mat-option [value]="null">Indifférent</mat-option>
+            <mat-option value="1">Oui</mat-option>
+            <mat-option value="0">Non</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label>Sans facture depuis</mat-label>
+          <mat-select formControlName="no_invoice_for_months">
+            <mat-option [value]="null">Indifférent</mat-option>
+            <mat-option *ngFor="let noInvoicePeriod of noInvoicePeriods" [value]="noInvoicePeriod">
+              {{ noInvoicePeriod | invoicePeriodLabel | transloco}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </form>
+    </app-generic-filter-block>
+  </div>
+  <div slot="table">
+    <app-dialog-delivery-point-table
+        #table
+        (validateSelection)="onValidateSelection($event)"
+        [dataSource]="dataSource">
+    </app-dialog-delivery-point-table>
+  </div>
+</app-generic-list>

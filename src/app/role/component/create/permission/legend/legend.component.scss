@@ -1,0 +1,40 @@
+.legend-container {
+  display: flex;
+  flex-direction: row;
+
+
+  .legend-item {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+
+
+    > * {
+      height: 30px;
+      width: 70px;
+      border-radius: 4px;
+    }
+
+    .legend-text {
+      font-size: 14px;
+      padding: 10px 0 0 5px;
+    }
+
+    .legend-color {
+      border: 1px solid #000000;
+
+      &.green {
+        background-color: #00c853;
+      }
+
+      &.red {
+        background-color: #dd5322;
+      }
+
+      &.white {
+        background-color: #FFFFFF;
+      }
+    }
+  }
+}

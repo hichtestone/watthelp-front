@@ -1,0 +1,9 @@
+{
+  "login-label": "Sign in",
+  "login-loading": "Signing in...",
+  "email": "Email",
+  "email-required": "Email required",
+  "password": "Password",
+  "password-required": "Password required",
+  "password-forgotten": "Forgotten password ?"
+}

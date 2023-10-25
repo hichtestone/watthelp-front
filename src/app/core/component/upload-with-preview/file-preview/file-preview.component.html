@@ -1,0 +1,8 @@
+<div class="file-preview">
+  <app-carousel *ngIf="!!isImage" [images]="images"></app-carousel>
+  <div *ngIf="!isImage">{{ file.name }}</div>
+
+  <button (click)="onRemove()" class="btn-remove" color="warn" mat-mini-fab>
+    <mat-icon>clear</mat-icon>
+  </button>
+</div>

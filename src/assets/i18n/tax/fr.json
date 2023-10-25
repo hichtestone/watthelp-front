@@ -1,0 +1,18 @@
+{
+  "breadcrumb": {
+    "title": "Taxes",
+    "new": "Création d'une taxe",
+    "detail": "Edition d'une taxe"
+  },
+  "create-tax": "Créer une taxe",
+  "dialog": {
+    "deletion": {
+      "title": "Confirmation",
+      "description": "Êtes vous sûr de vouloir supprimer cette(ces) taxes ?",
+      "success": "La suppression a bien été effectuée",
+      "error": "Une erreur est survenue lors de suppression des taxes."
+    }
+  },
+  "created-success": "La taxe a bien été créée",
+  "updated-success": "La taxe a bien été mis à jour"
+}

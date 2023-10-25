@@ -1,0 +1,18 @@
+{
+  "breadcrumb": {
+    "title": "Taxes",
+    "new": "Create new tax",
+    "detail": "Editing tax"
+  },
+  "create-tax": "Add new tax",
+  "dialog": {
+    "deletion": {
+      "title": "Confirmation",
+      "description": "Do you want to delete this/these taxes ?",
+      "success": "Deletion successfully completed",
+      "error": "An error occurred during the taxes deletion"
+    }
+  },
+  "created-success": "The tax has been successfully created",
+  "updated-success": "The tax has been successfully updated"
+}

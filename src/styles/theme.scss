@@ -1,0 +1,62 @@
+@import '~@angular/material/theming';
+@import 'variables';
+@import "~material-design-icons/iconfont/material-icons.css";
+
+// Plus imports for other component in your app.
+
+// Include the common styles for Angular Material. We include this here so that you only
+// have to load a single css file for Angular Material in your app.
+// Be sure that you only ever include this mixin once!
+@include mat-core();
+
+$mat-primary-custom: (
+  A400: #3cb1f0,
+  contrast: (
+    A400: $light-primary-text,
+  )
+);
+
+$mat-accent-custom: (
+  A400: #ffcc00,
+  contrast: (
+    A400: $light-primary-text,
+  )
+);
+
+// Define the palettes for your theme using the Material Design palettes available in palette.scss
+// (imported above). For each palette, you can optionally specify a default, lighter, and darker
+// hue. Available color palettes: https://www.google.com/design/spec/style/color.html
+$app-primary: mat-palette($mat-primary-custom, A400);
+$app-accent: mat-palette($mat-accent-custom, A400);
+$app-warn: mat-palette($mat-red);
+
+// Create the theme object (a Sass map containing all of the palettes).
+$app-theme: mat-light-theme($app-primary, $app-accent, $app-warn);
+
+// Include theme styles for core and each component used in your app.
+// Alternatively, you can import and @include the theme mixins for each component
+// that you are using.
+@include angular-material-theme($app-theme);
+
+$roboto-typography: mat-typography-config(
+  $font-family: 'Roboto, "Helvetica Neue", sans-serif'
+);
+
+/*$foreground: map_get($app-theme, foreground);
+$label-color: mat-color($foreground, secondary-text, 0.7);
+$underline-focused-color: mat-color($foreground, divider, 1);
+
+.mat-form-field.mat-focused .mat-form-field-label {
+  color: $label-color;
+}
+.mat-form-field.mat-focused {
+  .mat-form-field-ripple {
+    background-color: $underline-focused-color;
+  }
+}*/
+
+// Override typography CSS classes (e.g., mat-h1, mat-display-1, mat-typography, etc.).
+@include mat-base-typography($roboto-typography);
+
+// Override typography for all Angular Material, including mat-base-typography and all component.
+@include angular-material-typography($roboto-typography);

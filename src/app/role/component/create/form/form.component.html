@@ -1,0 +1,30 @@
+<form [formGroup]="form">
+  <mat-card>
+    <app-form-block title="{{'common.general-info' | transloco}}">
+      <div class="row">
+        <mat-form-field class="form-w50">
+          <mat-label>{{'common.name' | transloco}}</mat-label>
+          <input formControlName="name" matInput
+                 required/>
+          <mat-error *ngIf="form.controls.name.invalid">
+            <span *ngIf="form.controls.name.errors.api">{{ form.controls.name.errors.api }}</span>
+            <span *ngIf="form.controls.name.errors.required">{{'error.required-field' | transloco}}</span>
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="form-w50">
+          <mat-label>{{'common.description' | transloco}}</mat-label>
+          <textarea
+            cdkTextareaAutosize
+            formControlName="description"
+            matInput
+            rows="15">
+          </textarea>
+          <mat-error *ngIf="form.controls.description.invalid">
+            <span *ngIf="form.controls.description.errors.api">{{ form.controls.description.errors.api }}</span>
+          </mat-error>
+        </mat-form-field>
+      </div>
+    </app-form-block>
+  </mat-card>
+</form>

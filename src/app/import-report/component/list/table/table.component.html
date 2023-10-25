@@ -1,0 +1,88 @@
+<mat-table [dataSource]="dataSource" [trackBy]="trackById" matSort>
+
+  <ng-container cdkColumnDef="user">
+    <mat-header-cell *cdkHeaderCellDef mat-sort-header>{{'common.user' | transloco}}</mat-header-cell>
+    <mat-cell *cdkCellDef="let row">
+      {{ row.import.user.first_name + ' ' + row.import.user.last_name }}
+    </mat-cell>
+  </ng-container>
+
+  <ng-container cdkColumnDef="type">
+    <mat-header-cell *cdkHeaderCellDef mat-sort-header>{{'common.type' | transloco}}</mat-header-cell>
+    <mat-cell *cdkCellDef="let row">
+      {{ row.import.type | importType | transloco}}
+    </mat-cell>
+  </ng-container>
+
+  <ng-container cdkColumnDef="provider">
+    <mat-header-cell *cdkHeaderCellDef mat-sort-header>{{'common.provider' | transloco}}</mat-header-cell>
+    <mat-cell *cdkCellDef="let row">
+      {{ row.import.provider || '-'}}
+    </mat-cell>
+  </ng-container>
+
+  <ng-container cdkColumnDef="created_at">
+    <mat-header-cell *cdkHeaderCellDef>{{'common.creation-date' | transloco}}</mat-header-cell>
+    <mat-cell *cdkCellDef="let row">
+      {{ row.created_at | date: 'dd/MM/yyyy HH:mm:ss' }}
+    </mat-cell>
+  </ng-container>
+
+  <ng-container cdkColumnDef="status">
+    <mat-header-cell *cdkHeaderCellDef>{{'common.status' | transloco}}</mat-header-cell>
+    <mat-cell *cdkCellDef="let row">
+      <app-status [status]="row.status">
+      </app-status>
+    </mat-cell>
+  </ng-container>
+
+  <ng-container cdkColumnDef="actions">
+    <mat-header-cell *cdkHeaderCellDef style="flex: 0 0 75px;">
+      <button (click)="openSelectionDialog()" aria-label="Settings" mat-icon-button type="button">
+        <mat-icon>settings</mat-icon>
+      </button>
+    </mat-header-cell>
+    <mat-cell *cdkCellDef="let row" style="flex: 0 0 75px;">
+      <ng-container *appAuthorized="['management.import.file']">
+        <button (click)="$event.stopPropagation();" [matMenuTriggerFor]="actionMenu" aria-label="Actions"
+                mat-icon-button
+                type="button">
+          <mat-icon>more_vert</mat-icon>
+        </button>
+
+        <mat-menu #actionMenu="matMenu">
+          <a *appAuthorized="['management.import.file']"
+             aria-label="download"
+             download
+             href="{{ row.import.file.raw }}"
+             mat-menu-item
+             target="_blank"
+             type="button">
+            <mat-icon>cloud_download</mat-icon>
+            <span>{{'button.download-import-file' | transloco}}</span>
+          </a>
+        </mat-menu>
+      </ng-container>
+    </mat-cell>
+  </ng-container>
+
+  <mat-header-row *cdkHeaderRowDef="displayedColumns; sticky: true"></mat-header-row>
+  <mat-row *cdkRowDef="let row; columns: displayedColumns; let even = even; let odd = odd"
+           [class.loading]="dataSource.loading"
+           [ngClass]="{'mat-row-even': even, 'mat-row-odd': odd}"
+           [queryResource]="['management.import.report.view']"
+           [routerLinkSecured]="row.id">
+  </mat-row>
+</mat-table>
+
+<app-table-no-result
+  [style.display]="(dataSource.total == 0 && !dataSource.loading) ? '' : 'none'">
+</app-table-no-result>
+
+<mat-paginator
+  [length]="dataSource.total"
+  [pageIndex]="0"
+  [pageSizeOptions]="[25, 50, 75, 100]"
+  [pageSize]="25"
+  [style.display]="(dataSource.total === 0) ? 'none' : ''">
+</mat-paginator>

@@ -1,0 +1,47 @@
+{
+  "breadcrumb": {
+    "title": "Contratti",
+    "contract-creation": "Creazione di un contratto",
+    "contract-edition": "edizione di un contratto"
+  },
+  "add-new-item": "Creare un contratto",
+  "list": {
+    "title": "Contracts list",
+    "reference": "Riferimento",
+    "price-number": "Numero di tariffe",
+    "provider": "Provider",
+    "type": "Genere",
+    "invoice-period": "Periodo di fatturazione",
+    "started-at": "Data d'inizio",
+    "finished-at": "Data di fine",
+    "apply-contract-to-all": "Applica questo contratto a tutti gli altri",
+    "regulated": "Tariffa regolamentata",
+    "negotiated": "Offerta di mercato",
+    "none": "Indifferente",
+    "contract-updated": "contratto aggiornato con successo",
+    "contract-created": "Il contratto è stato creato",
+    "contract-price": "Prezzi contrattuali",
+    "new-price-on-contract": "Aggiungi un prezzo al contratto",
+    "name-column": "Nome",
+    "price-field": "Prezzi",
+    "add-selected-price": "Aggiungi la tariffa selezionata",
+    "no-price-found": "Nessun prezzo è disponibile per l'aggiunta"
+  },
+  "snack-bar": {
+    "created": "Contratto creato con successo",
+    "deleted-price": "Il prezzo è stato cancellato dal contratto",
+    "updated": "Contratto aggiornato con successo"
+  },
+  "dialog": {
+    "deletion": {
+      "title": "Cancellazione di un contratto",
+      "description": "Sei sicuro di voler cancellare questo contratto?",
+      "contract-success-deletion": "Il contratto è stato cancellato"
+    },
+    "apply-contract": {
+      "title": "Applica questo contratto",
+      "description": "Si noti che i valori del contratto selezionato verranno applicati a tutti gli altri contratti.",
+      "contract-success-update": "I contratti sono stati effettivamente modificati."
+    }
+  }
+}

@@ -1,0 +1,29 @@
+@import '~@angular/material/theming';
+
+$primary-text-color: $light-primary-text;
+
+$mat-primary-custom: (
+  A400: #1f9cd8,
+  contrast: (
+    A400: $primary-text-color,
+  )
+);
+
+$mat-accent-custom: (
+  A400: #ffcc00,
+  contrast: (
+    A400: $primary-text-color,
+  )
+);
+
+// Define the palettes for your theme using the Material Design palettes available in palette.scss
+// (imported above). For each palette, you can optionally specify a default, lighter, and darker
+// hue. Available color palettes: https://www.google.com/design/spec/style/color.html
+$app-primary: mat-palette($mat-primary-custom, A400);
+$app-accent: mat-palette($mat-accent-custom, A400);
+$app-warn: mat-palette($mat-red);
+
+// Create Sass color vars
+$primary: mat-color($app-primary);
+$accent: mat-color($app-accent);
+$warn: mat-color($app-warn);

@@ -1,0 +1,59 @@
+@import "../../../../styles/variables";
+
+/* Breadcrumb */
+.breadcrumb-bg {
+  position: absolute;
+  z-index: -1;
+  top: 0;
+  right: 0;
+  left: 0;
+  height: 200px;
+  background-image: url('/assets/header-nav.png');
+  background-size: cover;
+  background-color: mat-color($app-primary) !important;
+}
+
+.header-nav {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 20px 3%;
+  color: #fafafa;
+}
+
+.header-nav.header-nav-with-bg {
+  background-image: url('/assets/header-nav.png');
+  background-size: cover;
+  background-color: mat-color($app-primary) !important;
+}
+
+.header-nav {
+  span.align-right {
+    flex: 1 1 auto;
+  }
+
+  .header-nav-title {
+    h3 {
+      display: flex;
+      font-size: 24px;
+      font-weight: 400;
+      margin-bottom: 0;
+
+      mat-icon {
+        margin-right: 20px;
+      }
+    }
+  }
+
+  .header-nav-actions {
+    color: rgba(0, 0, 0, 0.85);
+
+    button, a {
+      margin-left: 20px;
+    }
+
+    mat-icon {
+      margin-right: 5px;
+    }
+  }
+}

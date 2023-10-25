@@ -1,0 +1,22 @@
+{
+  "breadcrumb": {
+    "label": "Notifiche",
+    "title": "Elenco delle notifiche"
+  },
+  "message": "Messaggio",
+  "created-at": "Data di creazione",
+  "read-at": "Leggi",
+  "read": "Letto",
+  "unread": "Non letto",
+  "selected-notifications": "Sono state selezionate le {{number}} notifiche",
+  "select-all-notifications": "Seleziona tutte le {{number}} notifiche",
+  "all-selected-notifications": "Tutte le notifiche ({{number}}) sono selezionate",
+  "dialog": {
+    "delete": {
+      "title": "Conferma",
+      "description": "Vuoi eliminare questa / queste notifiche?",
+      "success": "Notifica eliminata con successo",
+      "error": "Si è verificato un errore. Contatta il tuo amministratore."
+    }
+  }
+}

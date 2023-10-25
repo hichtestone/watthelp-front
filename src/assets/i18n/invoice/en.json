@@ -1,0 +1,49 @@
+{
+  "breadcrumb": {
+    "title": "Billing data",
+    "detail": "Invoice details"
+  },
+  "upload-invoice": "Upload an invoice",
+  "list": {
+    "title": "Billing data list",
+    "invoice-analyzed-field": "Invoice analyzed ?",
+    "selected-invoices": "All {{number}} invoice(s) on this page are selected",
+    "select-all-invoices": "Select all {{number}} invoice(s)",
+    "all-selected-invoices": "All the {{number}} invoices have been selected",
+    "analyze-all-invoices": "Analyze all invoices"
+  },
+  "dialog": {
+    "deletion": {
+      "title": "Invoice deletion",
+      "description": "Do you want to proceed to the deletion of this invoice ?",
+      "success": "The invoice has been successfully deleted"
+    },
+    "analysis-handling": {
+      "title": "Invoice already analyzed",
+      "description": "The data from the previous analysis (report, alerts and comments) will be deleted. Would you still like to run a new analysis?",
+      "success": "Analysis launched successfully.",
+      "error": "An error occurred while analyzing the invoice."
+    },
+    "analyze-invoice": {
+      "title": "Confirmation",
+      "description": "You are about to analyze all the selected invoices. Do you want to continue ?"
+    },
+    "upload": {
+      "title": "Upload an invoice",
+      "provider": "Provider",
+      "loading": "Loading...",
+      "choose-file": "Choose a file",
+      "import": "Import",
+      "label-zip": "Choose .zip archive *",
+      "label-excel": "Choose an Excel archive",
+      "edf-info": "Exported archive of Dialège expected.",
+      "engie-info": "The archive should include the invoice.xlsx and index.xlsx files."
+    }
+  },
+  "detail": {
+    "delivery-point-invoice": {
+      "title": "Delivery point invoices",
+      "alert-list": "Alerts list"
+    }
+  }
+}

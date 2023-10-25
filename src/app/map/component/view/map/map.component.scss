@@ -1,0 +1,34 @@
+.legend {
+  display: flex;
+  margin-bottom: 5px;
+
+  .item {
+    display: flex;
+    align-items: center;
+    margin-right: 30px;
+    cursor: pointer;
+
+    &.through {
+      text-decoration: line-through;
+    }
+
+    .marker {
+      display: block;
+      width: 32px;
+      height: 32px;
+
+      &.red {
+        background-image: url('/assets/map/map-marker-red.png');
+      }
+
+      &.green {
+        background-image: url('/assets/map/map-marker-green.png');
+      }
+    }
+  }
+}
+
+agm-map {
+  width: 100%;
+  height: calc(100% - 37px);
+}

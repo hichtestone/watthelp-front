@@ -1,0 +1,62 @@
+<mat-table [dataSource]="dataSource" matSort>
+  <ng-container cdkColumnDef="created_at">
+    <mat-header-cell *cdkHeaderCellDef mat-sort-header>{{'common.creation-date' | transloco}}</mat-header-cell>
+    <mat-cell *cdkCellDef="let row"> {{ (row.created_at | date:'dd/MM/yyyy') || '-'}}
+    </mat-cell>
+  </ng-container>
+
+  <ng-container cdkColumnDef="content">
+    <mat-header-cell *cdkHeaderCellDef mat-sort-header>{{'common.detail' | transloco}}</mat-header-cell>
+    <mat-cell *cdkCellDef="let row"> {{ row.content || '-'}}</mat-cell>
+  </ng-container>
+
+  <ng-container cdkColumnDef="type">
+    <mat-header-cell *cdkHeaderCellDef>{{'common.type' | transloco}}</mat-header-cell>
+    <mat-cell *cdkCellDef="let row">
+      {{row.type | labelFormat | transloco}}
+    </mat-cell>
+  </ng-container>
+
+  <ng-container cdkColumnDef="status">
+    <mat-header-cell *cdkHeaderCellDef mat-sort-header>{{'common.status' | transloco}}</mat-header-cell>
+    <mat-cell *matCellDef="let row" mat-cell>
+      <app-status [status]="row.status"></app-status>
+    </mat-cell>
+  </ng-container>
+
+  <ng-container cdkColumnDef="total">
+    <mat-header-cell *cdkHeaderCellDef mat-sort-header>{{'common.difference' | transloco}}</mat-header-cell>
+    <mat-cell *cdkCellDef="let row">
+      {{ (!row.total ? '-' : row.total | amountConverter | currency:'EUR':'symbol') }}
+    </mat-cell>
+  </ng-container>
+
+  <ng-container cdkColumnDef="actions">
+    <mat-header-cell *cdkHeaderCellDef style="flex: 0 0 75px;">
+      <button (click)="openSelectionDialog()" aria-label="Settings" mat-icon-button type="button">
+        <mat-icon>settings</mat-icon>
+      </button>
+    </mat-header-cell>
+    <mat-cell *cdkCellDef="let row" style="flex: 0 0 75px;">
+    </mat-cell>
+  </ng-container>
+
+  <mat-header-row *cdkHeaderRowDef="displayedColumns; sticky: true"></mat-header-row>
+  <mat-row *cdkRowDef="let row; columns: displayedColumns; let even = even; let odd = odd"
+           [ngClass]="{'mat-row-even': even, 'mat-row-odd': odd}"
+           [style.cursor]="'not-allowed'">
+  </mat-row>
+</mat-table>
+
+<app-table-no-result
+  [style.display]="(dataSource.total === 0) ? '' : 'none'">
+</app-table-no-result>
+
+<mat-paginator
+  [length]="dataSource.total"
+  [pageIndex]="0"
+  [pageSizeOptions]="[25, 50, 75, 100]"
+  [pageSize]="25"
+  [style.display]="(dataSource.total === 0) ? 'none' : ''">
+</mat-paginator>
+

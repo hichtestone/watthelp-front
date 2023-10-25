@@ -1,0 +1,9 @@
+{
+  "login-label": "Connexion",
+  "login-loading": "Connexion en cours...",
+  "email": "Email",
+  "email-required": "Email obligatoire",
+  "password": "Mot de passe",
+  "password-required": "Mot de passe obligatoire",
+  "password-forgotten": "Mot de passe oublié ?"
+}

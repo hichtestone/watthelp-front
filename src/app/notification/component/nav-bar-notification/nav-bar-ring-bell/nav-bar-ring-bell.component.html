@@ -1,0 +1,22 @@
+<ng-container *ngIf="countUnread > 0; else noMessage">
+  <!-- Ring the bell when new notification-->
+  <img *ngIf="newNotification; else stopRinging"
+       alt="dynamic-notification"
+       src="../../../../../assets/notification/dynamic-bell.gif"
+       style="width: 30px; height: 30px">
+
+  <!-- Display static bell after having been rung -->
+  <ng-template #stopRinging>
+    <img alt="static-notification"
+         src="../../../../../assets/notification/static-bell.png"
+         style="width: 30px; height: 30px">
+  </ng-template>
+
+  <!-- Number of unread notifications-->
+  <span class="notification-count">{{countUnread <= 9 ? countUnread : '9+'}}</span>
+</ng-container>
+
+<!-- Will be display whether all notifications have been read-->
+<ng-template #noMessage>
+  <mat-icon *ngIf="!countUnread">notifications_none</mat-icon>
+</ng-template>

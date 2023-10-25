@@ -1,0 +1,31 @@
+<app-generic-list
+  [actionLink]="actionLink"
+  headerIcon="assignment_ind"
+  headerTitle="{{'user.breadcrumb.title' | transloco}}"
+>
+  <div slot="filter">
+    <app-generic-filter-block (clear)="reset()">
+      <form [formGroup]="form ">
+        <mat-form-field>
+          <mat-label>{{'user.first-name' | transloco}}</mat-label>
+          <input formControlName="first_name" matInput>
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>{{'user.last-name' | transloco}}</mat-label>
+          <input formControlName="last_name" matInput>
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label>{{'user.email' | transloco}}</mat-label>
+          <input formControlName="email" matInput>
+        </mat-form-field>
+      </form>
+    </app-generic-filter-block>
+  </div>
+  <div slot="table">
+    <app-user-table #table
+                    (deleteSelected)="onDelete($event)"
+                    [dataSource]="dataSource">
+    </app-user-table>
+  </div>
+</app-generic-list>

@@ -1,0 +1,31 @@
+<mat-table [dataSource]="dataSource" matSort>
+  <ng-container cdkColumnDef="power">
+    <mat-header-cell *cdkHeaderCellDef mat-sort-header>{{'deliverypoint.list.power' | transloco}}</mat-header-cell>
+    <mat-cell *cdkCellDef="let row">{{ row.power }} kW</mat-cell>
+  </ng-container>
+
+  <ng-container cdkColumnDef="at">
+    <mat-header-cell *cdkHeaderCellDef
+                     mat-sort-header>{{'deliverypoint.list.create-update-date' | transloco}}</mat-header-cell>
+    <mat-cell *cdkCellDef="let row">{{ row.at | date: 'dd/MM/yyyy ~ HH:mm' }} </mat-cell>
+  </ng-container>
+
+  <mat-header-row *cdkHeaderRowDef="defaultColumns; sticky: true"></mat-header-row>
+  <mat-row *cdkRowDef="let row; columns: defaultColumns; let even = even; let odd = odd"
+           [ngClass]="{'mat-row-even': even, 'mat-row-odd': odd}"
+           [style.cursor]="'not-allowed'">
+  </mat-row>
+</mat-table>
+
+<app-table-no-result
+  [style.display]="(dataSource.total === 0) ? '' : 'none'">
+</app-table-no-result>
+
+<mat-paginator
+  [length]="dataSource.total"
+  [pageIndex]="0"
+  [pageSizeOptions]="[25, 50, 75, 100]"
+  [pageSize]="25"
+  [style.display]="(dataSource.total === 0) ? 'none' : ''">
+</mat-paginator>
+

@@ -1,0 +1,43 @@
+<h2 class="title">{{'login.login-label' | transloco }}</h2>
+<div *ngIf="errorMessage" class="error">
+    <span *ngFor="let error of errorMessage">
+      {{ error }}
+    </span>
+</div>
+
+<form (ngSubmit)="submit()" [formGroup]="form" class="form-signin">
+  <mat-form-field>
+    <input formControlName="email"
+           matInput
+           placeholder="{{'login.email' | transloco }}"/>
+    <mat-icon matSuffix>email</mat-icon>
+    <mat-error *ngIf="form.controls.email.invalid" class="error">
+      <span *ngIf="form.controls.email.errors.required">{{'login.email-required' | transloco }}</span>
+      <span *ngIf="form.controls.email.errors.api">{{ form.controls.email.errors.api }}</span>
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field>
+    <input autocomplete="new-password"
+           formControlName="password"
+           matInput
+           placeholder="{{'login.password' | transloco }}" type="password"/>
+    <mat-icon matSuffix>https</mat-icon>
+    <mat-error *ngIf="form.controls.password.invalid" class="error">
+      <span *ngIf="form.controls.password.errors.required">{{'login.password-required' | transloco }}</span>
+      <span *ngIf="form.controls.password.errors.api">{{ form.controls.password.errors.api }}</span>
+    </mat-error>
+  </mat-form-field>
+  <div class="button">
+    <app-action-button [disabled]="form.invalid"
+                       [loading]="isLoading"
+                       label="{{'login.login-label' | transloco }}"
+                       labelLoading="{{'login.login-loading' | transloco }}"
+                       type="submit">
+    </app-action-button>
+  </div>
+  <!-- TODO when a decision will be made  <div class="actions">
+      <a [routerLink]="'/login/forgot'" class="forgot">{{'login.password-forgotten' | transloco }}</a>
+    </div>
+    -->
+</form>

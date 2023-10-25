@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>WattHelp</title>
+  <base href="/">
+  <meta content="width=device-width, initial-scale=1" name="viewport">
+  <link href="favicon.ico" rel="icon" type="image/x-icon">
+  <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+<body class="mat-typography">
+<style type="text/css">
+  #splash-screen {
+    font-family: 'Raleway', sans-serif;
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #4F5566;
+    z-index: 99999;
+    pointer-events: none;
+  }
+
+  #splash-screen .center {
+    width: 100%;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    display: block;
+    font-size: 1.2em;
+    color: #fff;
+  }
+
+  #splash-screen .logo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  #splash-screen .splash-loader {
+    margin-top: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  #splash-screen .splash-loader img {
+    width: 40px;
+    height: 40px;
+    margin: 10px;
+    fill: #1f9cd8 !important;
+    color: #1f9cd8;
+  }
+
+  #splash-screen .splash-loader img {
+    -webkit-animation: spin 4s linear infinite;
+    -moz-animation: spin 4s linear infinite;
+    animation: spin 4s linear infinite;
+  }
+
+  @-moz-keyframes spin {
+    100% {
+      -moz-transform: rotate(360deg);
+    }
+  }
+
+  @-webkit-keyframes spin {
+    100% {
+      -webkit-transform: rotate(360deg);
+    }
+  }
+
+  @keyframes spin {
+    100% {
+      -webkit-transform: rotate(360deg);
+      transform: rotate(360deg);
+    }
+  }
+</style>
+<splash-screen id="splash-screen">
+  <div class="center">
+    <div class="logo">
+      <img src="assets/logo.png" width="500"/>
+    </div>
+    <div class="splash-loader">
+      <img class="spinner" src="assets/gearing.svg"/>
+      <div>Chargement...</div>
+    </div>
+  </div>
+
+</splash-screen>
+<app-root></app-root>
+</body>
+</html>

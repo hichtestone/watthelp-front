@@ -1,0 +1,11 @@
+
+.content {
+  margin: 10px;
+  .previews {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    padding-bottom: 10px;
+  }
+}
+

@@ -1,0 +1,70 @@
+mat-card {
+  flex: 1 1 auto;
+  margin-bottom: 30px;
+}
+
+.center {
+  text-align: center;
+}
+
+.description {
+  font-size: 0.95rem;
+
+  div {
+    margin-bottom: 20px;
+  }
+}
+
+.messages-container {
+  display: flex;
+  flex-direction: column;
+
+  > div {
+    display: flex;
+    justify-content: flex-start;
+
+    &.left-message {
+      justify-content: flex-end;
+
+      .title {
+        background-color: #006699;
+        color: whitesmoke;
+      }
+    }
+  }
+
+  .message {
+    border: 1px solid #dddddd;
+    border-radius: 5px;
+    width: 600px;
+    margin-bottom: 30px;
+
+    .title {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      padding: 5px;
+      font-size: 0.8em;
+      background-color: #dddddd;
+    }
+
+    .content {
+      padding: 10px;
+      font-size: 0.95rem;
+    }
+  }
+
+  .new-message > form {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+    > * {
+      flex: 1 1 auto;
+    }
+  }
+
+  .form-width {
+    width: 100%;
+  }
+}

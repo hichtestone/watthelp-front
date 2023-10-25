@@ -1,0 +1,139 @@
+<mat-card>
+  <mat-card-title>{{'core.widget.filter-label' | transloco}}</mat-card-title>
+  <mat-card-content>
+    <form [formGroup]="form">
+
+      <mat-form-field>
+        <mat-label>{{'core.widget.label-field' | transloco}}</mat-label>
+        <input formControlName="label" matInput required>
+        <mat-error *ngIf="form.controls.label.invalid">
+          <span *ngIf="form.controls.label.errors.required">
+            {{'error.required-field' | transloco}}
+          </span>
+        </mat-error>
+      </mat-form-field>
+
+      <ng-container *ngIf="widgetName !== 'consumption' && widgetName !== 'budget-comparison'">
+        <mat-form-field>
+          <mat-label>{{'core.widget.year' | transloco | titlecase}} </mat-label>
+          <input digitOnly formControlName="year" matInput type="text">
+          <mat-error *ngIf="form.controls.year.invalid">
+            <span
+              *ngIf="form.controls.year.errors.pattern">{{'error.pattern-digit-size' | transloco : {size: size} }}</span>
+            <span *ngIf="form.controls.year.errors.api">{{ form.controls.year.errors.api }}</span>
+          </mat-error>
+        </mat-form-field>
+      </ng-container>
+
+      <ng-container *ngIf="widgetName === 'budget'">
+        <div class="divider">
+          <mat-divider></mat-divider>
+        </div>
+
+        <mat-card-title>{{'core.widget.custom-color' | transloco}}</mat-card-title>
+
+        <div class="row">
+          <mat-form-field appearance="none" class="form-w25">
+            <mat-label class="colorLabel">{{'core.widget.real-budget' | transloco}}</mat-label>
+            <input class="colorPicker" formControlName="consumed_chart_color" matInput type="color">
+          </mat-form-field>
+
+          <mat-form-field appearance="none" class="form-w25">
+            <mat-label class="colorLabel">{{'core.widget.theoretical-budget' | transloco}}</mat-label>
+            <input class="colorPicker" formControlName="expected_chart_color" matInput type="color">
+          </mat-form-field>
+
+          <mat-form-field appearance="none" class="form-w25">
+            <mat-label class="colorLabel">{{'core.widget.estimated-budget' | transloco}}</mat-label>
+            <input class="colorPicker" formControlName="forecast_chart_color" matInput type="color">
+          </mat-form-field>
+        </div>
+      </ng-container>
+
+      <ng-container *ngIf="widgetName === 'consumption'">
+
+        <app-input-chip-number-accessor
+          formControlName="years"
+          label="{{'core.widget.year-field' | transloco}}">
+        </app-input-chip-number-accessor>
+
+        <div class="row">
+          <app-input-day-month
+            formControlName="period_from"
+            inputLabel="{{'core.widget.started-at' | transloco}}">
+            <mat-error *ngIf="form.controls.period_from.invalid">
+              <span *ngIf="form.controls.period_from.errors.unauthorizedDate">
+                 {{'error.unauthorized-date' | transloco}}
+              </span>
+            </mat-error>
+          </app-input-day-month>
+
+          <app-input-day-month
+            formControlName="period_at"
+            inputLabel="{{'core.widget.finished-at' | transloco}}">
+            <mat-error *ngIf="form.controls.period_at.invalid">
+              <span *ngIf="form.controls.period_at.errors.unauthorizedDate">
+                  {{'error.unauthorized-date' | transloco}}
+              </span>
+            </mat-error>
+          </app-input-day-month>
+        </div>
+      </ng-container>
+
+      <ng-container *ngIf="widgetName === 'budget-comparison'">
+        <div class="row">
+          <mat-form-field class="form-w50">
+            <mat-label>{{'core.widget.started-at' | transloco}}</mat-label>
+            <input [matDatepicker]="started" formControlName="started_at" matInput required>
+            <mat-datepicker-toggle [for]="started" matSuffix></mat-datepicker-toggle>
+            <mat-datepicker #started></mat-datepicker>
+            <mat-error *ngIf="form.controls.started_at.invalid" class="error">
+                <span *ngIf="form.controls.started_at.errors.unauthorizedDate">
+                  {{'error.unauthorized-date' | transloco}}
+                </span>
+              <span *ngIf="form.controls.started_at.errors.required">{{'error.required-field' | transloco}}</span>
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field class="form-w50">
+            <mat-label>{{'core.widget.finished-at' | transloco}}</mat-label>
+            <input [matDatepicker]="finished" formControlName="finished_at" matInput required>
+            <mat-datepicker-toggle [for]="finished" matSuffix></mat-datepicker-toggle>
+            <mat-datepicker #finished></mat-datepicker>
+            <mat-error *ngIf="form.controls.finished_at.invalid" class="error">
+                <span *ngIf="form.controls.finished_at.errors.unauthorizedDate">
+                  {{'error.unauthorized-date' | transloco}}
+                </span>
+              <span *ngIf="form.controls.finished_at.errors.required">{{'error.required-field' | transloco}}</span>
+            </mat-error>
+          </mat-form-field>
+        </div>
+      </ng-container>
+
+      <ng-container *ngIf="widgetName === 'consumption' || 'budget-comparison'">
+        <div class="dp-selection">
+          <span> {{dpLabel}}</span>
+
+          <div class="btn-add-dp">
+            <a (click)="openDialogSelection()" color="primary" mat-raised-button>
+              <mat-icon>library_add</mat-icon>
+              {{dpButtonLabel}}
+            </a>
+          </div>
+        </div>
+
+        <div class="row">
+          <app-chart-switcher
+            [(chartByYearMonth)]="chartByYearOrMonthChanged"
+            [(chartType)]="chartTypeChanged"
+            [form]="form"
+            [widgetName]="widgetName">
+          </app-chart-switcher>
+        </div>
+      </ng-container>
+    </form>
+  </mat-card-content>
+</mat-card>
+
+
+

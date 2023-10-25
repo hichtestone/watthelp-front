@@ -1,0 +1,50 @@
+<h1 mat-dialog-title>{{'common.column-customization' | transloco}}
+  <a (click)="reset()" color="warn" mat-stroked-button>{{'common.reset-column' | transloco}}</a>
+</h1>
+
+<div mat-dialog-content>
+  <!-- Fixed start column -->
+  <div class="columns-list-fixed-start">
+    <div *ngFor="let column of fixedAtTheBeginning; trackBy: trackByKey" class="columns-box">
+      <mat-checkbox [checked]=true
+                    [disabled]=true
+                    color="primary">
+        {{ column.name | transloco }}
+      </mat-checkbox>
+    </div>
+  </div>
+  <!-- Fixed draggable column -->
+  <div (cdkDropListDropped)="drop($event)" cdkDropList class="columns-list">
+    <div *ngFor="let column of draggableColumns; trackBy: trackByKey"
+         [cdkDragDisabled]="!column.draggable"
+         [class.drag-disable]="!column.draggable" cdkDrag
+         cdkDragBoundary=".columns-list"
+         cdkDragLockAxis="y"
+         class="columns-box">
+      <div *cdkDragPlaceholder class="column-placeholder"></div>
+      <mat-checkbox (change)="column.enabled = !column.enabled"
+                    [checked]="column.enabled"
+                    [disabled]="!column.draggable"
+                    color="primary">
+        {{ column.name | transloco}}
+      </mat-checkbox>
+      <mat-icon *ngIf="column.draggable">drag_handle</mat-icon>
+    </div>
+  </div>
+  <!-- Fixed end column -->
+  <div class="columns-list-fixed-end">
+    <div *ngFor="let column of fixedAtTheEnd; trackBy: trackByKey" class="columns-box">
+      <mat-checkbox [checked]=true
+                    [disabled]=true
+                    color="primary">
+        {{ column.name | transloco}}
+      </mat-checkbox>
+    </div>
+  </div>
+</div>
+
+<div class="actions" mat-dialog-actions>
+  <button (click)="cancel()" id="dialog-cancel-btn" mat-stroked-button>{{ 'button.cancel' | transloco}}</button>
+  <button (click)="confirm()" color="primary" id="dialog-yes-btn"
+          mat-stroked-button>{{ 'button.ok' | transloco}}</button>
+</div>

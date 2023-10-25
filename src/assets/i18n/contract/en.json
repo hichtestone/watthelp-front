@@ -1,0 +1,47 @@
+{
+  "breadcrumb": {
+    "title": "Contracts",
+    "contract-creation": "Create new contract",
+    "contract-edition": "Contract's edition"
+  },
+  "add-new-item": "Add new contract",
+  "list": {
+    "title": "Contracts list",
+    "reference": "Reference",
+    "price-number": "Number of tariffs",
+    "provider": "Provider",
+    "type": "Type",
+    "invoice-period": "Invoice period",
+    "started-at": "Started at",
+    "finished-at": "Finished at",
+    "apply-contract-to-all": "Apply this contract to all other",
+    "regulated": "Regulated sales tariff",
+    "negotiated": "Market offer",
+    "none": "None",
+    "contract-updated": "Contract successfully updated",
+    "contract-created": "Contract successfully created",
+    "contract-price": "Contract prices",
+    "new-price-on-contract": "Assign a price to the contract",
+    "name-column": "Name",
+    "price-field": "Pricing",
+    "add-selected-price": "Add the selected price",
+    "no-price-found": "There's no any available price to add"
+  },
+  "snack-bar": {
+    "created": "The contract has been successfully created",
+    "deleted-price": "The price has been successfully deleted",
+    "updated": "The contract has been successfully updated"
+  },
+  "dialog": {
+    "deletion": {
+      "title": "Contract deletion",
+      "description": "Do you really want to delete this contract ? <br><br> If yes, then press OK to continue",
+      "contract-success-deletion": "The contract has been successfully deleted"
+    },
+    "apply-contract": {
+      "title": "Apply this contract",
+      "description": "Please note that the values of the selected contract will be applied to all the other contracts.",
+      "contract-success-update": "The contracts have been successfully updated"
+    }
+  }
+}

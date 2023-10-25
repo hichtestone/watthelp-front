@@ -1,0 +1,161 @@
+<div [ngClass]="{'list-action': selection.hasValue() }">
+  <span *ngIf="selection.hasValue() && !selection.isSelected('*')" class="selected-count">
+    {{'deliverypoint.list.selected-dp' | transloco : {number: selection.isSelected('*') ? dataSource.total : selection.selected.length} }}
+    <span *ngIf="selection.selected.length == paginator.pageSize && dataSource.total > selection.selected.length"
+          class="selected-count">
+        <a (click)="selectAll()"><strong>
+              {{'deliverypoint.list.select-all-dp' | transloco : {number: dataSource.total} }}</strong></a>
+    </span>
+  </span>
+  <span *ngIf="selection.isSelected('*')"
+        class="selected-count">{{'deliverypoint.list.all-selected-dp' | transloco : {number: dataSource.total} }}</span>
+  <span *ngIf="selection.selected.length > 0">
+    <button *appAuthorized="['management.export.delivery_point', 'management.delivery_point.delete']"
+            [matMenuTriggerFor]="tableOptions" mat-icon-button>
+      <mat-icon>more_vert</mat-icon>
+    </button>
+    <mat-menu #tableOptions="matMenu">
+    <button (click)="exportExcel.emit(selection)"
+            *appAuthorized="['management.export.delivery_point']"
+            [disabled]="!selection.hasValue()"
+            aria-label="Edit"
+            mat-menu-item
+            type="button">
+      <mat-icon>get_app</mat-icon>
+      <span>{{'deliverypoint.list.export-excel' | transloco}}</span>
+    </button>
+
+    <button (click)="assignContract.emit(selection)"
+            *appAuthorized="['management.delivery_point.delete']"
+            [disabled]="!selection.hasValue()"
+            aria-label="delete"
+            mat-menu-item
+            type="button">
+      <mat-icon>assignment</mat-icon>
+      <span>{{'deliverypoint.list.assign-contract' | transloco}}</span>
+    </button>
+  </mat-menu>
+  </span>
+</div>
+
+<mat-table [dataSource]="dataSource" [trackBy]="trackById" matSort>
+  <ng-container matColumnDef="select">
+    <mat-header-cell *matHeaderCellDef mat-header-cell style="flex: 0 0 50px;">
+      <mat-checkbox (change)="$event ? masterToggle() : null"
+                    [checked]="selection.hasValue()"
+                    [indeterminate]="selection.hasValue() && !isAllSelected">
+      </mat-checkbox>
+    </mat-header-cell>
+    <mat-cell *matCellDef="let row" mat-cell style="flex: 0 0 50px;">
+      <mat-checkbox (change)="$event ? selection.toggle(row) : null"
+                    (click)="$event.stopPropagation()"
+                    [checked]="selection.isSelected(row)">
+      </mat-checkbox>
+    </mat-cell>
+  </ng-container>
+
+  <ng-container cdkColumnDef="reference">
+    <mat-header-cell *cdkHeaderCellDef
+                     mat-sort-header>{{'deliverypoint.list.reference-rae' | transloco}}</mat-header-cell>
+    <mat-cell *cdkCellDef="let row">{{ row.reference || '-' }}</mat-cell>
+  </ng-container>
+
+  <ng-container cdkColumnDef="code">
+    <mat-header-cell *cdkHeaderCellDef
+                     mat-sort-header>{{'deliverypoint.list.internal-code' | transloco}}</mat-header-cell>
+    <mat-cell *cdkCellDef="let row">{{ row.code || '-' }}</mat-cell>
+  </ng-container>
+
+  <ng-container cdkColumnDef="address">
+    <mat-header-cell *cdkHeaderCellDef>{{'deliverypoint.list.address' | transloco}}</mat-header-cell>
+    <mat-cell *cdkCellDef="let row">{{ row.address || '-' }}</mat-cell>
+  </ng-container>
+
+  <ng-container cdkColumnDef="contract_reference">
+    <mat-header-cell *cdkHeaderCellDef>{{'deliverypoint.list.contract-reference' | transloco}}</mat-header-cell>
+    <mat-cell *cdkCellDef="let row">{{ row.contract ? row.contract.reference : '-' }}</mat-cell>
+  </ng-container>
+
+  <ng-container cdkColumnDef="creation_mode">
+    <mat-header-cell *cdkHeaderCellDef
+                     mat-sort-header>{{'deliverypoint.list.creation-mode' | transloco}}</mat-header-cell>
+    <mat-cell *cdkCellDef="let row">{{ (row.creation_mode | modeLabel | transloco) || '-' }}</mat-cell>
+  </ng-container>
+
+  <ng-container cdkColumnDef="is_in_scope">
+    <mat-header-cell *cdkHeaderCellDef>{{'deliverypoint.list.in-scope' | transloco}}</mat-header-cell>
+    <mat-cell *cdkCellDef="let row">
+      <mat-icon *ngIf="row.is_in_scope" class="enabled">done</mat-icon>
+      <mat-icon *ngIf="!row.is_in_scope" class="disabled">clear</mat-icon>
+    </mat-cell>
+  </ng-container>
+
+  <ng-container cdkColumnDef="scope_date">
+    <mat-header-cell *cdkHeaderCellDef mat-sort-header>{{'deliverypoint.list.scope-date' | transloco}}</mat-header-cell>
+    <mat-cell *cdkCellDef="let row">
+      {{ (row.scope_date | date: 'dd/MM/yyyy') || '-' }}
+    </mat-cell>
+  </ng-container>
+
+  <ng-container cdkColumnDef="created_at">
+    <mat-header-cell *cdkHeaderCellDef>{{'deliverypoint.list.creation-date' | transloco}}</mat-header-cell>
+    <mat-cell *cdkCellDef="let row"
+    >{{ row.created_at | date: 'dd/MM/yyyy' }}
+    </mat-cell>
+  </ng-container>
+
+  <ng-container cdkColumnDef="updated_at">
+    <mat-header-cell *cdkHeaderCellDef>{{'deliverypoint.list.updated-date' | transloco}}</mat-header-cell>
+    <mat-cell *cdkCellDef="let row"
+    >{{ row.updated_at | date: 'dd/MM/yyyy'}}
+    </mat-cell>
+  </ng-container>
+
+  <ng-container cdkColumnDef="actions">
+    <mat-header-cell *cdkHeaderCellDef style="flex: 0 0 75px;">
+      <button (click)="openSelectionDialog()" aria-label="Settings" mat-icon-button type="button">
+        <mat-icon>settings</mat-icon>
+      </button>
+    </mat-header-cell>
+    <mat-cell *cdkCellDef="let row" style="flex: 0 0 75px;">
+      <ng-container *ngIf="isDisplayActions">
+        <button (click)="$event.stopPropagation();" *appAuthorized="['management.delivery_point.delete']"
+                [matMenuTriggerFor]="actionMenu" aria-label="Actions"
+                mat-icon-button
+                type="button">
+          <mat-icon>more_vert</mat-icon>
+        </button>
+
+        <mat-menu #actionMenu="matMenu">
+          <button (click)="delete(row.id)" *appAuthorized="['management.delivery_point.delete']"
+                  aria-label="Supprimer"
+                  mat-menu-item
+                  type="button">
+            <mat-icon>delete</mat-icon>
+            <span>{{'button.delete' | transloco}}</span>
+          </button>
+        </mat-menu>
+      </ng-container>
+    </mat-cell>
+  </ng-container>
+
+  <mat-header-row *cdkHeaderRowDef="displayedColumns; sticky: true"></mat-header-row>
+  <mat-row *cdkRowDef="let row; columns: displayedColumns; let even = even; let odd = odd"
+           [class.loading]="dataSource.loading"
+           [ngClass]="{'mat-row-even': even, 'mat-row-odd': odd}"
+           [queryResource]="['management.delivery_point.view']"
+           [routerLinkSecured]="'/delivery-point/' + row.id">
+  </mat-row>
+</mat-table>
+
+<app-table-no-result
+  [style.display]="(dataSource.total == 0 && !dataSource.loading) ? '' : 'none'">
+</app-table-no-result>
+
+<mat-paginator
+  [length]="dataSource.total"
+  [pageIndex]="0"
+  [pageSizeOptions]="[25, 50, 75, 100]"
+  [pageSize]="25"
+  [style.display]="(dataSource.total === 0) ? 'none' : ''">
+</mat-paginator>

@@ -1,0 +1,28 @@
+<div *ngIf="!!data; else noData" class="container">
+  <div>
+    <highcharts-chart
+      *ngIf="!!chartOptions.series"
+      [Highcharts]="Highcharts"
+      [options]="chartOptions"
+      style="width: 100%; height: 400px; display: block;"
+    ></highcharts-chart>
+  </div>
+
+  <div class="switcher-button">
+    <div (click)="onChartTypeChange()"
+         [ngClass]="!chartTypeChanged ? 'enabled' : 'disabled'">
+      {{'core.widget.histogram' | transloco}}
+    </div>
+    <div (click)="onChartTypeChange()"
+         [ngClass]="chartTypeChanged ? 'enabled' : 'disabled'">
+      {{'core.widget.spline' | transloco}}
+    </div>
+  </div>
+</div>
+<ng-template #noData>
+  <app-table-no-result
+    description="{{'deliverypoint.list.search-no-budget' | transloco}}">
+  </app-table-no-result>
+</ng-template>
+
+

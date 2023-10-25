@@ -1,0 +1,17 @@
+<input
+  (ngModelChange)="changed($event)"
+  [(ngModel)]="value"
+  [disabled]="disabled"
+  [matAutocomplete]="auto"
+  [required]="required"
+  matInput
+  type="text">
+<mat-autocomplete #auto="matAutocomplete" [displayWith]="displayName">
+  <mat-option *ngIf="emptyValue">Indifférent</mat-option>
+  <mat-option *ngFor="let data of data; trackBy: trackById"
+              [value]="data">
+    <div class="item">
+      {{ displayOption(data) }}
+    </div>
+  </mat-option>
+</mat-autocomplete>

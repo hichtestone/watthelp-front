@@ -1,0 +1,47 @@
+{
+  "breadcrumb": {
+    "title": "Contrats",
+    "contract-creation": "Création d'un contrat",
+    "contract-edition": "Edition d'un contrat"
+  },
+  "add-new-item": "Créer un contract",
+  "list": {
+    "title": "Liste des contrats",
+    "reference": "Référence",
+    "price-number": "Nombre de tarifs",
+    "provider": "Fournisseur",
+    "type": "Type",
+    "invoice-period": "Période de facturation",
+    "started-at": "Date de début",
+    "finished-at": "Date de fin",
+    "apply-contract-to-all": "Appiquer ce contrat à tous les autres",
+    "regulated": "TRV",
+    "negotiated": "Offre de marché",
+    "none": "Indifférent",
+    "contract-updated": "Contrat mis à jour avec succès",
+    "contract-created": "Le contrat a bien été créé",
+    "contract-price": "Tarifs du contrat",
+    "new-price-on-contract": "Ajouter un tarif sur le contrat",
+    "name-column": "Nom",
+    "price-field": "Tarif",
+    "add-selected-price": "Ajouter le tarif sélectionné",
+    "no-price-found": "Aucun tarif n'est disponible pour l'ajout."
+  },
+  "snack-bar": {
+    "created": "Contrat créé avec succès",
+    "deleted-price": "Le tarif a bien été supprimé du contrat",
+    "updated": "Contrat mis à jour avec succès"
+  },
+  "dialog": {
+    "deletion": {
+      "title": "Suppression d'un contrat",
+      "description": "Êtes-vous sûr de vouloir suppimer ce contrat ?",
+      "contract-success-deletion": "Le contrat a bien été supprimé"
+    },
+    "apply-contract": {
+      "title": "Appliquer ce contrat",
+      "description": "Attention les valeurs du contrat sélectionné vont être appliquées à tous les autres contrats.",
+      "contract-success-update": "Les contrats ont bien été modifiés."
+    }
+  }
+}

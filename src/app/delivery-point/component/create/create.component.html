@@ -1,0 +1,75 @@
+<app-header
+  [icon]="'gps_fixed'"
+  [mode]="'list'"
+  [title]="title | transloco">
+</app-header>
+
+<div class="page-content">
+  <div class="vertical-mode">
+    <form (ngSubmit)="submit()" [formGroup]="form">
+      <!-- Main content -->
+      <mat-tab-group class="vertical-tab-group" disableRipple=true>
+        <mat-tab>
+          <ng-template mat-tab-label>
+            <mat-icon>assignment</mat-icon>
+            {{'common.general-info' | transloco}}
+          </ng-template>
+          <app-delivery-point-general-info
+            [errors]="errors"
+            [files]="files"
+            [form]="form"
+            [isEditMode]="isEditMode"
+            [mode]="mode"
+            [zoom]="zoom"
+          ></app-delivery-point-general-info>
+
+          <!-- Action buttons -->
+          <button *appAuthorized="['management.delivery_point.edit']" [disabled]="form.invalid" class="btn-save"
+                  color="warn" mat-fab>
+            <mat-icon>check circle</mat-icon>
+          </button>
+        </mat-tab>
+
+        <mat-tab *appAuthorized="['management.invoice.view']">
+          <ng-template mat-tab-label>
+            <mat-icon>timeline</mat-icon>
+            {{'deliverypoint.list.billing-data.title' | transloco}}
+          </ng-template>
+          <mat-card>
+            <app-associated-invoices
+                #paginator
+                *ngIf="deliveryPoint"
+                [dataSource]="dataSource"
+                [deliveryPoint]="deliveryPoint">
+            </app-associated-invoices>
+          </mat-card>
+        </mat-tab>
+
+        <mat-tab *ngIf="isEditMode && budgetAccess && consumptionAccess">
+          <ng-template mat-tab-label>
+            <mat-icon>pie_chart</mat-icon>
+            {{'deliverypoint.list.reporting' | transloco}}
+          </ng-template>
+          <mat-card>
+            <app-budget-delivery-point-stat
+              [budgetExist]="budgetExist"
+              [deliveryPoint]="deliveryPoint">
+            </app-budget-delivery-point-stat>
+          </mat-card>
+        </mat-tab>
+
+        <mat-tab *ngIf="deliveryPoint?.power_history">
+          <ng-template mat-tab-label>
+            <mat-icon>history</mat-icon>
+            {{'deliverypoint.list.power-history' | transloco}}
+          </ng-template>
+          <mat-card>
+            <app-power-history
+              [dataSource]="powerHistoryDataSource">
+            </app-power-history>
+          </mat-card>
+        </mat-tab>
+      </mat-tab-group>
+    </form>
+  </div>
+</div>

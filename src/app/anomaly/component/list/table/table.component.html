@@ -1,0 +1,237 @@
+<div [ngClass]="{'list-action': selection.hasValue() }">
+  <span *ngIf="selection.hasValue() && !selection.isSelected('*')" class="selected-count">
+    {{'anomaly.list.selected-anomalies' | transloco : {number: selection.isSelected('*') ? dataSource.total : selection.selected.length} }}
+    <span
+      *ngIf="selection.selected.length == paginator.pageSize && dataSource.total > selection.selected.length && !selection.isSelected('*')"
+      class="selected-count">
+        <a
+          (click)="selectAll()"><strong>{{'anomaly.list.select-all-anomalies' | transloco : {number: dataSource.total} }}</strong></a>
+  </span>
+  </span>
+  <span *ngIf="selection.isSelected('*')"
+        class="selected-count">{{'anomaly.list.all-selected-anomalies' | transloco : {number: dataSource.total} }}</span>
+  <span *ngIf="selection.selected.length > 0">
+    <button *appAuthorized="['management.anomaly.delete', 'management.export.anomaly']"
+            [matMenuTriggerFor]="tableOptions"
+            mat-icon-button>
+      <mat-icon>more_vert</mat-icon>
+    </button>
+    <mat-menu #tableOptions="matMenu">
+      <button (click)="exportExcel.emit(selection)"
+              *appAuthorized="['management.export.anomaly']"
+              [disabled]="!selection.hasValue()"
+              aria-label="Excel"
+              mat-menu-item
+              type="button">
+      <mat-icon>view_list</mat-icon>
+      <span>{{'button.export-excel-invoice' | transloco}}</span>
+    </button>
+
+    <button (click)="deleteSelection.emit(selection)"
+            *appAuthorized="['management.anomaly.delete']"
+            [disabled]="!selection.hasValue()"
+            aria-label="Delete"
+            mat-menu-item
+            type="button">
+      <mat-icon>delete_forever</mat-icon>
+      <span>{{'button.delete-all' | transloco}}</span>
+    </button>
+  </mat-menu>
+  </span>
+</div>
+
+<mat-table [dataSource]="dataSource" matSort>
+  <ng-container matColumnDef="select">
+    <mat-header-cell *matHeaderCellDef>
+      <mat-checkbox (change)="$event ? masterToggle() : null"
+                    *appAuthorized="['management.anomaly.delete', 'management.export.anomaly']"
+                    [checked]="selection.hasValue()"
+                    [indeterminate]="selection.hasValue() && !isAllSelected">
+      </mat-checkbox>
+    </mat-header-cell>
+    <mat-cell *matCellDef="let row">
+      <mat-checkbox (change)="$event ? selection.toggle(row) : null"
+                    (click)="$event.stopPropagation()"
+                    *appAuthorized="['management.anomaly.delete', 'management.export.anomaly']"
+                    [checked]="selection.isSelected(row)">
+      </mat-checkbox>
+    </mat-cell>
+  </ng-container>
+
+  <ng-container cdkColumnDef="invoices">
+    <mat-header-cell *cdkHeaderCellDef mat-sort-header>{{'common.invoice' | transloco}}</mat-header-cell>
+    <mat-cell *cdkCellDef="let row"> {{ row.item_analysis?.analysis?.invoice.reference || '-'}}
+    </mat-cell>
+  </ng-container>
+
+  <ng-container cdkColumnDef="created_at">
+    <mat-header-cell *cdkHeaderCellDef mat-sort-header>{{'common.started-at'}}</mat-header-cell>
+    <mat-cell *cdkCellDef="let row"> {{ (row.created_at | date:'dd/MM/yyyy') || '-'}}
+    </mat-cell>
+  </ng-container>
+
+  <ng-container cdkColumnDef="delivery_point_ref">
+    <mat-header-cell *cdkHeaderCellDef>{{'common.dp-ref' | transloco}}</mat-header-cell>
+    <mat-cell
+      *cdkCellDef="let row"> {{ row.item_analysis?.delivery_point_invoice_analysis?.delivery_point_invoice.delivery_point.reference || '-' }}
+    </mat-cell>
+  </ng-container>
+
+  <ng-container cdkColumnDef="delivery_point_name">
+    <mat-header-cell *cdkHeaderCellDef>{{'common.dp-name' | transloco}}</mat-header-cell>
+    <mat-cell
+      *cdkCellDef="let row"> {{ row.item_analysis?.delivery_point_invoice_analysis?.delivery_point_invoice.delivery_point.name || '-' }}
+    </mat-cell>
+  </ng-container>
+
+  <ng-container cdkColumnDef="power">
+    <mat-header-cell *cdkHeaderCellDef>{{'common.power' | transloco}}</mat-header-cell>
+    <mat-cell
+      *cdkCellDef="let row"> {{ row.item_analysis?.delivery_point_invoice_analysis?.delivery_point_invoice.delivery_point.power || '-'}}
+    </mat-cell>
+  </ng-container>
+
+  <ng-container cdkColumnDef="address">
+    <mat-header-cell *cdkHeaderCellDef>{{'common.address' | transloco}}</mat-header-cell>
+    <mat-cell
+      *cdkCellDef="let row"> {{ row.item_analysis?.delivery_point_invoice_analysis?.delivery_point_invoice.delivery_point.address || '-'}}
+    </mat-cell>
+  </ng-container>
+
+  <ng-container cdkColumnDef="amount_ht">
+    <mat-header-cell *cdkHeaderCellDef>{{'common.excluding-vat-amount' | transloco}}</mat-header-cell>
+    <mat-cell
+      *cdkCellDef="let row"> {{ ((row.item_analysis?.delivery_point_invoice_analysis?.delivery_point_invoice.amount_ht | amountConverter) | currency:'EUR':'symbol') || '-' }}
+    </mat-cell>
+  </ng-container>
+
+  <ng-container cdkColumnDef="amount_tva">
+    <mat-header-cell *cdkHeaderCellDef>{{'common.vat-amount' | transloco}}</mat-header-cell>
+    <mat-cell
+      *cdkCellDef="let row"> {{ ((row.item_analysis?.delivery_point_invoice_analysis?.delivery_point_invoice.amount_tva | amountConverter) | currency:'EUR':'symbol') || '-'}}
+    </mat-cell>
+  </ng-container>
+
+  <ng-container cdkColumnDef="amount_ttc">
+    <mat-header-cell *cdkHeaderCellDef>{{'common.tax-included-amount' | transloco}}</mat-header-cell>
+    <mat-cell
+      *cdkCellDef="let row"> {{ ((row.item_analysis?.delivery_point_invoice_analysis?.delivery_point_invoice.amount_ttc | amountConverter) | currency:'EUR':'symbol') || '-' }}
+    </mat-cell>
+  </ng-container>
+
+  <ng-container cdkColumnDef="content">
+    <mat-header-cell *cdkHeaderCellDef mat-sort-header>{{'common.detail' | transloco}}</mat-header-cell>
+    <mat-cell *cdkCellDef="let row"> {{ row.content || '-'}}</mat-cell>
+  </ng-container>
+
+  <ng-container cdkColumnDef="type">
+    <mat-header-cell *cdkHeaderCellDef>{{'common.type' | transloco}}</mat-header-cell>
+    <mat-cell *cdkCellDef="let row">
+      {{row.type | labelFormat | transloco}}
+    </mat-cell>
+  </ng-container>
+
+  <ng-container cdkColumnDef="status">
+    <mat-header-cell *cdkHeaderCellDef mat-sort-header>{{'common.status' | transloco}}</mat-header-cell>
+    <mat-cell *matCellDef="let row" mat-cell>
+      <app-status [status]="row.status"></app-status>
+    </mat-cell>
+  </ng-container>
+
+  <ng-container cdkColumnDef="total">
+    <mat-header-cell *cdkHeaderCellDef mat-sort-header>{{'common.difference' | transloco}}</mat-header-cell>
+    <mat-cell *cdkCellDef="let row">
+       <span
+         [style.color]="row.profit === 'client' ? 'green' : (!!row.profit && row.profit === 'provider' ? 'red' : '')">
+      {{ (!row.total ? '-' : row.total | amountConverter | currency:'EUR':'symbol') }}
+       </span>
+    </mat-cell>
+  </ng-container>
+
+  <ng-container cdkColumnDef="total_percentage">
+    <mat-header-cell *cdkHeaderCellDef mat-sort-header>{{'common.diff-percentage' | transloco}}</mat-header-cell>
+    <mat-cell *cdkCellDef="let row">
+      <span
+        [style.color]="row.profit === 'client' ? 'green' : (!!row.profit && row.profit === 'provider' ? 'red' : '')">
+        {{ !row.total_percentage ? '-' : (row.total_percentage | number: '1.2-2') + ' %' }}
+      </span>
+    </mat-cell>
+  </ng-container>
+
+  <ng-container cdkColumnDef="profit">
+    <mat-header-cell *cdkHeaderCellDef mat-sort-header>{{'common.profit.label' | transloco}}</mat-header-cell>
+    <mat-cell *cdkCellDef="let row">
+      <span *ngIf="row.profit === 'client'"><mat-icon class="dpi-ok">add</mat-icon></span>
+      <span *ngIf="row.profit === 'provider'"><mat-icon class="dpi-error">remove</mat-icon></span>
+      <span *ngIf="row.profit === 'none'">-</span>
+    </mat-cell>
+  </ng-container>
+
+  <ng-container cdkColumnDef="actions">
+    <mat-header-cell *cdkHeaderCellDef style="flex: 0 0 75px;">
+      <button (click)="openSelectionDialog()" aria-label="Settings" mat-icon-button type="button">
+        <mat-icon>settings</mat-icon>
+      </button>
+    </mat-header-cell>
+    <mat-cell *cdkCellDef="let row" style="flex: 0 0 75px;">
+      <ng-container *appAuthorized="['management.anomaly.delete']">
+        <ng-container *ngIf="isDisplayActions">
+          <button
+            (click)="$event.stopPropagation();"
+            [matMenuTriggerFor]="mainOptions"
+            aria-label="Actions"
+            mat-icon-button
+            type="button">
+            <mat-icon>more_vert</mat-icon>
+          </button>
+
+          <mat-menu #mainOptions="matMenu">
+            <button (click)="deleteSelection.emit(selection)"
+                    *appAuthorized="['management.anomaly.delete']"
+                    [disabled]="!selection.hasValue()"
+                    aria-label="Supprimer"
+                    mat-menu-item
+                    type="button">
+              <mat-icon>delete_forever</mat-icon>
+              <span>{{'button.delete' | transloco}}</span>
+            </button>
+
+            <a *ngIf="!!row.item_analysis?.analysis?.invoice.pdf && canDownloadInvoice"
+               [disabled]="!selection.hasValue()"
+               [href]="row.item_analysis.analysis.invoice.pdf?.raw"
+               aria-label="Download"
+               mat-menu-item
+               target="_blank"
+               type="button">
+              <mat-icon>cloud_download</mat-icon>
+              <span>{{'button.download-pdf' | transloco}}</span>
+            </a>
+          </mat-menu>
+        </ng-container>
+      </ng-container>
+
+    </mat-cell>
+  </ng-container>
+
+  <mat-header-row *cdkHeaderRowDef="displayedColumns; sticky: true"></mat-header-row>
+  <mat-row *cdkRowDef="let row; columns: displayedColumns; let even = even; let odd = odd"
+           [class.loading]="dataSource.loading"
+           [ngClass]="{'mat-row-even': even, 'mat-row-odd': odd}"
+           [queryResource]="['management.anomaly.view']"
+           [routerLinkSecured]="externalInvoiceRouteAccess ? ('../../anomaly/' + row.id) : (isDisplayActions ? row.id : null )"
+           [style.cursor]="isDisplayActions ? 'cursor' : 'not-allowed'">
+  </mat-row>
+</mat-table>
+
+<app-table-no-result
+  [style.display]="(dataSource.total == 0 && !dataSource.loading) ? '' : 'none'">
+</app-table-no-result>
+
+<mat-paginator
+  [length]="dataSource.total"
+  [pageIndex]="0"
+  [pageSizeOptions]="[25, 50, 75, 100]"
+  [pageSize]="25"
+  [style.display]="(dataSource.total === 0) ? 'none' : ''">
+</mat-paginator>
+

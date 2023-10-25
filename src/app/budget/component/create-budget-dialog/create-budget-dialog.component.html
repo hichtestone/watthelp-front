@@ -1,0 +1,23 @@
+<h1 mat-dialog-title>Création d'un budget</h1>
+
+<div mat-dialog-content>
+  <form [formGroup]="form">
+    <div class="row">
+      <mat-form-field>
+        <mat-label>Année</mat-label>
+        <input digitOnly formControlName="year" inputmode="numeric" matInput min="0" pattern="[0-9]*"
+               required
+               type="text">
+        <mat-error *ngIf="form.controls.year.invalid">
+          <span *ngIf="form.controls.year.errors.required">Ce champ est obligatoire</span>
+          <span *ngIf="form.controls.year.errors.api">{{ form.controls.year.errors.api }}</span>
+        </mat-error>
+      </mat-form-field>
+    </div>
+  </form>
+</div>
+
+<div class="actions" mat-dialog-actions>
+  <button [mat-dialog-close]="false" mat-stroked-button>Annuler</button>
+  <button (click)="confirm()" color="primary" mat-stroked-button type="submit">Créer</button>
+</div>

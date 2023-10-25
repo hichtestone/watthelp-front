@@ -1,0 +1,19 @@
+<span *ngIf="status === 'error'">
+  <mat-icon class="dpi-error" matTooltip="{{'core.tooltip.error' | transloco}}">error</mat-icon>
+</span>
+
+<span *ngIf="status === 'warning'">
+  <mat-icon class="dpi-warn" matTooltip="{{'core.tooltip.alert' | transloco}}">warning</mat-icon>
+</span>
+
+<span *ngIf="status === 'ok'" class="dpi-ok"><mat-icon
+  matTooltip="{{'core.tooltip.ok' | transloco}}">check</mat-icon></span>
+
+<span *ngIf="status === 'processing'"><mat-icon
+  matTooltip="{{'core.tooltip.processing' | transloco}}">autorenew</mat-icon></span>
+<span *ngIf="status === 'unsolved'"><mat-icon class="dpi-error" matTooltip="{{'core.tooltip.unsolved' | transloco}}">error</mat-icon></span>
+<span *ngIf="status === 'ignored'"><mat-icon class="dpi-warn" matTooltip="{{'core.tooltip.ignored' | transloco}}">warning</mat-icon></span>
+<span *ngIf="status === 'solved'"><mat-icon class="dpi-ok"
+                                            matTooltip="{{'core.tooltip.solved' | transloco}}">check</mat-icon></span>
+
+<span *ngIf="!status">-</span>

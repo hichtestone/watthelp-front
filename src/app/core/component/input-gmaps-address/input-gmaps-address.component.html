@@ -1,0 +1,8 @@
+<input (change)="onAddressChange($event.target.value)"
+       (onAutocompleteSelected)="onAutocompleteSelected($event)"
+       [country]="country"
+       [required]="required"
+       [types]="types"
+       [value]="valueRes"
+       matGoogleMapsAutocomplete
+       matInput/>

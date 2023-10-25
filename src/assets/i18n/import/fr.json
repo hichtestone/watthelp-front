@@ -1,0 +1,15 @@
+{
+  "breadcrumb": {
+    "label": "Rapport d'import",
+    "title": "Liste des rapports d'import",
+    "detail": "Détail du rapport d'import"
+  },
+  "dialog": {
+    "import": {
+      "title": "Confirmation",
+      "description": "Cette action entraînera la suppression de toutes les factures que vous souhaitez réimporter y compris les analyses et alertes associées.<br><br> Êtes-sûr de vouloir continuer ?",
+      "success": "Le réimport des factures sélectionnées est en cours. Vous recevrez une notification lorsque celui-ci sera terminé.",
+      "error": "Nous rencontrons un problème lors de votre réimport, veuillez réessayer à nouveau."
+    }
+  }
+}

@@ -1,0 +1,122 @@
+<div class="menu {{ mode }}">
+  <a [routerLink]="'/'" mat-button>
+    {{ 'layout.toolbar-menu.home' |  transloco }}
+  </a>
+  <a
+    *appAuthorized="[
+     'management.contract.view',
+     'management.delivery_point.view',
+     'management.delivery_point.map',
+     'management.invoice.view',
+     'management.budget.view'
+     ]"
+    class="has-submenu"
+    mat-button>
+    {{ 'layout.toolbar-menu.management.label' |  transloco }}
+    <div class="sub-menu">
+      <div class="wrapper">
+        <div class="column">
+          <div>
+            <div class="title">{{ 'layout.toolbar-menu.management.label' |  transloco }}</div>
+            <mat-list dense>
+              <mat-list-item *appAuthorized="['management.contract.view']" [routerLink]="'/contract'" matRipple>
+                <mat-icon mat-list-icon>description</mat-icon>
+                <span mat-line>{{ 'layout.toolbar-menu.management.submenu.contracts' |  transloco }}</span>
+              </mat-list-item>
+              <mat-list-item *appAuthorized="['management.delivery_point.view']" [routerLink]="'/delivery-point'"
+                             matRipple>
+                <mat-icon mat-list-icon>gps_fixed</mat-icon>
+                <span mat-line>{{ 'layout.toolbar-menu.management.submenu.delivery-points' |  transloco }}</span>
+              </mat-list-item>
+              <mat-list-item *appAuthorized="['management.delivery_point.map']" [routerLink]="'/map'" matRipple>
+                <mat-icon mat-list-icon>map</mat-icon>
+                <span mat-line>{{ 'layout.toolbar-menu.management.submenu.cartography' |  transloco }}</span>
+              </mat-list-item>
+              <mat-list-item *appAuthorized="['management.invoice.view']" [routerLink]="'/invoice'" matRipple>
+                <mat-icon mat-list-icon>receipt</mat-icon>
+                <span mat-line>{{ 'layout.toolbar-menu.management.submenu.billing' |  transloco }}</span>
+              </mat-list-item>
+              <mat-list-item *appAuthorized="['management.budget.view']" [routerLink]="'/budget'" matRipple>
+                <mat-icon mat-list-icon>show_chart</mat-icon>
+                <span mat-line>{{ 'layout.toolbar-menu.management.submenu.budget' |  transloco }}</span>
+              </mat-list-item>
+            </mat-list>
+          </div>
+        </div>
+      </div>
+    </div>
+  </a>
+  <a
+    *appAuthorized="[
+     'management.anomaly.view',
+     'management.analysis.view',
+     'management.delivery_point.view',
+      'management.invoice.view'
+     ]"
+    class="has-submenu"
+    mat-button>
+    {{ 'layout.toolbar-menu.analysis.label' |  transloco }}
+    <div class="sub-menu">
+      <div class="wrapper">
+        <div class="column">
+          <div>
+            <div class="title">{{ 'layout.toolbar-menu.analysis.label' |  transloco }}</div>
+            <mat-list dense>
+              <mat-list-item *appAuthorized="['management.analysis.view']" [routerLink]="'/analysis-report'" matRipple>
+                <mat-icon mat-list-icon>library_books</mat-icon>
+                <span mat-line>{{ 'layout.toolbar-menu.analysis.submenu.report' |  transloco }}</span>
+              </mat-list-item>
+              <mat-list-item *appAuthorized="['management.anomaly.view']" [routerLink]="'/anomaly'" matRipple>
+                <mat-icon mat-list-icon>warning</mat-icon>
+                <span mat-line>{{ 'layout.toolbar-menu.analysis.submenu.anomaly' |  transloco }}</span>
+              </mat-list-item>
+              <mat-list-item *appAuthorized="['management.delivery_point.view', 'management.invoice.view']"
+                             [routerLink]="'/asset'" matRipple>
+                <mat-icon mat-list-icon>monetization_on</mat-icon>
+                <span mat-line>{{ 'layout.toolbar-menu.analysis.submenu.asset' |  transloco }}</span>
+              </mat-list-item>
+            </mat-list>
+          </div>
+        </div>
+      </div>
+    </div>
+  </a>
+  <a
+    *appAuthorized="[
+    'system.role.view',
+    'system.tax.view',
+    'system.pricing.view',
+    'system.user.view'
+    ]"
+    class="has-submenu"
+    mat-button>
+    {{ 'layout.toolbar-menu.system.label' |  transloco }}
+    <div class="sub-menu">
+      <div class="wrapper">
+        <div class="column">
+          <div>
+            <div class="title">{{ 'layout.toolbar-menu.system.label' |  transloco }}</div>
+            <mat-list dense>
+              <mat-list-item *appAuthorized="['system.tax.view']" [routerLink]="'/tax'" matRipple>
+                <mat-icon mat-list-icon>account_balance</mat-icon>
+                <span mat-line>{{ 'layout.toolbar-menu.system.submenu.taxes' |  transloco }}</span>
+              </mat-list-item>
+              <mat-list-item *appAuthorized="['system.pricing.view']" [routerLink]="'/pricing'" matRipple>
+                <mat-icon mat-list-icon>euro_symbol</mat-icon>
+                <span mat-line>{{ 'layout.toolbar-menu.system.submenu.prices' |  transloco }}</span>
+              </mat-list-item>
+              <mat-list-item *appAuthorized="['system.user.view']" [routerLink]="'/user'" matRipple>
+                <mat-icon mat-list-icon>assignment_ind</mat-icon>
+                <span mat-line>{{ 'layout.toolbar-menu.system.submenu.users' |  transloco }}</span>
+              </mat-list-item>
+              <mat-list-item *appAuthorized="['system.role.view']" [routerLink]="'/role'" matRipple>
+                <mat-icon mat-list-icon>security</mat-icon>
+                <span mat-line>{{ 'layout.toolbar-menu.system.submenu.role-management' |  transloco }}</span>
+              </mat-list-item>
+            </mat-list>
+          </div>
+        </div>
+      </div>
+    </div>
+  </a>
+</div>

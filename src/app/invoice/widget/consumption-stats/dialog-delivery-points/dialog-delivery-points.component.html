@@ -1,0 +1,11 @@
+<h1 mat-dialog-title>{{title}}</h1>
+
+<div mat-dialog-content>
+  <app-dialog-delivery-point-list
+    (validateSelection)="onSubmitSelection($event)">
+  </app-dialog-delivery-point-list>
+</div>
+
+<div class="actions" mat-dialog-actions>
+  <button [mat-dialog-close]="false" id="dialog-cancel-btn" mat-stroked-button>{{cancelButton}}</button>
+</div>

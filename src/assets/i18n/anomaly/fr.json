@@ -1,0 +1,46 @@
+{
+  "breadcrumb": {
+    "title": "Alertes",
+    "detail": "Détail d'une alerte"
+  },
+  "list": {
+    "title": "Liste des alertes",
+    "selected-anomalies": "Les {{number}} alerte(s) ont été sélectionnées",
+    "select-all-anomalies": "Sélectionner les {{number}} alerte(s)",
+    "all-selected-anomalies": "Toutes les alerte(s) ({{number}}) sont sélectionnées",
+    "comments": "Commentaires",
+    "no-applied-rules": "Nous avons beaucoup cherché mais n'avons malheureusement pas trouvé une ou plusieurs règles appliquées",
+    "no-description": "Aucune description n'existe pour cette alerte"
+  },
+  "dialog": {
+    "deletion": {
+      "title": "Confirmation",
+      "description": "Êtes vous sûr de vouloir supprimer cette(ces) alertes ?",
+      "success": "L'alerte a bien été supprimée",
+      "error": "Une erreur est survenue lors de suppression des alertes."
+    },
+    "export-excel": {
+      "title": "Confirmation d'export",
+      "description": "Exporter les alertes au format Excel ?",
+      "success": "Le fichier Excel a été généré avec succès, il sera disponible sous peu dans vos notifications.",
+      "error": "Une erreur est survenue lors de la génération du fichier Excel."
+    },
+    "search": {
+      "title": "Sauvegarde de votre recherche",
+      "description": " Attention: Cette sauvegarde ne sera disponible que sur cet ordinateur.",
+      "name": "Nom de votre recherche",
+      "success": "Recherche sauvegardée avec succès.",
+      "saved-search": "Recherche enregistrée",
+      "searches": "Vos recherches",
+      "save": "Mémoriser"
+    }
+  },
+  "comment": {
+    "note": "Notes",
+    "write": "Commenter...",
+    "at": "Le",
+    "by": "Par"
+  },
+  "status-updated": "Status mis à jour avec succès.",
+  "note-created": "Votre commentaire a bien été créé."
+}

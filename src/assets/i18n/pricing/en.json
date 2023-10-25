@@ -1,0 +1,48 @@
+{
+  "breadcrumb": {
+    "label": "Pricing",
+    "title": "Pricing list",
+    "edit": "Pricing's edition",
+    "create": "Pricing creation",
+    "import": "Import pricing"
+  },
+  "list": {
+    "selected-pricing": "All {{number}} pricing on this page are selected",
+    "select-all-pricing": "Select all {{number}} pricing",
+    "all-selected-pricing": "All the {{number}} pricing have been selected"
+  },
+  "updated-success": "Pricing successfully updated",
+  "created-success": "Pricing successfully created",
+  "add-new": "Add new pricing",
+  "month": "month",
+  "import-label": "Upload your excel file",
+  "dialog": {
+    "deletion": {
+      "title": "Confirmation",
+      "description": "Do you want to delete this/these prices ?",
+      "success": "Deletion successfully completed",
+      "error": "An error occurred during the deletion"
+    },
+    "excel": {
+      "title": "Confirmation",
+      "description": "Do you want to export to excel format this/these prices ?"
+    }
+  },
+  "widget": {
+    "pricing": {
+      "period": "Period",
+      "price": "Prices",
+      "august2010": "August 2010",
+      "july2011": "July 2011",
+      "july2012": "July 2012",
+      "august2013": "August 2013",
+      "november2014": "November 2014",
+      "august2015": "August 2015",
+      "august2016": "August 2016",
+      "august2017": "August 2017",
+      "february2018": "February 2018",
+      "august2018": "August 2018"
+    }
+  }
+}
+

@@ -1,0 +1,59 @@
+<!-- Header Toolbar -->
+<div class="layout-container">
+  <mat-toolbar>
+    <div class="logo">
+      <img alt="Watthelp" src="/assets/logo.png"/>
+    </div>
+    <button (click)="sidenav.toggle()" class="toggle-menu" disableRipple=true mat-icon-button>
+      <i class="material-icons mat-24">menu</i>
+    </button>
+    <app-menu mode="top"></app-menu>
+
+    <!-- Left menu -->
+    <span class="align-right"></span>
+
+    <!--    <app-language></app-language>-->
+
+    <!--    <span class="vertical-sep"></span>-->
+
+    <!-- Notification -->
+    <app-nav-bar-notification [currentRootPath]="''"></app-nav-bar-notification>
+
+    <span class="vertical-sep"></span>
+
+    <!-- Settings -->
+    <app-settings-menu *ngIf="!!user" [user]=user></app-settings-menu>
+
+    <span class="vertical-sep"></span>
+
+    <!-- Profile toolbar -->
+    <app-user-toolbar-menu
+      (logout)="logout()"
+      [appVersion]="appVersion"
+      [client]="client"
+      [user]="user">
+    </app-user-toolbar-menu>
+
+    <div class="client-info">
+      <div>{{client.name }} - {{client.insee}}</div>
+      <div class="user-name-style">{{ user.first_name }} {{ user.last_name }}</div>
+    </div>
+
+  </mat-toolbar>
+
+  <!-- Sidenav -->
+  <mat-sidenav-container>
+    <mat-sidenav #sidenav
+                 class="sidemenu"
+                 fixedInViewport=false
+                 fixedTopGap="64"
+                 mode="{{isMobileView? 'over' : 'side'}}"
+                 opened="{{!isMobileView}}" position="center">
+      <app-menu mode="burger"></app-menu>
+    </mat-sidenav>
+    <!-- Main content -->
+    <mat-sidenav-content>
+      <router-outlet></router-outlet>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+</div>

@@ -1,0 +1,35 @@
+<app-generic-list
+  (uploadButtonSelected)="openImportDialog()"
+  [actionImport]="actionImport"
+  headerIcon="receipt"
+  headerTitle="{{'invoice.list.title' | transloco}}">
+
+  <div slot="filter">
+    <app-generic-filter-block (clear)="reset()">
+      <form [formGroup]="form ">
+        <mat-form-field>
+          <input formControlName="reference" matInput placeholder="{{'common.reference' | transloco}}">
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>{{'invoice.list.invoice-analyzed-field' | transloco}}</mat-label>
+          <mat-select formControlName="has_analysis">
+            <mat-option [value]="null">{{'common.none' | transloco}}</mat-option>
+            <mat-option value="1">{{'button.yes' | transloco}}</mat-option>
+            <mat-option value="0">{{'button.no' | transloco}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </form>
+    </app-generic-filter-block>
+  </div>
+
+  <div slot="table">
+    <app-invoice-table
+        #table
+        (analyzeInvoice)="onAnalyzeInvoice($event)"
+        (deleteSelected)="onDelete($event)"
+        (handlingAnalysis)="onHandlingAnalysis($event)"
+        [canDownloadPDF]=canDownloadPDF
+        [dataSource]="dataSource">
+    </app-invoice-table>
+  </div>
+</app-generic-list>

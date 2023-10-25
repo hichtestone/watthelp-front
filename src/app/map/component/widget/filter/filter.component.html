@@ -1,0 +1,18 @@
+<form [formGroup]="form" class="map-filters">
+  <div class="content" fxLayout="row wrap" fxLayoutGap="20px">
+    <mat-form-field>
+      <mat-label>{{'core.widget.label-field' | transloco}}</mat-label>
+      <input formControlName="label" matInput required>
+    </mat-form-field>
+
+    <mat-form-field appearance="none" class="form-w50">
+      <mat-label class="colorLabel">{{'core.widget.delivery-point-color-in-scope' | transloco}}</mat-label>
+      <input class="colorPicker" formControlName="color_found" matInput required type="color">
+    </mat-form-field>
+
+    <mat-form-field appearance="none" class="form-w50">
+      <mat-label class="colorLabel">{{'core.widget.delivery-point-color-not-in-scope' | transloco}}</mat-label>
+      <input class="colorPicker" formControlName="color_not_found" matInput required type="color">
+    </mat-form-field>
+  </div>
+</form>

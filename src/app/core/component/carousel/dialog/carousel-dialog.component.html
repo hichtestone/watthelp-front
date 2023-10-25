@@ -1,0 +1,18 @@
+<div class="container">
+  <mat-carousel *ngIf="!!images && images.length > 0" [autoplay]="false"
+                [color]="'primary'"
+                [hideArrows]="false"
+                [hideIndicators]="false"
+                [maxWidth]="'auto'"
+                [proportion]="65"
+                [slideHeight]="'90%'"
+                class="container">
+    <mat-carousel-slide *ngFor="let image of images" class="container">
+      <div class="container">
+        <img [src]="image.raw"/>
+      </div>
+    </mat-carousel-slide>
+  </mat-carousel>
+</div>
+
+

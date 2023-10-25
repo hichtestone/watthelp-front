@@ -1,0 +1,53 @@
+<app-generic-list
+  (uploadButtonSelected)="openImportDialog()"
+  [actionImport]="actionImport"
+  [actionLink]="actionLink"
+  headerIcon="gps_fixed"
+  headerTitle="{{'deliverypoint.list.title' | transloco}}"
+>
+  <div slot="filter">
+    <app-generic-filter-block (clear)="reset()">
+      <form [formGroup]="form ">
+        <mat-form-field>
+          <input formControlName="reference" matInput placeholder="{{'deliverypoint.list.reference-rae' | transloco}}">
+        </mat-form-field>
+        <mat-form-field>
+          <input formControlName="code" matInput placeholder="{{'deliverypoint.list.internal-code' | transloco}}">
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>{{'deliverypoint.list.in-scope' | transloco}}</mat-label>
+          <mat-select formControlName="is_in_scope">
+            <mat-option [value]="null">{{'deliverypoint.list.none' | transloco}}</mat-option>
+            <mat-option value="1">{{'deliverypoint.list.yes' | transloco}}</mat-option>
+            <mat-option value="0">{{'deliverypoint.list.no' | transloco}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field class="form-w50">
+          <app-contract-select
+            formControlName="contract"
+            placeholder="{{'deliverypoint.list.contract' | transloco}}"
+          ></app-contract-select>
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label>{{'deliverypoint.list.without-invoice-since' | transloco}}</mat-label>
+          <mat-select formControlName="no_invoice_for_months">
+            <mat-option [value]="null">{{'deliverypoint.list.none' | transloco}}</mat-option>
+            <mat-option *ngFor="let noInvoicePeriod of noInvoicePeriods" [value]="noInvoicePeriod">
+              {{ noInvoicePeriod | invoicePeriodLabel | transloco}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </form>
+    </app-generic-filter-block>
+  </div>
+  <div slot="table">
+    <app-delivery-point-table #table
+                              (assignContract)="assignContractEvent($event)"
+                              (deleteSelected)="onDelete($event)"
+                              (exportExcel)="exportExcel($event)"
+                              [dataSource]="dataSource"
+    >
+    </app-delivery-point-table>
+  </div>
+</app-generic-list>

@@ -1,0 +1,150 @@
+{
+  "breadcrumb": {
+    "title": "Delivery points",
+    "dp-creation": "Create new delivery point ",
+    "dp-edition": "Delivery point's edition",
+    "invoice-details": "Invoice details"
+  },
+  "add-new-item": "Add new delivery point",
+  "import-new-scope": "Upload new scope",
+  "list": {
+    "title": "Delivery points list",
+    "reference": "Delivery point reference",
+    "reference-rae": "RAE reference",
+    "internal-code": "Internal code",
+    "address": "Address",
+    "contract-reference": "Contract reference",
+    "creation-mode": "Creation mode",
+    "in-scope": "In scope",
+    "scope-date": "Scope date",
+    "creation-date": "Created at",
+    "updated-date": "Updated at",
+    "none": "None",
+    "yes": "Yes",
+    "no": "No",
+    "without-invoice-since": "Without invoice since",
+    "delivery-point-updated": "Delivery point successfully updated",
+    "delivery-point-created": "Delivery point successfully created",
+    "delivery-point-deleted": "Delivery point successfully deleted",
+    "selected-dp": "All {{number}} delivery point(s) on this page are selected",
+    "select-all-dp": "Select all {{number}} delivery point(s)",
+    "all-selected-dp": "All the {{number}} delivery points have been selected",
+    "description": "Description",
+    "counter-info": "Counter information",
+    "contract": "Contract",
+    "photo": "Picture",
+    "dp-creation-mode": "Delivery point creation mode : ",
+    "name": "Name",
+    "counter-reference": "Counter reference",
+    "power-subscribed": "Power subscribed",
+    "power": "Power",
+    "create-update-date": "Created at / Updated at",
+    "longitude": "Longitude",
+    "latitude": "Latitude",
+    "visualization": "Visualization",
+    "billing-data": {
+      "title": "Billing data",
+      "analysis": "Analysis",
+      "invoice-reference": "Invoice reference",
+      "type": "Type",
+      "emitted-at": "Emitted at",
+      "excluding-vat-amount": "Excluding VAT amount",
+      "vat-amount": "VAT amount",
+      "tax-included-amount": "Tax incl. amount",
+      "status": "Status"
+    },
+    "export-excel": "Export to Excel",
+    "assign-contract": "Assign to the contract",
+    "see-edf-template": "Visualize EDF template",
+    "no-analysis-performed": "No analysis performed.",
+    "snack-bar": {
+      "deletion": {
+        "title": "File deletion",
+        "description": "Do you really want to delete this file ?"
+      },
+      "assign": {
+        "success": "The contract has been successfully assigned",
+        "error": "An error occurred while assigning the contract."
+      },
+      "export": {
+        "success": "Your request has been registered. You will receive a notification when it is finished.",
+        "error": "An error occurred while generating the Excel file."
+      }
+    },
+    "reporting": "Reporting",
+    "power-history": "Delivery point's power history",
+    "search-no-budget": "We searched a lot but unfortunately did not find budget data",
+    "waiting-geo-values": "Waiting for a latitude and longitude",
+    "import-scope": "Scope import",
+    "import-invoice": "Invoice import",
+    "manual": "Manual"
+  },
+  "dialog": {
+    "assign": {
+      "title": "Assignment of a contract",
+      "cancel": "Cancel",
+      "button": "Assign",
+      "select-reference": "Choose reference"
+    },
+    "deletion": {
+      "title": "Delivery point deletion",
+      "description": "Do you really want to delete this delivery point ?"
+    }
+  },
+  "template": {
+    "public-lightning": {
+      "title": "PUBLIC LIGHTNING",
+      "subtitle": "Billing details per site for {{date}} n° {{reference}}",
+      "contract-data": "Contract data",
+      "delivery-point-data": "Delivery Point data",
+      "blue-price-label": "BLUE TARIFF for public lightning with and without metering (b).",
+      "contract-ref": "Contract reference : {{reference}}",
+      "subscribed-since": "Subscribed since {{date}}",
+      "electricity-routing-ref": "Electricity routing reference  : {{reference}}"
+    },
+    "summary-edf-electricity": {
+      "title": "Total EDF Electricity",
+      "pre-tax": "Pre-Tax Value",
+      "vat-rate": "VAT rate",
+      "excl-vat": "Excluding VAT",
+      "pre-tax-unit-price": "Pre-Tax Unit price",
+      "excl-vat-unit-price": "Unit price Excluding VAT",
+      "electricity-subscription": "Electricity subscription (Pre-Tax)",
+      "electricity-consumption": "Consumption (Pre-Tax)",
+      "electricity-unit-period": "Electricity Unique period",
+      "from": "from",
+      "to": "to"
+    },
+    "taxes": {
+      "title": "Taxes and contributions (identical for all suppliers)",
+      "base": "Base",
+      "type": {
+        "cspe": "Contribution to the Public Electricity Service (CSPE)",
+        "tdcfe": "Departmental tax on the final electricity consumption (TDCFE)",
+        "tccfe": "Municipal tax on Final Electricity Consumption (TCCFE)",
+        "tcfe": "Electricity Final Consumption Tax (TCFE)",
+        "cta": "Transmission Tariff Contribution (CTA)"
+      }
+    },
+    "vat-table": {
+      "title": "Total Excluding VAT for this site",
+      "vat-supplier": "VAT (identical for all suppliers)",
+      "tax-incl": "Tax incl.",
+      "total-tax-incl": "Total Tax incl. for this site",
+      "vat20": "20.00% VAT",
+      "vat5": "5.50% VAT"
+    },
+    "counter-index": {
+      "title": "Count data",
+      "count-id": "Count ID : ",
+      "meter-type": "Meter type : ",
+      "reading-coefficient": "Reading coefficient : ",
+      "current-power-subscribed": "Current power subscribed (kW or KVA)",
+      "index-compute": "Index (survey / estimate)",
+      "start-index": "Start Index",
+      "end-index": "End Index",
+      "base": "Base",
+      "at": "at"
+    }
+  }
+}

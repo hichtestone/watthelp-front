@@ -1,0 +1,20 @@
+<h1 mat-dialog-title>{{'dashboard.modal-title' | transloco}}</h1>
+<div mat-dialog-content>
+  <div *ngFor="let group of groups | keyvalue" class="group-widget">
+    <h2>{{ group.key | transloco}}</h2>
+    <div class="group-wrapper">
+      <div (click)="selectWidget(widget)" *ngFor="let widget of group.value" class="widget-item">
+        <div class="widget-wrapper">
+          <h3>{{ widget.componentType.config.title | transloco }}</h3>
+          <img alt="aperçu" src="{{ widget.componentType.config.preview }}"/>
+          <div class="description">
+            {{ widget.componentType.config.description  }}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div mat-dialog-actions>
+  <button [mat-dialog-close]="" mat-button>{{'dashboard.modal-cancel' | transloco}}</button>
+</div>

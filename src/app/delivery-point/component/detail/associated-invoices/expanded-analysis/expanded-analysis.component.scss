@@ -1,0 +1,45 @@
+.element-detail {
+  overflow: hidden;
+  padding: 20px 10px;
+
+  .detail-column {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+
+    .group {
+      display: flex;
+      flex-direction: column;
+
+      .title {
+        font-weight: bold;
+      }
+
+      .item {
+        display: flex;
+        align-items: center;
+
+        .status {
+          background: #bfd70e;
+          border-radius: 50%;
+          width: 12px;
+          height: 12px;
+          margin-right: 10px;
+
+          &.error {
+            background: #FF1744;
+          }
+
+          &.ok {
+            background: #00E676;
+          }
+
+          &.warning {
+            background: silver;
+          }
+
+        }
+      }
+    }
+  }
+}

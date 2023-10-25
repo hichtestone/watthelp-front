@@ -1,0 +1,53 @@
+<app-generic-list
+  [actionLink]="actionLink"
+  headerIcon="assignment"
+  headerTitle="{{'contract.list.title' | transloco}}"
+>
+  <div slot="filter">
+    <app-generic-filter-block (clear)="reset()">
+      <form [formGroup]="form ">
+        <mat-form-field>
+          <mat-label>{{'contract.list.reference' | transloco}}</mat-label>
+          <input formControlName="reference" matInput>
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label>{{'contract.list.type' | transloco}}</mat-label>
+          <mat-select formControlName="type">
+            <mat-option [value]="null">{{'contract.list.none' | transloco}}</mat-option>
+            <mat-option value="regulated">{{'contract.list.regulated' | transloco}}</mat-option>
+            <mat-option value="negotiated">{{'contract.list.negotiated' | transloco}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label>{{'contract.list.invoice-period' | transloco}}</mat-label>
+          <mat-select formControlName="invoice_period">
+            <mat-option [value]="null">{{'contract.list.none' | transloco}}</mat-option>
+            <mat-option *ngFor="let invoicePeriod of invoicePeriods" [value]="invoicePeriod">
+              {{ invoicePeriod | invoicePeriodLabel | transloco}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field class="form-w50">
+          <mat-label>{{'contract.list.provider' | transloco}}</mat-label>
+          <mat-select formControlName="provider">
+            <mat-option [value]="null">{{'contract.list.none' | transloco }}</mat-option>
+            <mat-option *ngFor="let provider of providers" [value]="provider">
+              {{provider | enumToLabel | transloco}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </form>
+    </app-generic-filter-block>
+  </div>
+  <div slot="table">
+    <app-contract-table #table
+                        (applyRow)="applyContract($event)"
+                        (deleteSelected)="onDelete($event)"
+                        [dataSource]="dataSource">
+    </app-contract-table>
+  </div>
+</app-generic-list>
+

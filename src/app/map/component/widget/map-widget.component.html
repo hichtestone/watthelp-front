@@ -1,0 +1,68 @@
+<app-widget [isLoading]="isLoading"
+            [noPadding]="true"
+            icon="map"
+            title="{{config.label}}">
+
+  <!--Card rotation-->
+  <div [class.voted]="flipped" class="rotate" id="rotate">
+
+    <!--Front side : the map -->
+    <div [style.display]="!flipped ? '' : 'none'" class="front">
+
+      <!-- Map -->
+      <agm-map [fitBounds]="true"
+               [latitude]="latitude"
+               [longitude]="longitude"
+               [zoom]="6">
+        <agm-marker (markerClick)="centerMap(marker.latitude, marker.longitude)"
+                    *ngFor="let marker of markerData"
+                    [agmFitBounds]="true"
+                    [iconUrl]="marker.marker_color"
+                    [latitude]="marker.latitude"
+                    [longitude]="marker.longitude"
+                    [visible]="marker.is_visible">
+          <agm-snazzy-info-window [closeOnMapClick]="true"
+                                  [closeWhenOthersOpen]="true"
+                                  [maxHeight]="400"
+                                  [maxWidth]="500"
+                                  [showCloseButton]="false"
+                                  borderRadius="6px"
+                                  padding="0px">
+            <ng-template>
+              <app-window-info
+                [filterValues]="config"
+                [marker]="marker"
+              ></app-window-info>
+            </ng-template>
+          </agm-snazzy-info-window>
+        </agm-marker>
+      </agm-map>
+
+      <!-- Legend -->
+      <div class="map-legend">
+        <span>
+          <img src="{{ markerUrl}}{{ config.color_found | slice:1:7}}">
+          {{'core.widget.delivery-point-in-scope' | transloco : {number: foundMarkers.length} }}
+        </span>
+        <span>
+          <img src="{{ markerUrl}}{{ config.color_not_found | slice:1:7}}">
+          {{'core.widget.delivery-point-out-of-scope' | transloco: {number: notFoundMarkers.length} }}
+        </span>
+        <span *ngIf="widgetNumberOfNoLatLon > 0">
+          {{'core.widget.delivery-point-ungeolocalized' | transloco : {number: widgetNumberOfNoLatLon} }}
+        </span>
+      </div>
+
+    </div>
+
+    <!--back side : Settings -->
+    <div [style.display]="flipped ? '' : 'none'">
+      <div class="back">
+        <app-filter
+          (valueChange)="filterChange($event)"
+          [config]="config">
+        </app-filter>
+      </div>
+    </div>
+  </div>
+</app-widget>

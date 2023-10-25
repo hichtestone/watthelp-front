@@ -1,0 +1,11 @@
+<app-generic-list
+  [actionLink]="actionLink"
+  [withFilter]="false"
+  headerIcon="account_balance"
+  headerTitle="{{'tax.breadcrumb.title' | transloco}}"
+>
+  <app-tax-table #table
+                 (deleteSelected)="onDelete($event)"
+                 [dataSource]="dataSource">
+  </app-tax-table>
+</app-generic-list>

@@ -1,0 +1,150 @@
+{
+  "breadcrumb": {
+    "title": "Punti di consegna",
+    "dp-creation": "Creazione di un punto di consegna",
+    "dp-edition": "Modifica di un punto di consegna",
+    "invoice-details": "Dettaglio fattura"
+  },
+  "add-new-item": "Crea un punto di consegna",
+  "import-new-scope": "Importa un perimetro",
+  "list": {
+    "title": "Elenco dei punti di consegna",
+    "reference": "Riferimento punto di consegna",
+    "reference-rae": "Riferimento RAE",
+    "internal-code": "Codice interno",
+    "address": "Indirizzo",
+    "contract-reference": "Riferimento del contratto",
+    "creation-mode": "modalità di creazione",
+    "in-scope": "Nel perimetro",
+    "scope-date": "Data di ambito",
+    "creation-date": "Data di creazione",
+    "updated-date": "Data di modifica",
+    "none": "Indifferente",
+    "yes": "Sì",
+    "no": "No",
+    "without-invoice-since": "Senza fattura da allora",
+    "delivery-point-updated": "Punto di consegna aggiornato con successo",
+    "delivery-point-created": "Punto di consegna creato con successo",
+    "delivery-point-deleted": "Punto di consegna eliminato con successo",
+    "selected-dp": "Hai selezionato in questa pagina {{number}} punto(i) di consegna",
+    "select-all-dp": "Seleziona il {{number}} punto(i) di consegna",
+    "all-selected-dp": "Tutti i punti di consegna ({{number}}) sono selezionati",
+    "description": "Descrizione",
+    "counter-info": "Informazioni sul contatore",
+    "contract": "Contrarre",
+    "photo": "Immagine",
+    "dp-creation-mode": "Modalità di creazione del punto di consegna : ",
+    "name": "Nome",
+    "counter-reference": "Riferimento contatore",
+    "power-subscribed": "Energia sottoscritto",
+    "power": "Energia",
+    "create-update-date": "Creato a / Aggiornato a",
+    "longitude": "Longitudine",
+    "latitude": "Latitudine",
+    "visualization": "Visualizzazione",
+    "billing-data": {
+      "title": "Dati di fatturazione",
+      "analysis": "Analisi",
+      "invoice-reference": "Riferimento fattura",
+      "type": "Genere",
+      "emitted-at": "Emesso a",
+      "excluding-vat-amount": "Importo IVA esclusa",
+      "vat-amount": "Importo IVA",
+      "tax-included-amount": "Importo tasse incl.",
+      "status": "Stato"
+    },
+    "export-excel": "Esportare in formato Excel",
+    "assign-contract": "Assegna a contratto",
+    "see-edf-template": "Visualizza il modello EDF",
+    "no-analysis-performed": "Nessuna analisi eseguita.",
+    "snack-bar": {
+      "deletion": {
+        "title": "Eliminare un file",
+        "description": "Sei sicuro di voler eliminare questo file ?"
+      },
+      "assign": {
+        "success": "Il contratto è stato assegnato con successo",
+        "error": "Si è verificato un errore durante l'assegnazione del contratto."
+      },
+      "export": {
+        "success": "La tua richiesta è stata registrata. Riceverai una notifica quando sarà finito.",
+        "error": "Si è verificato un errore durante la generazione del file Excel."
+      }
+    },
+    "reporting": "Segnalazione",
+    "power-history": "Storico potenza del punto di consegna",
+    "search-no-budget": "Abbiamo cercato molto ma purtroppo non abbiamo trovato i dati di budget",
+    "waiting-geo-values": "Aspettando una latitudine e una longitudine",
+    "import-scope": "Importazione dell'ambito",
+    "import-invoice": "Importazione di fatture",
+    "manual": "Manuale"
+  },
+  "dialog": {
+    "assign": {
+      "title": "Assegnazione di un contratto",
+      "cancel": "Annulla",
+      "button": "Assegnare",
+      "select-reference": "Scegli riferimento"
+    },
+    "deletion": {
+      "title": "Cancellazione del punto di consegna",
+      "description": "Vuoi davvero eliminare questo punto di consegna?"
+    }
+  },
+  "template": {
+    "public-lightning": {
+      "title": "ILLUMINAZIONE PUBBLICA",
+      "subtitle": "Dettagli della fatturazione per sito dal {{date}} n ° {{reference}}",
+      "contract-data": "dati del contratto",
+      "delivery-point-data": "Dati del punto di consegna",
+      "blue-price-label": "TARIFFA BLU per illuminazione pubblica con e senza contabilizzazione (b).",
+      "contract-ref": "Rif. del tuo contratto: {{reference}}",
+      "subscribed-since": "Iscritto dal {{date}}",
+      "electricity-routing-ref": "Rif. Instradamento dell'elettricità: {{reference}}"
+    },
+    "summary-edf-electricity": {
+      "title": "Elettricità totale EDF",
+      "pre-tax": "Duty-Free",
+      "vat-rate": "Aliquota IVA",
+      "excl-vat": "IVA esclusa",
+      "pre-tax-unit-price": "Prezzo unitario Duty-Free",
+      "excl-vat-unit-price": "Prezzo unitario IVA esclusa",
+      "electricity-subscription": "Abbonamento elettricità (Duty-Free)",
+      "electricity-consumption": "Consumo (Duty-Free)",
+      "electricity-unit-period": "Elettricità Unico periodo",
+      "from": "di",
+      "to": "a"
+    },
+    "taxes": {
+      "title": "Tasse e contributi (identici per tutti i fornitori)",
+      "base": "Basato",
+      "type": {
+        "cspe": "Contributo al servizio pubblico di elettricità (CSPE)",
+        "tdcfe": "Imposta dipartimentale sul consumo finale di energia elettrica (TDCFE)",
+        "tccfe": "Imposta comunale sul consumo finale di energia elettrica (TCCFE)",
+        "tcfe": "Imposta sul consumo finale di elettricità (TCFE)",
+        "cta": "Contributo tariffario di trasmissione (CTA)"
+      }
+    },
+    "vat-table": {
+      "title": "Totale IVA esclusa per questo sito",
+      "vat-supplier": "IVA (identica per tutti i fornitori)",
+      "tax-incl": "Tasse incluse.",
+      "total-tax-incl": "Totale Tasse Incluse per questo sito",
+      "vat20": "IVA 20.00%",
+      "vat5": "IVA 5.50 %"
+    },
+    "counter-index": {
+      "title": "Contare i dati",
+      "count-id": "Conteggio ID : ",
+      "meter-type": "Tipo di contatore : ",
+      "reading-coefficient": "Coefficiente di lettura : ",
+      "current-power-subscribed": "Potenza contrattuale attuale (kW o kVA)",
+      "index-compute": "Indice (sondaggio / stima)",
+      "start-index": "Avvia indice",
+      "end-index": "Indice finale",
+      "base": "Basato",
+      "at": "il"
+    }
+  }
+}

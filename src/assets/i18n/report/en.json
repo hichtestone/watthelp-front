@@ -1,0 +1,23 @@
+{
+  "breadcrumb": {
+    "label": "Analysis report",
+    "title": "Analysis reports list",
+    "detail": "Report detail"
+  },
+  "list": {
+    "title": "Reports list",
+    "selected-reports": "All {{number}} reports on this page are selected",
+    "select-all-reports": "Select all {{number}} reports",
+    "all-selected-reports": "All the {{number}} reports have been selected"
+  },
+  "invoice-summary": "Invoice summary",
+  "detail-by-dp": "Detail by delivery point",
+  "dialog": {
+    "deletion": {
+      "title": "Confirmation",
+      "description": "Do you want to delete this/these analysis reports ?",
+      "success": "Deletion successfully completed",
+      "error": "An error occurred during the analysis report(s) deletion"
+    }
+  }
+}

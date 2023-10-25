@@ -1,0 +1,161 @@
+<div [ngClass]="{'list-action': selection.hasValue() }">
+  <span *ngIf="selection.hasValue() && !selection.isSelected('*')" class="selected-count">
+    {{'asset.list.selected-assets' | transloco : {number: selection.isSelected('*') ? dataSource.total : selection.selected.length} }}
+    <span
+      *ngIf="selection.selected.length == paginator.pageSize && dataSource.total > selection.selected.length && !selection.isSelected('*')"
+      class="selected-count">
+        <a
+          (click)="selectAll()"><strong>{{'asset.list.select-all-assets' | transloco : {number: dataSource.total} }}</strong></a>
+  </span>
+  </span>
+  <span *ngIf="selection.isSelected('*')"
+        class="selected-count">{{'asset.list.all-selected-assets' | transloco : {number: dataSource.total} }}</span>
+  <span *ngIf="selection.selected.length > 0">
+    <button *appAuthorized="['management.delivery_point.view', 'management.invoice.view']"
+            [matMenuTriggerFor]="tableOptions"
+            mat-icon-button>
+      <mat-icon>more_vert</mat-icon>
+    </button>
+    <mat-menu #tableOptions="matMenu">
+      <button (click)="exportExcel.emit(selection)"
+              *appAuthorized="['management.delivery_point.view', 'management.invoice.view']"
+              [disabled]="!selection.hasValue()"
+              aria-label="Excel"
+              mat-menu-item
+              type="button">
+      <mat-icon>view_list</mat-icon>
+      <span>{{'button.export-excel-invoice' | transloco}}</span>
+    </button>
+  </mat-menu>
+  </span>
+</div>
+
+<mat-table [dataSource]="dataSource" matSort>
+  <ng-container matColumnDef="select">
+    <mat-header-cell *matHeaderCellDef>
+      <mat-checkbox (change)="$event ? masterToggle() : null"
+                    *appAuthorized="['management.delivery_point.view', 'management.invoice.view']"
+                    [checked]="selection.hasValue()"
+                    [indeterminate]="selection.hasValue() && !isAllSelected">
+      </mat-checkbox>
+    </mat-header-cell>
+    <mat-cell *matCellDef="let row">
+      <mat-checkbox (change)="$event ? selection.toggle(row) : null"
+                    (click)="$event.stopPropagation()"
+                    *appAuthorized="['management.delivery_point.view', 'management.invoice.view']"
+                    [checked]="selection.isSelected(row)">
+      </mat-checkbox>
+    </mat-cell>
+  </ng-container>
+
+  <ng-container cdkColumnDef="reference">
+    <mat-header-cell *cdkHeaderCellDef mat-sort-header>{{'asset.list.invoice-reference' | transloco}}</mat-header-cell>
+    <mat-cell *cdkCellDef="let row"> {{ row.invoice?.reference || '-'}}
+    </mat-cell>
+  </ng-container>
+
+  <ng-container cdkColumnDef="delivery_point_ref">
+    <mat-header-cell *cdkHeaderCellDef>{{'common.dp-ref' | transloco}}</mat-header-cell>
+    <mat-cell
+      *cdkCellDef="let row"> {{ row.delivery_point?.reference || '-' }}
+    </mat-cell>
+  </ng-container>
+
+  <ng-container cdkColumnDef="delivery_point_name">
+    <mat-header-cell *cdkHeaderCellDef>{{'common.dp-name' | transloco}}</mat-header-cell>
+    <mat-cell
+      *cdkCellDef="let row"> {{ row.delivery_point?.name || '-' }}
+    </mat-cell>
+  </ng-container>
+
+  <ng-container cdkColumnDef="power_subscribed">
+    <mat-header-cell
+      *cdkHeaderCellDef>{{'common.delivery_point_invoice.power_subscribed' | transloco}}</mat-header-cell>
+    <mat-cell
+      *cdkCellDef="let row"> {{ row.power_subscribed || '-'}} kW
+    </mat-cell>
+  </ng-container>
+
+  <ng-container cdkColumnDef="amount_ht">
+    <mat-header-cell *cdkHeaderCellDef>{{'common.excluding-vat-amount' | transloco}}</mat-header-cell>
+    <mat-cell
+      *cdkCellDef="let row"> {{ row.amount_ht ? (row.amount_ht | amountConverter | number:'1.2-2') + ' €' : '-' }}
+    </mat-cell>
+  </ng-container>
+
+  <ng-container cdkColumnDef="amount_tva">
+    <mat-header-cell *cdkHeaderCellDef>{{'common.vat-amount' | transloco}}</mat-header-cell>
+    <mat-cell
+      *cdkCellDef="let row"> {{ row.amount_tva ? (row.amount_tva | amountConverter | number:'1.2-2') + ' €' : '-' }}
+    </mat-cell>
+  </ng-container>
+
+  <ng-container cdkColumnDef="amount_ttc">
+    <mat-header-cell *cdkHeaderCellDef>{{'common.tax-included-amount' | transloco}}</mat-header-cell>
+    <mat-cell
+      *cdkCellDef="let row"> {{ row.amount_ttc ? (row.amount_ttc | amountConverter | number:'1.2-2') + ' €' : '-' }}
+    </mat-cell>
+  </ng-container>
+
+  <ng-container cdkColumnDef="type">
+    <mat-header-cell *cdkHeaderCellDef>{{'common.statement-type' | transloco}}</mat-header-cell>
+    <mat-cell *cdkCellDef="let row">
+      {{row.type | enumToLabel | transloco}}
+    </mat-cell>
+  </ng-container>
+
+  <ng-container cdkColumnDef="actions">
+    <mat-header-cell *cdkHeaderCellDef style="flex: 0 0 75px;">
+      <button (click)="openSelectionDialog()" aria-label="Settings" mat-icon-button type="button">
+        <mat-icon>settings</mat-icon>
+      </button>
+    </mat-header-cell>
+    <mat-cell *cdkCellDef="let row" style="flex: 0 0 75px;">
+      <ng-container *appAuthorized="['management.delivery_point.view', 'management.invoice.view']">
+
+        <button
+          (click)="$event.stopPropagation();"
+          [matMenuTriggerFor]="mainOptions"
+          aria-label="Actions"
+          mat-icon-button
+          type="button">
+          <mat-icon>more_vert</mat-icon>
+        </button>
+
+        <mat-menu #mainOptions="matMenu">
+          <button (click)="exportExcel.emit(selection)"
+                  *appAuthorized="['management.delivery_point.view', 'management.invoice.view']"
+                  [disabled]="!selection.hasValue()"
+                  aria-label="Exporter ligne"
+                  mat-menu-item
+                  type="button">
+            <mat-icon>view_list</mat-icon>
+            <span>{{'button.export-excel-invoice' | transloco}}</span>
+          </button>
+        </mat-menu>
+      </ng-container>
+
+    </mat-cell>
+  </ng-container>
+
+  <mat-header-row *cdkHeaderRowDef="displayedColumns; sticky: true"></mat-header-row>
+  <mat-row *cdkRowDef="let row; columns: displayedColumns; let even = even; let odd = odd"
+           [class.loading]="dataSource.loading"
+           [ngClass]="{'mat-row-even': even, 'mat-row-odd': odd}"
+           [queryResource]="['management.delivery_point.view','management.invoice.view']"
+           [routerLinkSecured]="'../delivery-point/' + row.delivery_point?.id + '/invoice-info/' + row.id">
+  </mat-row>
+</mat-table>
+
+<app-table-no-result
+  [style.display]="(dataSource.total == 0 && !dataSource.loading) ? '' : 'none'">
+</app-table-no-result>
+
+<mat-paginator
+  [length]="dataSource.total"
+  [pageIndex]="0"
+  [pageSizeOptions]="[25, 50, 75, 100]"
+  [pageSize]="25"
+  [style.display]="(dataSource.total === 0) ? 'none' : ''">
+</mat-paginator>
+

@@ -1,0 +1,98 @@
+<mat-table [dataSource]="dataSource" [trackBy]="trackById" matSort>
+  <ng-container cdkColumnDef="avatar">
+    <mat-header-cell *cdkHeaderCellDef class="avatar">{{'user.avatar' | transloco}}</mat-header-cell>
+    <mat-cell *cdkCellDef="let row" class="avatar">
+      <div class="list-avatar">
+        <img *ngIf="!!row.avatar; else noAvatar" src="{{ row.avatar.raw }}"/>
+        <ng-template #noAvatar>
+          <mat-icon class="no-avatar" svgIcon="man">person</mat-icon>
+        </ng-template>
+      </div>
+    </mat-cell>
+  </ng-container>
+
+  <ng-container cdkColumnDef="first_name">
+    <mat-header-cell *cdkHeaderCellDef mat-sort-header>{{'user.first-name' | transloco}}</mat-header-cell>
+    <mat-cell *cdkCellDef="let row">
+      <div>{{ row.first_name }}</div>
+    </mat-cell>
+  </ng-container>
+
+  <ng-container cdkColumnDef="last_name">
+    <mat-header-cell *cdkHeaderCellDef mat-sort-header>{{'user.last-name' | transloco}}</mat-header-cell>
+    <mat-cell *cdkCellDef="let row">
+      <div>{{ row.last_name }}</div>
+    </mat-cell>
+  </ng-container>
+
+  <ng-container cdkColumnDef="email">
+    <mat-header-cell *cdkHeaderCellDef class="flex-2" mat-sort-header>{{'user.email' | transloco}}</mat-header-cell>
+    <mat-cell *cdkCellDef="let row" class="flex-2">
+      <div>{{ row.email }}</div>
+    </mat-cell>
+  </ng-container>
+
+  <ng-container cdkColumnDef="phone">
+    <mat-header-cell *cdkHeaderCellDef>{{'user.phone' | transloco}}</mat-header-cell>
+    <mat-cell *cdkCellDef="let row">
+      <div>{{ row.phone }}</div>
+    </mat-cell>
+  </ng-container>
+
+  <ng-container cdkColumnDef="role">
+    <mat-header-cell *cdkHeaderCellDef mat-sort-header>{{'user.role' | transloco}}</mat-header-cell>
+    <mat-cell *cdkCellDef="let row">
+      <ng-container *ngFor="let role of row.roles">
+        {{role.name}}
+      </ng-container>
+    </mat-cell>
+  </ng-container>
+
+  <ng-container cdkColumnDef="actions">
+    <mat-header-cell *cdkHeaderCellDef style="flex: 0 0 75px;">
+      <button (click)="openSelectionDialog()" aria-label="Settings" mat-icon-button type="button">
+        <mat-icon>settings</mat-icon>
+      </button>
+    </mat-header-cell>
+    <mat-cell *cdkCellDef="let row" style="flex: 0 0 75px;">
+      <ng-container *appAuthorized="['system.user.delete']">
+        <button (click)="$event.stopPropagation();" [matMenuTriggerFor]="actionMenu" aria-label="Actions"
+                mat-icon-button
+                type="button">
+          <mat-icon>more_vert</mat-icon>
+        </button>
+
+        <mat-menu #actionMenu="matMenu">
+          <button (click)="delete(row.id)"
+                  *appAuthorized="['system.user.delete']"
+                  aria-label="Supprimer"
+                  mat-menu-item
+                  type="button">
+            <mat-icon>delete</mat-icon>
+            <span>{{'button.delete' | transloco}}</span>
+          </button>
+        </mat-menu>
+      </ng-container>
+    </mat-cell>
+  </ng-container>
+
+  <mat-header-row *cdkHeaderRowDef="displayedColumns; sticky: true"></mat-header-row>
+  <mat-row *cdkRowDef="let row; columns: displayedColumns; let even = even; let odd = odd"
+           [class.loading]="dataSource.loading"
+           [ngClass]="{'mat-row-even': even, 'mat-row-odd': odd}"
+           [queryResource]="['system.user.view']"
+           [routerLinkSecured]="row.id">
+  </mat-row>
+</mat-table>
+
+<app-table-no-result
+  [style.display]="(dataSource.total == 0 && !dataSource.loading) ? '' : 'none'">
+</app-table-no-result>
+
+<mat-paginator
+  [length]="dataSource.total"
+  [pageIndex]="0"
+  [pageSizeOptions]="[25, 50, 75, 100]"
+  [pageSize]="25"
+  [style.display]="(dataSource.total === 0) ? 'none' : ''">
+</mat-paginator>

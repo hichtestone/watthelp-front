@@ -1,0 +1,11 @@
+<app-generic-list
+  [headerTitle]="title | transloco"
+  [withFilter]="false"
+  headerIcon="notifications_none">
+  <app-notification-table #table
+                          (deleteSelected)="onDelete($event)"
+                          (markAsReadSelected)="onMarkAsRead($event)"
+                          [dataSource]="dataSource"
+                          [selection]="selection">
+  </app-notification-table>
+</app-generic-list>

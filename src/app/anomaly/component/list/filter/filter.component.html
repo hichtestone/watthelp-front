@@ -1,0 +1,58 @@
+<form [formGroup]="form">
+  <mat-form-field>
+    <input
+      decimal="true"
+      decimalSeparator="."
+      digitOnly
+      formControlName="total" matInput
+      placeholder="{{'common.difference' | transloco}}"
+      type="text">
+    <mat-error *ngIf="form.controls.total.invalid">
+      <span *ngIf="form.controls.total.errors.pattern">{{'error.decimal-input' | transloco : {number: 5} }}</span>
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field class="form-w50">
+    <mat-label>{{'common.profit.label' | transloco}}</mat-label>
+    <mat-select formControlName="profit">
+      <mat-option [value]="null">{{'common.none' | transloco}}</mat-option>
+      <mat-option *ngFor="let profit of profits" [value]="profit">
+        {{profit | labelFormat | transloco}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field>
+    <input [matDatepicker]="start_picker" formControlName="created_from" matInput
+           placeholder="{{'common.from' | transloco}}"
+           readonly>
+    <mat-datepicker-toggle [for]="start_picker" matSuffix></mat-datepicker-toggle>
+    <mat-datepicker #start_picker></mat-datepicker>
+  </mat-form-field>
+
+  <mat-form-field>
+    <input [matDatepicker]="end_picker" formControlName="created_to" matInput placeholder="{{'common.to' | transloco}}"
+           readonly>
+    <mat-datepicker-toggle [for]="end_picker" matSuffix></mat-datepicker-toggle>
+    <mat-datepicker #end_picker></mat-datepicker>
+  </mat-form-field>
+
+  <span>{{'anomaly.dialog.search.saved-search' | transloco}}</span>
+  <mat-form-field>
+    <mat-label>{{'anomaly.dialog.search.searches' | transloco}}</mat-label>
+    <mat-select (valueChange)="onValueChange($event)" [(value)]="currentSavedSearch">
+      <mat-option [value]="null">{{'common.none' | transloco}}</mat-option>
+      <mat-option *ngFor="let savedSearch of savedSearches" [value]="savedSearch">{{savedSearch.name}}</mat-option>
+    </mat-select>
+  </mat-form-field>
+</form>
+<a (click)="deleteSearch()" *ngIf="_currentSavedSearch" class="del-saved">
+  {{'button.delete' | transloco}}
+</a>
+
+<button (click)="saveForm()" class="form-button" color="primary"
+        mat-raised-button>{{'anomaly.dialog.search.save' | transloco}}</button>
+
+
+
+

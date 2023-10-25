@@ -1,0 +1,158 @@
+<form [formGroup]="form">
+  <app-form-block title="Consommation prévisionnelle annuelle après travaux">
+    <div *appAuthorized="['management.budget.edit']" class="renovation">
+      <mat-checkbox color="primary" formControlName="renovation">
+        Réalisation de travaux ?
+      </mat-checkbox>
+      <mat-error *ngIf="form.controls.renovation.invalid">
+        <span *ngIf="form.controls.renovation.errors.api">
+          {{ form.controls.renovation.errors.api }}
+        </span>
+      </mat-error>
+    </div>
+
+    <div *ngIf="!!form.controls.renovation.value" class="row">
+      <mat-form-field class="form-w25">
+        <input decimal="true" decimalSeparator="." digitOnly formControlName="new_sub_total_consumption" matInput
+               min="0"
+               placeholder="Consommation d'énergie"
+               type="text">
+        <span matSuffix>kWh</span>
+        <mat-error *ngIf="form.controls.new_sub_total_consumption.invalid">
+          <span *ngIf="form.controls.new_sub_total_consumption.errors.api">
+            {{ form.controls.new_sub_total_consumption.errors.api }}
+          </span>
+          <span *ngIf="form.controls.new_sub_total_consumption.errors.pattern">
+            Saissisez 2 chiffres après la virgule
+          </span>
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="form-w25">
+        <input decimal="true" decimalSeparator="." digitOnly formControlName="new_equipment_power_percentage" matInput
+               min="0"
+               placeholder="Consommation appareillage"
+               required type="text">
+        <span matSuffix>%</span>
+        <mat-error *ngIf="form.controls.new_equipment_power_percentage.invalid">
+          <span *ngIf="form.controls.new_equipment_power_percentage.errors.required">Ce champ est obligatoire</span>
+          <span *ngIf="form.controls.new_equipment_power_percentage.errors.api">
+                      {{ form.controls.new_equipment_power_percentage.errors.api }}
+                    </span>
+          <span *ngIf="form.controls.new_equipment_power_percentage.errors.pattern">
+                      Saissisez 2 chiffres après la virgule
+                    </span>
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="form-w50">
+        <input decimal="true" decimalSeparator="." digitOnly formControlName="new_gradation" matInput
+               min="0"
+               placeholder="Gradation"
+               required type="text">
+        <span matSuffix>%</span>
+        <mat-error *ngIf="form.controls.new_gradation.invalid">
+          <span *ngIf="form.controls.new_gradation.errors.required">Ce champ est obligatoire</span>
+          <span *ngIf="form.controls.new_gradation.errors.api">
+            {{ form.controls.new_gradation.errors.api }}
+          </span>
+          <span *ngIf="form.controls.new_gradation.errors.pattern">
+            Saissisez 2 chiffres après la virgule
+          </span>
+        </mat-error>
+      </mat-form-field>
+    </div>
+
+    <div *ngIf="!!form.controls.renovation.value" class="row">
+      <mat-form-field class="form-w50">
+        <input decimal="true" decimalSeparator="." digitOnly formControlName="new_installed_power" matInput
+               min="0"
+               placeholder="Puissance installée"
+               required
+               type="text">
+        <span matSuffix>(kW ou kVA)</span>
+        <mat-error *ngIf="form.controls.new_installed_power.invalid">
+          <span *ngIf="form.controls.new_installed_power.errors.api">
+            {{ form.controls.new_installed_power.errors.api }}
+          </span>
+          <span *ngIf="form.controls.new_installed_power.errors.required">Ce champ est obligatoire</span>
+          <span *ngIf="form.controls.new_installed_power.errors.pattern">
+            Saissisez 2 chiffres après la virgule
+          </span>
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="form-w25">
+        <input digitOnly formControlName="new_gradation_hours" inputmode="numeric" matInput min="0" pattern="[0-9]*"
+               placeholder="Nombre d'heures de gradation"
+               required
+               type="text">
+        <span matSuffix>Heure(s)</span>
+        <mat-error *ngIf="form.controls.new_gradation_hours.invalid">
+          <span *ngIf="form.controls.new_gradation_hours.errors.required">Ce champ est obligatoire</span>
+          <span
+            *ngIf="form.controls.new_gradation_hours.errors.api">{{ form.controls.new_gradation_hours.errors.api }}
+          </span>
+          <span *ngIf="form.controls.new_gradation_hours.errors.pattern">
+           Seuls des entiers sont autorisés
+          </span>
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="form-w25">
+        <mat-label>Date de réalisation des travaux</mat-label>
+        <input [matDatepicker]="renovatedAt" formControlName="renovated_at" matInput required>
+        <mat-datepicker-toggle [for]="renovatedAt" matSuffix></mat-datepicker-toggle>
+        <mat-datepicker #renovatedAt></mat-datepicker>
+        <mat-error *ngIf="form.controls.renovated_at.invalid" class="error">
+          <span *ngIf="form.controls.renovated_at.errors.differentYear">
+            L'année de la rénovation doit être identique à celle du budget {{ year ? '(' + year + ')' : '' }}
+          </span>
+          <span *ngIf="form.controls.renovated_at.errors.api">{{ form.controls.renovated_at.errors.api }}</span>
+          <span *ngIf="form.controls.renovated_at.errors.required">Champ obligatoire</span>
+        </mat-error>
+      </mat-form-field>
+    </div>
+
+    <div *ngIf="!!newPowerWarning && !!form.controls.renovation.value" class="warning-power">
+      <div>
+        <mat-icon>warning</mat-icon>
+      </div>
+      <div>
+        <span class="warning">{{powerWarningMessage}}</span>
+      </div>
+    </div>
+  </app-form-block>
+
+  <app-form-block title="Budget prévisionnel annuel">
+    <div class="row">
+      <mat-form-field class="form-w50">
+        <input decimal="true" decimalSeparator="." digitOnly formControlName="total_consumption" matInput min="0"
+               placeholder="Consommation d'énergie" type="text">
+        <span matSuffix>kWh</span>
+        <mat-error *ngIf="form.controls.total_consumption.invalid">
+          <span *ngIf="form.controls.total_consumption.errors.api">
+          {{ form.controls.total_consumption.errors.api }}
+          </span>
+          <span *ngIf="form.controls.total_consumption.errors.pattern">
+           Saissisez 2 chiffres après la virgule
+          </span>
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="form-w50">
+        <input decimal="true" decimalSeparator="." digitOnly formControlName="total" matInput
+               min="0" placeholder="Budget prévisionnel annuel HT" type="text">
+        <span matSuffix><mat-icon>euro_symbol</mat-icon></span>
+        <mat-error *ngIf="form.controls.total.invalid">
+          <span *ngIf="form.controls.total.errors.api">
+          {{ form.controls.total.errors.api }}s
+          </span>
+          <span *ngIf="form.controls.total.errors.pattern">
+           Saissisez 2 chiffres après la virgule
+          </span>
+        </mat-error>
+      </mat-form-field>
+    </div>
+  </app-form-block>
+</form>

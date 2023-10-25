@@ -1,0 +1,25 @@
+<app-generic-list
+  [actionLink]="actionLink"
+  headerIcon="security"
+  headerTitle="{{'role.breadcrumb.title' | transloco}}">
+
+  <div slot="filter">
+    <app-generic-filter-block (clear)="reset()">
+      <form [formGroup]="form">
+        <mat-form-field>
+          <mat-label>{{'common.name' | transloco}}</mat-label>
+          <input formControlName="name" matInput>
+        </mat-form-field>
+      </form>
+    </app-generic-filter-block>
+  </div>
+
+  <div slot="table">
+    <app-role-table
+        #table
+        (deleteSelected)="onDeleteRole($event)"
+        (duplicateSelected)="onDuplicateRole($event)"
+        [dataSource]="dataSource">
+    </app-role-table>
+  </div>
+</app-generic-list>

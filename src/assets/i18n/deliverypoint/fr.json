@@ -1,0 +1,150 @@
+{
+  "breadcrumb": {
+    "title": "Points de livraison",
+    "dp-creation": "Création un point de livraison",
+    "dp-edition": "Edition d'un point de livraison",
+    "invoice-details": "Détail de la facture"
+  },
+  "add-new-item": "Créer un point de livraison",
+  "import-new-scope": "Importer un périmètre",
+  "list": {
+    "title": "Liste des points de livraison",
+    "reference": "Ref. point de livraison",
+    "reference-rae": "Référence RAE",
+    "internal-code": "Code interne",
+    "address": "Adresse",
+    "contract-reference": "Référence du contrat",
+    "creation-mode": "Mode de création",
+    "in-scope": "Dans périmètre",
+    "scope-date": "Dare de périmètre",
+    "creation-date": "Date de création",
+    "updated-date": "Date de modification",
+    "none": "Indifférent",
+    "yes": "Oui",
+    "no": "Non",
+    "without-invoice-since": "Sans facture depuis",
+    "delivery-point-updated": "Le point de livraison a bien été mis à jour",
+    "delivery-point-created": "Le point de livraison a bien été créé",
+    "delivery-point-deleted": "Le point de livraison a bien été supprimé",
+    "selected-dp": "Les {{number}} point(s) de livraison ont été sélectionnés",
+    "select-all-dp": "Sélectionner les {{number}} point(s) de livraison",
+    "all-selected-dp": "Tous les points de livraison ({{number}}) sont sélectionnés",
+    "description": "Description",
+    "counter-info": "Informations compteur",
+    "contract": "Contrat",
+    "photo": "Photo",
+    "dp-creation-mode": "Mode de création du PDL : ",
+    "name": "Nom",
+    "counter-reference": "Référence compteur",
+    "power-subscribed": "Puissance souscrite",
+    "power": "Puissance",
+    "create-update-date": "Date de création ou de mise à jour",
+    "longitude": "Longitude",
+    "latitude": "Latitude",
+    "visualization": "Visualisation",
+    "billing-data": {
+      "title": "Données de facturation",
+      "analysis": "Analyse",
+      "invoice-reference": "Référence facture",
+      "type": "Type",
+      "emitted-at": "Date d'émission",
+      "excluding-vat-amount": "Montant HT",
+      "vat-amount": "Montant TVA",
+      "tax-included-amount": "Montant TTC",
+      "status": "Statut"
+    },
+    "export-excel": "Exporter au format Excel",
+    "assign-contract": "Assigner au contrat",
+    "see-edf-template": "Visualiser le template EDF",
+    "no-analysis-performed": "Aucune analyse effectuée.",
+    "snack-bar": {
+      "deletion": {
+        "title": "Suppression d'un fichier",
+        "description": "Voulez-vous vraiment supprimer ce fichier?"
+      },
+      "assign": {
+        "success": "Le contrat a bien été assigné",
+        "error": "Une erreur est survenue lors de l'assignation du contrat."
+      },
+      "export": {
+        "success": "Votre demande a bien été enregistrée. Vous recevrez une notification lorsque celle-ci sera terminée.",
+        "error": "Une erreur est survenue lors de la génération du fichier Excel."
+      }
+    },
+    "reporting": "Reporting",
+    "power-history": "Historique puissance PDL",
+    "search-no-budget": "Nous avons beaucoup cherché mais n'avons malheureusement pas trouvé de données budgétaires",
+    "waiting-geo-values": "En attente d'une latitude et longitude",
+    "import-scope": "Import de périmètre",
+    "import-invoice": "Import de facture",
+    "manual": "Manuel"
+  },
+  "dialog": {
+    "assign": {
+      "title": "Assignation d'un contrat",
+      "cancel": "Annuler",
+      "button": "Assigner",
+      "select-reference": "Choisir référence"
+    },
+    "deletion": {
+      "title": "Suppression d'un point de livraison",
+      "description": "Êtes vous sûr de vouloir supprimer ce point de livraison ?"
+    }
+  },
+  "template": {
+    "public-lightning": {
+      "title": "ECL PUBLIC",
+      "subtitle": "Détail de votre facturation par site  du {{date}} n° {{reference}}",
+      "contract-data": "Données contrat",
+      "delivery-point-data": "Données Point de Livraison",
+      "blue-price-label": "TARIF BLEU pour éclairage public avec et sans comptage (b).",
+      "contract-ref": "Réf. de votre contrat : {{reference}}",
+      "subscribed-since": "Souscrit depuis le {{date}}",
+      "electricity-routing-ref": "Réf. Acheminement Electricité : {{reference}}"
+    },
+    "summary-edf-electricity": {
+      "title": "Total EDF Electricité",
+      "pre-tax": "HT",
+      "vat-rate": "Taux de TVA",
+      "excl-vat": "Hors TVA",
+      "pre-tax-unit-price": "Prix unitaire HT",
+      "excl-vat-unit-price": "Prix unitaire Hors TVA",
+      "electricity-subscription": "Abonnement électricité (HT)",
+      "electricity-consumption": "Consommation (HT)",
+      "electricity-unit-period": "Electricité Période unique",
+      "from": "du",
+      "to": "au"
+    },
+    "taxes": {
+      "title": "Taxes et contributions (identiques pour l'ensemble des fournisseurs)",
+      "base": "Assiette",
+      "type": {
+        "cspe": "Contribution au Service Public de l'Electricité",
+        "tdcfe": "Taxe Départementale sur la Conso Finale Electricité",
+        "tccfe": "Taxe Communale sur la Conso Finale Electricité",
+        "tcfe": "Taxe sur la Conso Finale Electricité",
+        "cta": "Contribution Tarifaire d'Acheminement"
+      }
+    },
+    "vat-table": {
+      "title": "Total Hors TVA pour ce site",
+      "vat-supplier": "TVA (identique pour l'ensemble des fournisseurs)",
+      "tax-incl": "TTC",
+      "total-tax-incl": "Total TTC pour ce site",
+      "vat20": "TVA à 20,00%",
+      "vat5": "TVA à 5,50 %"
+    },
+    "counter-index": {
+      "title": "Données de comptage",
+      "count-id": "Identifiant de comptage : ",
+      "meter-type": "Type de compteur : ",
+      "reading-coefficient": "Coefficient de lecture : ",
+      "current-power-subscribed": "Puissance souscrite actuelle (kW ou kVA)",
+      "index-compute": "Index (relevé / estimé)",
+      "start-index": "Index de début",
+      "end-index": "Index de fin",
+      "base": "Base",
+      "at": "le"
+    }
+  }
+}

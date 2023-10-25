@@ -1,0 +1,23 @@
+<app-widget (resizeWidget)="resize($event)"
+            [isLoading]="isLoading"
+            svgIcon="bar-stats"
+            title="{{config.label}}">
+
+  <div [class.voted]="flipped" class="rotate" id="rotate">
+    <!-- Graph -->
+    <div [style.display]="!flipped ? '' : 'none'" class="front">
+      <div class="chart-content" id="{{id}}"></div>
+    </div>
+
+    <!-- Settings -->
+    <div [style.display]="flipped ? '' : 'none'">
+      <div class="back">
+        <app-widget-filter-shared
+          (valueChange)="filterChange($event)"
+          [config]="config"
+          [moduleName]="moduleName">
+        </app-widget-filter-shared>
+      </div>
+    </div>
+  </div>
+</app-widget>

@@ -1,0 +1,48 @@
+
+mat-card {
+  display: flex;
+  flex-direction: row;
+
+  app-form-block {
+    flex: 1;
+    padding-right: 20px;
+
+    .avatar {
+      justify-content: center;
+      text-align: center;
+
+      .avatar-content {
+        margin: 0px auto 10px auto;
+        width: 120px;
+        height: 120px;
+        overflow: hidden;
+        border-radius: 50%;
+        position: relative;
+        border: 1px solid rgba(0, 0, 0, 0.45);
+
+        img {
+          object-fit: cover;
+          width: 120px;
+          height: 120px;
+        }
+
+        .no-avatar-big {
+          width: 120px;
+          height: 120px;
+          font-size: 120px;
+          line-height: 120px !important;
+        }
+      }
+    }
+  }
+}
+
+app-user-permission, app-table-no-result {
+  width: 100%;
+}
+
+button {
+  .mat-icon {
+    margin-right: 10px;
+  }
+}

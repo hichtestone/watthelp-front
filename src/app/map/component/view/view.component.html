@@ -1,0 +1,15 @@
+<app-header
+  [icon]="'map'"
+  [mode]="'list'"
+  [title]="'map.title' | transloco">
+</app-header>
+
+<div class="page-content">
+  <div class="vertical-mode">
+    <mat-card class="map-col">
+      <mat-card-content>
+        <app-map-view [data]="data"></app-map-view>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>

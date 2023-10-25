@@ -1,0 +1,31 @@
+<button [mat-menu-trigger-for]="menuprofile" class="menu-profile" disableRipple=true mat-icon-button>
+  <img *ngIf="client?.logo?.thumb; else noAvatar"
+       alt="user" src="{{ client.logo.thumb }}">
+  <ng-template #noAvatar>
+    <mat-icon class="no-avatar" svgIcon="man"></mat-icon>
+  </ng-template>
+</button>
+<mat-menu #menuprofile="matMenu" xPosition="before" yPosition="below">
+  <div class="menu-user-box">
+    <div class="avatar-content">
+      <img *ngIf="client?.logo?.thumb; else noAvatar"
+           alt="user" src="{{ client.logo.thumb }}">
+      <ng-template #noAvatar>
+        <mat-icon class="no-avatar" svgIcon="man"></mat-icon>
+      </ng-template>
+    </div>
+    <div class="u-text">
+      <h4>{{ user.first_name }} {{ user.last_name }}</h4>
+    </div>
+  </div>
+  <div class="separator"></div>
+  <button mat-menu-item>
+    <mat-icon>whatshot</mat-icon>
+    <span>Version : {{ appVersion }}</span>
+  </button>
+  <div class="separator"></div>
+  <button (click)="disconnect()" mat-menu-item>
+    <mat-icon>power_settings_new</mat-icon>
+    <span>{{'layout.toolbar-menu.logout' | transloco}}</span>
+  </button>
+</mat-menu>

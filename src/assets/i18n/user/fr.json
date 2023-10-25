@@ -1,0 +1,34 @@
+{
+  "breadcrumb": {
+    "label": "Utilisateurs",
+    "title": "Liste des utilisateurs",
+    "edit": "Edition d'un utilisateur",
+    "create": "Création d'un utilisation"
+  },
+  "updated-success": "Utilisateur mis à jour avec succès",
+  "created-success": "Utilisateur créé avec succès",
+  "add-new": "Créer un utilisateur",
+  "authorization": "Permissions",
+  "last-name": "Nom",
+  "first-name": "Prénom",
+  "email": "Email",
+  "phone": "Téléphone",
+  "role": "Rôle",
+  "roles": "Rôle(s)",
+  "avatar": "Avatar",
+  "password": "Mot de passe",
+  "security": "Sécurité",
+  "update-picture": "Modifier la photo",
+  "confirmation-password": "Confirmation",
+  "other": "autre",
+  "others": "autres",
+  "upload-image-error": "Une erreur est survenue pendant l'import de l'image",
+  "dialog": {
+    "deletion": {
+      "title": "Suppression d'un utilisateur",
+      "description": "Êtes vous sûr de vouloir supprimer cet utilisateur ?",
+      "success": "L'utilisateur a bien été supprimé"
+    }
+  }
+}
+

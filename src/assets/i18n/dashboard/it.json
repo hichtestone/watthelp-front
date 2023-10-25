@@ -1,0 +1,38 @@
+{
+  "welcome-message": "Dashboard - Benvenuto {{fullName}}",
+  "header-edit-dashboard": "Personalizza dashboard",
+  "header-quit-edit-mode": "Esci dalla modifica",
+  "header-cancel-change": "Annulla le modifiche",
+  "header-add-item": "Aggiungi articolo",
+  "header-save": "Salva",
+  "empty-dashboard-title": "Inizia a costruire la tua dashboard",
+  "empty-dashboard-content": "Prima di poter creare grafici, dobbiamo prima ottenere i dati qui!",
+  "empty-dashboard-submit": "Crea la mia dashboard",
+  "modal-title": "Aggiunta di un widget",
+  "modal-group": {
+    "alert": "Avvisi",
+    "global": "Globale",
+    "price": "Prezzi",
+    "alert-by-type": "Avvisi per tipo",
+    "global-stats": "Statistiche globali",
+    "budget": "Budget",
+    "consumption": "Consumo",
+    "consumption-vs-budget": "Consumo vs Budget",
+    "map": "Mappatura",
+    "taxes-subs-consumption": "Le tasse + Sottoscrizione + Consumo",
+    "price-evolution": "Evoluzione delle tariffe"
+  },
+  "modal-cancel": "Per cancellare",
+  "dashboard-widget-preview": "Anteprima",
+  "dashboard-widget-setting": "Impostazioni",
+  "dashboard-widget-delete": "Rimuovere",
+  "widget": {
+    "chart-type": "Tipo di grafico",
+    "histogram": "ISTOGRAMMA",
+    "spline": "CURVA",
+    "consumption-display": "Mostra consumo per  ",
+    "month-year": "MESE PER ANNO",
+    "year": "ANNO"
+  }
+}
+

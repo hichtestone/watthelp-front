@@ -1,0 +1,66 @@
+mat-toolbar {
+  .logo {
+    min-width: 200px;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    img {
+      height: 80%;
+    }
+  }
+
+  .toggle-menu {
+    display: none;
+    @media screen and (max-width: 450px) {
+      display: block;
+    }
+  }
+
+  .align-right {
+    flex: 1 1 auto;
+  }
+
+  .vertical-sep {
+    width: 1px;
+    background-color: #bdbdbd;
+    height: 60%;
+    margin: 20% 10px;
+  }
+}
+
+.layout-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+
+  .client-info {
+    font-size: 14px;
+    line-height: 1;
+    padding: 5px;
+    margin: 0 5px;
+
+    .user-name-style {
+      padding-top: 6px;
+      font-size: 11px;
+      color: #bdbdbd;
+    }
+  }
+
+  mat-sidenav-container {
+    flex: 1 1;
+
+    mat-sidenav {
+      display: none;
+      @media screen and (max-width: 450px) {
+        display: block;
+      }
+    }
+
+    mat-sidenav-content {
+      padding: 0 25px;
+      background-color: #eeeeee;
+    }
+  }
+}

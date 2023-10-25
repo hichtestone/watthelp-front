@@ -1,0 +1,46 @@
+{
+  "breadcrumb": {
+    "title": "Anomalies",
+    "detail": "Anomaly detail"
+  },
+  "list": {
+    "title": "Anomalies list",
+    "selected-anomalies": "All {{number}} anomalies on this page are selected",
+    "select-all-anomalies": "Select all {{number}} anomalies",
+    "all-selected-anomalies": "All the {{number}} anomalies have been selected",
+    "comments": "Comments",
+    "no-applied-rules": "We searched a lot but unfortunately did not find one or more applied rules",
+    "no-description": "No description exists for this alert"
+  },
+  "dialog": {
+    "deletion": {
+      "title": "Confirmation",
+      "description": "Do you want to delete this/these anomalies ?",
+      "success": "Anomaly successfully deleted",
+      "error": "An error occurred during the anomalies deletion"
+    },
+    "export-excel": {
+      "title": "Export excel confirmation",
+      "description": "Export anomalies to excel format ?",
+      "success": "The Excel file has been generated successfully, it will be available shortly in your notifications.",
+      "error": "An error occurred while generating the Excel file."
+    },
+    "search": {
+      "title": "Saving your search",
+      "description": "Warning: This backup will only be available on this computer.",
+      "name": "Your search name",
+      "success": "Search saved successfully.",
+      "saved-search": "Saved search",
+      "searches": "Your searches",
+      "save": "Save"
+    }
+  },
+  "comment": {
+    "note": "Notes",
+    "write": "Write your comment here...",
+    "at": "At",
+    "by": "By"
+  },
+  "status-updated": "Status successfully updated",
+  "note-created": "Comment successfully posted"
+}

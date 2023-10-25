@@ -1,0 +1,38 @@
+{
+  "welcome-message": "Tableau de bord - Bienvenue {{fullName}}",
+  "header-edit-dashboard": "Mode création",
+  "header-quit-edit-mode": "Quitter l'édition",
+  "header-cancel-change": "Annuler modifications",
+  "header-add-item": "Ajouter un élément",
+  "header-save": "Sauvegarder",
+  "empty-dashboard-title": "Commencez à construire votre tableau de bord",
+  "empty-dashboard-content": "Avant de pouvoir créer des graphiques, nous devons d'abord obtenir des données ici!",
+  "empty-dashboard-submit": "Créer mon tableau de bord",
+  "modal-title": "Ajout d'un widget",
+  "modal-group": {
+    "alert": "Alertes",
+    "global": "Global",
+    "price": "Tarifs",
+    "alert-by-type": "Alertes par type",
+    "global-stats": "Statistiques globales",
+    "budget": "Budgets",
+    "consumption": "Consommation",
+    "consumption-vs-budget": "Consommation vs Budget",
+    "map": "Cartographie",
+    "taxes-subs-consumption": "Taxes + Abonnement + Consommation",
+    "price-evolution": "Evolution des tarifs"
+  },
+  "modal-cancel": "Annuler",
+  "dashboard-widget-preview": "Aperçu",
+  "dashboard-widget-setting": "Paramètres",
+  "dashboard-widget-delete": "Supprimer",
+  "widget": {
+    "chart-type": "Type de graphique",
+    "histogram": "HISTOGRAMME",
+    "spline": "COURBE",
+    "consumption-display": "Afficher les consommations par  ",
+    "month-year": "MOIS PAR ANNÉE",
+    "year": "ANNÉE"
+  }
+}
+

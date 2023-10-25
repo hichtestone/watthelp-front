@@ -1,0 +1,48 @@
+{
+  "breadcrumb": {
+    "label": "Prezzi",
+    "title": "Elenco dei prezzi",
+    "edit": "Modifica di una tariffa",
+    "create": "Creazione di una tariffa",
+    "import": "Tariffa di importazione"
+  },
+  "list": {
+    "selected-pricing": "Sono state selezionate le {{number}} tariffe",
+    "select-all-pricing": "Seleziona tutte le {{number}} tariffe",
+    "all-selected-pricing": "Tutte le tariffe ({{number}}) sono selezionate"
+  },
+  "updated-success": "Prezzi modificati con successo",
+  "created-success": "Prezzo creato con successo",
+  "add-new": "Crea una tariffa",
+  "month": "mese",
+  "import-label": "Importa il tuo file Excel",
+  "dialog": {
+    "deletion": {
+      "title": "Conferma",
+      "description": "Vuoi eliminare questa / queste prezzi?",
+      "success": "L'eliminazione è riuscita",
+      "error": "Si è verificato un errore durante l'eliminazione"
+    },
+    "excel": {
+      "title": "Conferma esportazione",
+      "description": "Esportare i prezzi in formato Excel?"
+    }
+  },
+  "widget": {
+    "pricing": {
+      "period": "Periodo",
+      "price": "Prezzi",
+      "august2010": "Agosto 2010",
+      "july2011": "Luglio 2011",
+      "july2012": "Luglio 2012",
+      "august2013": "Agosto 2013",
+      "november2014": "Novembre 2014",
+      "august2015": "Agosto 2015",
+      "august2016": "Agosto 2016",
+      "august2017": "Agosto 2017",
+      "february2018": "Febbraio 2018",
+      "august2018": "Agosto 2018"
+    }
+  }
+}
+

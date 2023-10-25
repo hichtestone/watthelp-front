@@ -1,0 +1,6 @@
+{
+  "breadcrumb": "Cartographie",
+  "title": "Cartographie des points de livraison",
+  "delivery-point-in-scope": "{{number}} point(s) dans le périmètre",
+  "delivery-point-out-of-scope": "{{number}} point(s) hors périmètre"
+}

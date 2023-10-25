@@ -1,0 +1,86 @@
+stages:
+  - install
+  - quality
+  - deploy
+
+# --- INSTALL ---
+install:
+  stage: install
+  image: registry.gitlab.com/sprint-technology/watthelp/front/node:latest
+  script:
+    - npm install
+  artifacts:
+    paths:
+      - node_modules
+    expire_in: 1 hour
+
+# --- QUALITY ---
+quality:lint:
+  image: registry.gitlab.com/sprint-technology/watthelp/front/node:latest
+  stage: quality
+  dependencies:
+    - install
+  script: ng lint
+  allow_failure: true
+
+# --- DEPLOYMENT ---
+deploy:development: &deploy
+  stage: deploy
+  image: registry.gitlab.com/sprint-technology/watthelp/front/node:latest
+  dependencies:
+    - install
+  variables:
+    AWS_ACCESS_KEY_ID: $AWS_ACCESS_KEY_ID_DEV
+    AWS_SECRET_ACCESS_KEY: $AWS_SECRET_ACCESS_KEY_DEV
+    AWS_DEFAULT_REGION: eu-west-3
+    APP_ENV: "development"
+  script:
+    - npm install
+    - node --max_old_space_size=6144 node_modules/@angular/cli/bin/ng build --configuration=development
+    - aws s3 sync dist s3://sprint-watthelp/dev --acl public-read
+    - aws cloudfront create-invalidation --distribution-id E1TDT8WEF6K6UT --paths "/*"
+  environment:
+    name: develop
+  only:
+    - develop
+
+deploy:staging: &deploy
+  stage: deploy
+  image: registry.gitlab.com/sprint-technology/watthelp/front/node:latest
+  dependencies:
+    - install
+  variables:
+    AWS_ACCESS_KEY_ID: $AWS_ACCESS_KEY_ID_DEV
+    AWS_SECRET_ACCESS_KEY: $AWS_SECRET_ACCESS_KEY_DEV
+    AWS_DEFAULT_REGION: eu-west-3
+    APP_ENV: "staging"
+  script:
+    - npm install
+    - node --max_old_space_size=6144 node_modules/@angular/cli/bin/ng build --configuration=staging
+    - aws s3 sync dist s3://sprint-watthelp/staging --acl public-read
+    - aws cloudfront create-invalidation --distribution-id E3DPVH4I94YBPR --paths "/*"
+  environment:
+    name: staging
+  only:
+    - master
+
+deploy:production:
+  <<: *deploy
+  variables:
+    AWS_ACCESS_KEY_ID: $AWS_ACCESS_KEY_ID_PROD
+    AWS_SECRET_ACCESS_KEY: $AWS_SECRET_ACCESS_KEY_PROD
+    APP_ENV: "prod"
+  environment:
+    name: production
+  script:
+    - npm install
+    - echo $AWS_ACCESS_KEY_ID_PROD
+    - echo $AWS_SECRET_ACCESS_KEY_PROD
+    - echo $AWS_ACCESS_KEY_ID
+    - echo $AWS_SECRET_ACCESS_KEY
+    - node --max_old_space_size=6144 node_modules/@angular/cli/bin/ng build --configuration=production
+    - aws s3 sync dist s3://watthelp-v2 --acl public-read
+    - aws cloudfront create-invalidation --distribution-id E3GJM6PSEK99CQ --paths "/*"
+  when: manual
+  only:
+    - master

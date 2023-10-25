@@ -1,0 +1,349 @@
+<app-header
+  [icon]="'receipt'"
+  [mode]="'list'"
+  [title]="title | transloco">
+</app-header>
+
+<div class="page-content">
+  <div class="edf-container">
+    <div class="public-lightning">
+      <table id="public-lightning-table">
+        <th class="title" colspan="4">{{'deliverypoint.template.public-lightning.title' | transloco}}</th>
+        <tr>
+          <td class="subtitle">
+            {{'deliverypoint.template.public-lightning.subtitle' | transloco : {
+              date: deliveryPointInvoice.invoice.emitted_at | date: 'dd/MM/yyyy',
+              reference: deliveryPointInvoice.invoice.reference
+          } }}
+          </td>
+        </tr>
+        <tr>
+          <td class="header-cell">{{'deliverypoint.template.public-lightning.contract-data' | transloco}}</td>
+          <td class="header-cell">{{'deliverypoint.template.public-lightning.delivery-point-data' | transloco}}</td>
+        </tr>
+        <tr>
+          <td>
+            <!-- TODO-->
+            {{'deliverypoint.template.public-lightning.blue-price-label' | transloco}}
+            <br>
+            {{'deliverypoint.template.public-lightning.contract-ref' | transloco : {reference: deliveryPointInvoice.delivery_point?.contract?.reference || '-'} }}
+            <br>{{ (deliveryPointInvoice.delivery_point?.contract?.type | enumToLabel | transloco) || '-'}}
+            <br>
+            {{'deliverypoint.template.public-lightning.subscribed-since' | transloco : {reference: (deliveryPointInvoice.delivery_point?.contract?.started_at | date: 'dd/MM/yyyy') || '-'} }}
+          </td>
+          <td>
+            {{deliveryPointInvoice.delivery_point.address || '-'}}
+            <br>
+            {{'deliverypoint.template.public-lightning.electricity-routing-ref' | transloco : {reference: deliveryPointInvoice.delivery_point.reference || '-'} }}
+          </td>
+          <td></td>
+          <td></td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="summary-edf-electricity">
+      <table id="summary-edf-electricity-table">
+        <tr class="header-row">
+          <td>{{'deliverypoint.template.summary-edf-electricity.title' | transloco}}</td>
+          <td>
+            <mat-icon>power</mat-icon>
+          </td>
+          <td></td>
+          <td></td>
+          <td>{{(totalSubscriptionConsumption | amountConverter) || '-'}} €
+          </td>
+          <td>{{'deliverypoint.template.summary-edf-electricity.pre-tax' | transloco}}</td>
+        </tr>
+
+        <tr>
+          <td>{{'deliverypoint.template.summary-edf-electricity.electricity-subscription' | transloco}}
+            <app-analysis-field-info
+              [givenField]="'subscription'"
+              [itemAnalyses]="itemAnalyses">
+            </app-analysis-field-info>
+          </td>
+          <td>{{'common.period' | transloco}}</td>
+          <td></td>
+          <td>{{'deliverypoint.template.summary-edf-electricity.pre-tax-unit-price' | transloco}}</td>
+          <td>
+            {{(subscriptionTotal | amountConverter) || '-'}} €
+            <app-analysis-field-info
+              [givenField]="'subscription.total'"
+              [itemAnalyses]="itemAnalyses">
+            </app-analysis-field-info>
+          </td>
+          <td>{{'deliverypoint.template.summary-edf-electricity.vat-rate' | transloco}}</td>
+        </tr>
+
+        <tr>
+          <td>{{'common.subscription' | transloco}}</td>
+          <td>
+            {{'deliverypoint.template.summary-edf-electricity.from' | transloco}} {{(deliveryPointInvoice?.subscription?.started_at | date: 'dd/MM/yyyy') || '-'}}
+            <app-analysis-field-info
+              [givenField]="'subscription.started_at'"
+              [itemAnalyses]="itemAnalyses">
+            </app-analysis-field-info>
+
+            {{'deliverypoint.template.summary-edf-electricity.to' | transloco}} {{(deliveryPointInvoice?.subscription?.finished_at | date: 'dd/MM/yyyy') || '-'}}
+            <app-analysis-field-info
+              [givenField]="'subscription.finished_at'"
+              [itemAnalyses]="itemAnalyses">
+            </app-analysis-field-info>
+          </td>
+          <td>
+            {{'deliverypoint.list.power' | transloco}} : {{deliveryPointInvoice.power_subscribed || '-'}} kVA
+            <app-analysis-field-info
+              [givenField]="'power_subscribed'"
+              [itemAnalyses]="itemAnalyses">
+            </app-analysis-field-info>
+          </td>
+          <td>
+            {{(deliveryPointInvoice?.subscription?.unit_price | amountConverter) || '-'}} €/kVA
+            <app-analysis-field-info
+              [givenField]="'subscription.unit_price'"
+              [itemAnalyses]="itemAnalyses">
+            </app-analysis-field-info>
+          </td>
+          <td>
+            {{(deliveryPointInvoice?.subscription?.total | amountConverter) || '-'}} €
+            <app-analysis-field-info
+              [givenField]="'subscription.total'"
+              [itemAnalyses]="itemAnalyses">
+            </app-analysis-field-info>
+          </td>
+          <td>5,50 %</td>
+        </tr>
+
+        <tr>
+          <td>{{'deliverypoint.template.summary-edf-electricity.electricity-consumption' | transloco}}
+            <app-analysis-field-info
+              [givenField]="'consumption'"
+              [itemAnalyses]="itemAnalyses">
+            </app-analysis-field-info>
+          </td>
+          <td>{{'common.subscription' | transloco}}</td>
+          <td>
+            {{'common.consumption' | transloco}} {{deliveryPointInvoice?.consumption?.quantity || '-'}} kWh
+            <app-analysis-field-info
+              [givenField]="'consumption.quantity'"
+              [itemAnalyses]="itemAnalyses">
+            </app-analysis-field-info>
+          </td>
+          <td>{{'deliverypoint.template.summary-edf-electricity.pre-tax-unit-price' | transloco}}</td>
+          <td>
+            {{(consumptionTotal | amountConverter) || '-'}} €
+            <app-analysis-field-info
+              [givenField]="'consumption.total'"
+              [itemAnalyses]="itemAnalyses">
+            </app-analysis-field-info>
+          </td>
+          <td>{{'deliverypoint.template.summary-edf-electricity.vat-rate' | transloco}}</td>
+        </tr>
+
+        <tr>
+          <td>{{'deliverypoint.template.summary-edf-electricity.electricity-unit-period' | transloco}}</td>
+          <td>
+            {{'deliverypoint.template.summary-edf-electricity.from' | transloco}} {{(deliveryPointInvoice?.consumption?.started_at | date: 'dd/MM/yyyy') || '-'}}
+            <app-analysis-field-info
+              [givenField]="'consumption.started_at'"
+              [itemAnalyses]="itemAnalyses">
+            </app-analysis-field-info>
+            {{'deliverypoint.template.summary-edf-electricity.to' | transloco}} {{(deliveryPointInvoice?.consumption?.finished_at | date: 'dd/MM/yyyy') || '-'}}
+            <app-analysis-field-info
+              [givenField]="'consumption.finished_at'"
+              [itemAnalyses]="itemAnalyses">
+            </app-analysis-field-info>
+          </td>
+
+          <td>
+            {{deliveryPointInvoice?.consumption?.quantity || '-' }} kWh
+            <app-analysis-field-info
+              [givenField]="'consumption.quantity'"
+              [itemAnalyses]="itemAnalyses">
+            </app-analysis-field-info>
+          </td>
+          <td>
+            {{(deliveryPointInvoice?.consumption?.unit_price | amountConverter: 100000) || '-'}} cts €/kWh
+            <app-analysis-field-info
+              [givenField]="'consumption.unit_price'"
+              [itemAnalyses]="itemAnalyses">
+            </app-analysis-field-info>
+          </td>
+          <td>
+            {{(deliveryPointInvoice?.consumption?.total | amountConverter) || '-'}} €
+            <app-analysis-field-info
+              [givenField]="'consumption.total'"
+              [itemAnalyses]="itemAnalyses">
+            </app-analysis-field-info>
+          </td>
+          <td>20,00 %</td>
+        </tr>
+      </table>
+    </div>
+
+    <!-- Taxes and contributions--->
+    <div class="taxes">
+      <table id="taxes-table">
+        <tr class="header-row">
+          <td colspan="2">
+            {{'deliverypoint.template.taxes.title' | transloco}}
+            <span *ngFor="let taxValue of deliveryPointInvoice.taxes">
+              <app-analysis-field-info
+                [givenField]="'tax.'+ taxValue.type"
+                [itemAnalyses]="itemAnalyses">
+              </app-analysis-field-info>
+            </span></td>
+          <td></td>
+          <td></td>
+          <td>{{totalTaxes | amountConverter}} €</td>
+          <td>{{'deliverypoint.template.summary-edf-electricity.excl-vat' | transloco}}</td>
+        </tr>
+
+        <tr>
+          <td></td>
+          <td>{{'common.period' | transloco}}</td>
+          <td>{{'deliverypoint.template.taxes.base' | transloco}}</td>
+          <td>{{'deliverypoint.template.summary-edf-electricity.excl-vat-unit-price' | transloco}}</td>
+          <td></td>
+          <td>{{'deliverypoint.template.summary-edf-electricity.vat-rate' | transloco}}</td>
+        </tr>
+
+        <tr *ngFor="let tax of deliveryPointInvoice.taxes">
+          <td>{{tax.type | taxLabel | transloco}}</td>
+          <td>
+            {{'deliverypoint.template.summary-edf-electricity.from' | transloco}} {{(tax.started_at | date: 'dd/MM/yyyy') || '-'}}
+            <app-analysis-field-info
+              [givenField]="'tax.'+ tax.type +'.started_at'"
+              [itemAnalyses]="itemAnalyses">
+            </app-analysis-field-info>
+
+            {{'deliverypoint.template.summary-edf-electricity.to' | transloco}} {{(tax.finished_at | date: 'dd/MM/yyyy') || '-'}}
+            <app-analysis-field-info
+              [givenField]="'tax.'+ tax.type +'.finished_at'"
+              [itemAnalyses]="itemAnalyses">
+            </app-analysis-field-info>
+          </td>
+          <td>{{tax.quantity || '-'}} {{tax.type === 'cta' ? '' : 'kWh'}}
+            <app-analysis-field-info
+              [givenField]="'tax.'+ tax.type +'.quantity'"
+              [itemAnalyses]="itemAnalyses">
+            </app-analysis-field-info>
+          </td>
+
+          <td>{{(tax.unit_price | amountConverter: tax.type === 'cta' ? 100 : 100000) || '-'}} {{tax.type | taxUnitPipe}}
+            <app-analysis-field-info
+              [givenField]="'tax.'+ tax.type +'.unit_price'"
+              [itemAnalyses]="itemAnalyses">
+            </app-analysis-field-info>
+          </td>
+
+          <td>{{(tax.total | amountConverter) || '-'}} €
+            <app-analysis-field-info
+              [givenField]="'tax.'+ tax.type +'.total'"
+              [itemAnalyses]="itemAnalyses">
+            </app-analysis-field-info>
+          </td>
+
+          <td>{{tax.type === 'cta' ? '5,50' : '20,00'}} %</td>
+        </tr>
+      </table>
+    </div>
+
+    <!-- Total excluding VAT--->
+    <div class="taxes">
+      <table id="vat-table">
+        <tr class="header-row">
+          <td>{{'deliverypoint.template.vat-table.title' | transloco}}</td>
+          <td></td>
+          <td>{{ totalExcludedVATForSpecificArea || '-' }} €</td>
+          <td>{{'deliverypoint.template.summary-edf-electricity.excl-vat' | transloco}}</td>
+        </tr>
+
+        <tr>
+          <td>{{'deliverypoint.template.vat-table.vat-supplier' | transloco}}</td>
+          <td>{{'deliverypoint.template.taxes.base' | transloco}}</td>
+          <td>{{ totalExcludedVAT || '-'}} €</td>
+          <td></td>
+        </tr>
+
+        <tr>
+          <td>{{'deliverypoint.template.vat-table.vat5' | transloco}}</td>
+          <td>{{(totalVAT550 | amountConverter) | number : '1.2-2' || '-'}} €</td>
+          <td>{{(excludedVAT550 | amountConverter) | number : '1.2-2' || '-'}} €</td>
+          <td></td>
+        </tr>
+
+        <tr>
+          <td>{{'deliverypoint.template.vat-table.vat20' | transloco}}</td>
+          <td>{{(totalVAT2000 | amountConverter) | number : '1.2-2' || '-'}} €</td>
+          <td>{{(excludedVAT2000 | amountConverter) | number : '1.2-2' || '-'}} €</td>
+          <td></td>
+        </tr>
+
+        <tr id="vat-last-row">
+          <td>{{'deliverypoint.template.vat-table.total-tax-incl' | transloco}}</td>
+          <td></td>
+          <td>{{ totalVATForSpecificArea }}€
+          </td>
+          <td>{{'deliverypoint.template.vat-table.tax-incl' | transloco}}</td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="data">
+      <div class="counting-data-index">
+        <div class="counting-title">{{'deliverypoint.template.counter-index.title' | transloco}}</div>
+        <div class="counter-index">
+          <div>
+            <b>{{'deliverypoint.template.counter-index.count-id' | transloco}}</b> {{deliveryPointInvoice.delivery_point.meter_reference}}
+          </div>
+          <!-- TODO-->
+          <div><b>{{'deliverypoint.template.counter-index.meter-type' | transloco}}</b>Linky</div>
+        </div>
+        <!--   TODO-->
+        <div><b>{{'deliverypoint.template.counter-index.reading-coefficient' | transloco}}</b> 100</div>
+        <div>
+          <b>{{'deliverypoint.template.counter-index.current-power-subscribed' | transloco}} </b> {{deliveryPointInvoice.power_subscribed }}
+        </div>
+      </div>
+
+      <div class="counting-data-index">
+        <div class="counter-index">
+          <div class="subtitle"> {{'deliverypoint.template.counter-index.index-compute' | transloco}}</div>
+          <div class="subtitle">{{'deliverypoint.template.counter-index.start-index' | transloco}}</div>
+          <div class="subtitle">{{'deliverypoint.template.counter-index.end-index' | transloco}}</div>
+        </div>
+        <div class="counter-index">
+          <div>{{'deliverypoint.template.counter-index.base' | transloco}}</div>
+          <div>{{deliveryPointInvoice.consumption.index_start}}
+            <app-analysis-field-info
+              [givenField]="'consumption.index_start'"
+              [itemAnalyses]="itemAnalyses">
+            </app-analysis-field-info>
+
+            {{'deliverypoint.template.counter-index.at' | transloco}} {{(deliveryPointInvoice.consumption.index_started_at | date: 'dd/MM/yyyy') || '-'}}
+            <app-analysis-field-info
+              [givenField]="'consumption.index_started_at'"
+              [itemAnalyses]="itemAnalyses">
+            </app-analysis-field-info>
+          </div>
+          <div>
+            <b>{{deliveryPointInvoice.consumption.index_finish}}
+              <app-analysis-field-info
+                [givenField]="'consumption.index_finish'"
+                [itemAnalyses]="itemAnalyses">
+              </app-analysis-field-info>
+
+              {{'deliverypoint.template.counter-index.at' | transloco}}  {{(deliveryPointInvoice.consumption.index_finished_at | date: 'dd/MM/yyyy') || '-'}}
+              <app-analysis-field-info
+                [givenField]="'consumption.index_finished_at'"
+                [itemAnalyses]="itemAnalyses">
+              </app-analysis-field-info>
+            </b>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

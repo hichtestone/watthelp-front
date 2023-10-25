@@ -1,0 +1,8 @@
+<mat-card class="search">
+  <div class="search-by">
+    {{'filter.label' | transloco}}
+    <a (click)="clear.emit()" class="clear"> {{'filter.reset' | transloco}}</a>
+  </div>
+  <ng-content></ng-content>
+</mat-card>
+

@@ -1,0 +1,25 @@
+<div class="field-container">
+  <div class="label">
+    {{ fieldTitle }}
+  </div>
+  <div *ngIf="showControls" class="add-icon">
+    <button
+      (click)="triggerChangeFile()"
+      mat-raised-button>
+      <mat-icon>cloud_upload</mat-icon>
+      <span *ngIf="!fileUploading">{{'common.import-pdf-invoice' | transloco}}</span>
+      <mat-spinner *ngIf="fileUploading" [diameter]="36" [strokeWidth]="3"></mat-spinner>
+      <span *ngIf="fileUploading">{{ loadingLabel }}</span>
+    </button>
+
+    <input #fileInputRef (change)="fileChangeEvent($event)" accept="application/pdf" hidden type="file"/>
+  </div>
+</div>
+<div class="options-and-file">
+  <div *ngIf="fileInput; else noFile" class="second-content">
+    <ngx-extended-pdf-viewer [src]="fileInput.raw" height="80vh" useBrowserLocale="true"></ngx-extended-pdf-viewer>
+  </div>
+  <ng-template #noFile>
+    {{'common.no-pdf-invoice' | transloco}}
+  </ng-template>
+</div>

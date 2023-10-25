@@ -1,0 +1,138 @@
+<app-header
+  [icon]="'receipt'"
+  [mode]="'list'"
+  [title]="title | transloco">
+</app-header>
+
+<div class="page-content">
+  <div class="vertical-mode">
+    <form [formGroup]="form">
+      <!-- Main content -->
+      <mat-tab-group class="vertical-tab-group" disableRipple=true>
+        <mat-tab>
+          <ng-template mat-tab-label>
+            <mat-icon>assignment</mat-icon>
+            {{'common.general-info' | transloco}}
+          </ng-template>
+          <mat-card>
+            <div class="general-info-stats">
+              <app-form-block title="{{'common.general-info' | transloco}}">
+                <div class="row">
+                  <mat-form-field class="form-w50">
+                    <input formControlName="reference" matInput
+                           placeholder="{{'common.reference' | transloco}}"
+                           readonly/>
+                  </mat-form-field>
+
+                  <mat-form-field class="form-w50">
+                    <input formControlName="amount_ht" matInput
+                           placeholder="{{'common.excluding-vat-amount' | transloco}}"
+                           readonly/>
+                    <mat-icon matSuffix>euro_symbol</mat-icon>
+                  </mat-form-field>
+                </div>
+
+                <div class="row">
+                  <mat-form-field class="form-w50">
+                    <input formControlName="amount_tva" matInput
+                           placeholder="{{'common.vat-amount' | transloco}}"
+                           readonly/>
+                    <mat-icon matSuffix>euro_symbol</mat-icon>
+                  </mat-form-field>
+
+                  <mat-form-field class="form-w50">
+                    <input formControlName="amount_ttc" matInput
+                           placeholder="{{'common.tax-included-amount' | transloco}}"
+                           readonly/>
+                    <mat-icon matSuffix>euro_symbol</mat-icon>
+                  </mat-form-field>
+                </div>
+
+                <div class="row">
+                  <mat-form-field class="form-w50">
+                    <input formControlName="subscription_cta" matInput
+                           placeholder="{{'common.subs-cta' | transloco}}"
+                           readonly/>
+                    <mat-icon matSuffix>euro_symbol</mat-icon>
+                  </mat-form-field>
+
+                  <mat-form-field class="form-w50">
+                    <input formControlName="consumption_cspe_tcfe" matInput
+                           placeholder="{{'common.cons-cspe-tcfe' | transloco}}"
+                           readonly/>
+                    <mat-icon matSuffix>euro_symbol</mat-icon>
+                  </mat-form-field>
+                </div>
+              </app-form-block>
+
+              <app-form-block title="{{'common.import-report' | transloco}}">
+                <app-report-stat
+                  [reportAnalysis]="analysis">
+                </app-report-stat>
+              </app-form-block>
+            </div>
+
+            <app-form-block title="{{'common.emitted-at' | transloco}}">
+              <div class="row">
+                <mat-form-field class="form-w50">
+                  <mat-label>{{'common.emitted-at' | transloco}}</mat-label>
+                  <input [matDatepicker]="started" formControlName="emitted_at" matInput readonly>
+                  <mat-datepicker #started></mat-datepicker>
+                </mat-form-field>
+              </div>
+            </app-form-block>
+            <app-form-block *ngIf="invoice.import_report?.import" title="{{'common.import-file' | transloco}}">
+              <div class="block">
+                <mat-card-subtitle>{{'common.import-report-date' | transloco}}</mat-card-subtitle>
+                <mat-card-content>{{(invoice.import_report?.import?.created_at | date : 'dd/MM/y') || '-' }}</mat-card-content>
+              </div>
+              <div *appAuthorized="['management.import.file']" class="invoice-import">
+                <a
+                  [href]="invoice.import_report?.import?.file.raw"
+                  aria-label="Download"
+                  mat-raised-button
+                  target="_blank"
+                  type="button">
+                  <mat-icon class="upload-icon">cloud_download</mat-icon>
+                  <span>{{'button.download-import-file' | transloco}}</span>
+                </a>
+              </div>
+            </app-form-block>
+
+            <app-form-block *appAuthorized="['management.invoice.edit']" title="{{'common.pdf-invoice' | transloco}}">
+              <app-pdf-file
+                (pdfUploaded)="pdfUpload($event)"
+                [file]="invoice?.pdf || null">
+              </app-pdf-file>
+            </app-form-block>
+          </mat-card>
+        </mat-tab>
+
+        <mat-tab>
+          <ng-template mat-tab-label>
+            <mat-icon>receipt</mat-icon>
+            {{'invoice.detail.delivery-point-invoice.title' | transloco}}
+          </ng-template>
+          <mat-card>
+            <app-delivery-point-invoices-table
+              [dataSource]="deliveryPointDataSource">
+            </app-delivery-point-invoices-table>
+          </mat-card>
+        </mat-tab>
+
+        <mat-tab *appAuthorized="['management.anomaly.view']">
+          <ng-template mat-tab-label>
+            <mat-icon>warning</mat-icon>
+            {{'invoice.detail.delivery-point-invoice.alert-list' | transloco}}
+          </ng-template>
+          <mat-card>
+            <app-invoice-anomaly-list
+              [anomalyFilter]="anomalyFilter">
+            </app-invoice-anomaly-list>
+          </mat-card>
+        </mat-tab>
+
+      </mat-tab-group>
+    </form>
+  </div>
+</div>
